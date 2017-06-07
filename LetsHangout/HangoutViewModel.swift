@@ -30,8 +30,6 @@ struct HangoutViewModel {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
-    
-    
     init(hangout: Hangout) {
         self.hangout = hangout
     }
