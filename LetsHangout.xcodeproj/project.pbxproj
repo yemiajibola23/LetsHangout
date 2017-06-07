@@ -15,6 +15,10 @@
 		DB63224A1EE8830E0081948E /* HangoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322491EE8830E0081948E /* HangoutTests.swift */; };
 		DB63224E1EE8956A0081948E /* HangoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63224D1EE8956A0081948E /* HangoutViewModel.swift */; };
 		DB6322501EE895920081948E /* HangoutViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63224F1EE895920081948E /* HangoutViewModelTests.swift */; };
+		DB6322541EE8A3E10081948E /* AddHangoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322521EE8A3E10081948E /* AddHangoutViewController.swift */; };
+		DB6322551EE8A3E10081948E /* AddHangoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB6322531EE8A3E10081948E /* AddHangoutViewController.xib */; };
+		DB63225B1EE8A7A50081948E /* AddHangoutViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63225A1EE8A7A50081948E /* AddHangoutViewModelTests.swift */; };
+		DB63225D1EE8A82E0081948E /* AddHangoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63225C1EE8A82E0081948E /* AddHangoutViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		DB6322491EE8830E0081948E /* HangoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutTests.swift; sourceTree = "<group>"; };
 		DB63224D1EE8956A0081948E /* HangoutViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutViewModel.swift; sourceTree = "<group>"; };
 		DB63224F1EE895920081948E /* HangoutViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutViewModelTests.swift; sourceTree = "<group>"; };
+		DB6322521EE8A3E10081948E /* AddHangoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHangoutViewController.swift; sourceTree = "<group>"; };
+		DB6322531EE8A3E10081948E /* AddHangoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddHangoutViewController.xib; sourceTree = "<group>"; };
+		DB63225A1EE8A7A50081948E /* AddHangoutViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHangoutViewModelTests.swift; sourceTree = "<group>"; };
+		DB63225C1EE8A82E0081948E /* AddHangoutViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHangoutViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +107,15 @@
 		DB6322121EE880A70081948E /* LetsHangout */ = {
 			isa = PBXGroup;
 			children = (
+				DB6322561EE8A5E50081948E /* View */,
+				DB6322511EE8A3C40081948E /* Controller */,
 				DB6322441EE8824D0081948E /* Model */,
 				DB63224B1EE894DD0081948E /* View Model */,
 				DB6322471EE882600081948E /* Supporting Files */,
 				DB63221D1EE880A70081948E /* Assets.xcassets */,
 				DB63221F1EE880A70081948E /* LaunchScreen.storyboard */,
 				DB6322221EE880A70081948E /* Info.plist */,
-				DB63221A1EE880A70081948E /* LetsHangout.xcdatamodeld */,
+				DB6322591EE8A75F0081948E /* Core Data */,
 			);
 			path = LetsHangout;
 			sourceTree = "<group>";
@@ -156,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				DB63224D1EE8956A0081948E /* HangoutViewModel.swift */,
+				DB63225C1EE8A82E0081948E /* AddHangoutViewModel.swift */,
 			);
 			name = "View Model";
 			sourceTree = "<group>";
@@ -164,8 +175,41 @@
 			isa = PBXGroup;
 			children = (
 				DB63224F1EE895920081948E /* HangoutViewModelTests.swift */,
+				DB63225A1EE8A7A50081948E /* AddHangoutViewModelTests.swift */,
 			);
 			name = "View Model Tests";
+			sourceTree = "<group>";
+		};
+		DB6322511EE8A3C40081948E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DB6322581EE8A6250081948E /* Add Hangout */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		DB6322561EE8A5E50081948E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		DB6322581EE8A6250081948E /* Add Hangout */ = {
+			isa = PBXGroup;
+			children = (
+				DB6322521EE8A3E10081948E /* AddHangoutViewController.swift */,
+				DB6322531EE8A3E10081948E /* AddHangoutViewController.xib */,
+			);
+			name = "Add Hangout";
+			sourceTree = "<group>";
+		};
+		DB6322591EE8A75F0081948E /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				DB63221A1EE880A70081948E /* LetsHangout.xcdatamodeld */,
+			);
+			name = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB6322211EE880A70081948E /* LaunchScreen.storyboard in Resources */,
+				DB6322551EE8A3E10081948E /* AddHangoutViewController.xib in Resources */,
 				DB63221E1EE880A70081948E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,8 +352,10 @@
 			files = (
 				DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */,
 				DB6322461EE882570081948E /* Hangout.swift in Sources */,
+				DB6322541EE8A3E10081948E /* AddHangoutViewController.swift in Sources */,
 				DB6322141EE880A70081948E /* AppDelegate.swift in Sources */,
 				DB63224E1EE8956A0081948E /* HangoutViewModel.swift in Sources */,
+				DB63225D1EE8A82E0081948E /* AddHangoutViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +365,7 @@
 			files = (
 				DB63224A1EE8830E0081948E /* HangoutTests.swift in Sources */,
 				DB6322501EE895920081948E /* HangoutViewModelTests.swift in Sources */,
+				DB63225B1EE8A7A50081948E /* AddHangoutViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

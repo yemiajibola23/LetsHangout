@@ -13,6 +13,9 @@ struct HangoutViewModel {
     private let hangout: Hangout
     
     var name: String? { return hangout.name }
+    var host: String? { return hangout.host }
+    var description: String? { return hangout.description }
+    
     var date: String? {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM dd, yyyy"
@@ -22,8 +25,6 @@ struct HangoutViewModel {
         return nil
     }
     
-    var host: String? { return hangout.host }
-    var description: String? { return hangout.description }
     var locationCoordinate: CLLocationCoordinate2D? {
         guard let latitude = hangout.latitude, let longitude = hangout.longitude else { return nil }
         
