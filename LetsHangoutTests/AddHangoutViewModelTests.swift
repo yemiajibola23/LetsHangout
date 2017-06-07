@@ -20,7 +20,6 @@ class AddHangoutViewModelTests: XCTestCase {
     }
     
     func testAddHangoutViewModelCreateHangout() {
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
         

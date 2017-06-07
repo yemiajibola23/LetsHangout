@@ -23,6 +23,8 @@ class AddHangoutViewController: UIViewController {
     }
     
     @IBAction func onSaveButtonTapped(_ sender: UIButton) {
+        let addHangoutViewModel = AddHangoutViewModel()
+        //addHangoutViewModel.createHangout(name: <#T##String?#>, date: <#T##Date?#>, host: <#T##String?#>, description: <#T##String?#>, latitude: <#T##Double?#>, longitude: <#T##Double?#>)
     }
 
 }
