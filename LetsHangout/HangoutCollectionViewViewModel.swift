@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct HangoutCollectionViewViewModel {
     private var hangouts:[Hangout]
     var numberOfHangouts: Int { return hangouts.count }

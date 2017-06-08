@@ -26,4 +26,14 @@ struct Hangout {
         self.longitude = longitude
         self.description = description
     }
+    
+    init(dict: [String: Any]) {
+        id = dict["ID"] as! String
+        name = dict["name"] as? String
+        date = Date(timeIntervalSince1970: dict["date"] as! Double)
+        host = dict["host"] as? String
+        latitude = dict["latitude"] as? Double
+        longitude = dict["longitude"] as? Double
+        description = dict["description"] as? String
+    }
 }

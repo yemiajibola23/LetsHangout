@@ -24,4 +24,17 @@ class FirebaseManager {
             completion(error, ref)
         })
     }
+    
+    func loadHangouts(completion:@escaping ([Hangout], Error?) -> Void) {
+        hangoutsRef.observe(.value, with: { snapshot in
+            var hangouts: [Hangout] = []
+            if let arr = snapshot.value as? [[String: Any]] {
+                for dict in arr { hangouts.append(Hangout(dict: dict)) }
+                
+                // TODO: Error Handling
+                completion(hangouts, nil)
+            }
+            
+        })
+    }
 }
