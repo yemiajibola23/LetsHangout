@@ -25,6 +25,11 @@
 		DB63225F1EE8B13D0081948E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB63225E1EE8B13D0081948E /* GoogleService-Info.plist */; };
 		DB6322621EE8B8F30081948E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322611EE8B8F30081948E /* FirebaseManager.swift */; };
 		DB6322641EE8BC810081948E /* FirebaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322631EE8BC810081948E /* FirebaseManagerTests.swift */; };
+		DB6322681EE93A8B0081948E /* HangoutListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322661EE93A8B0081948E /* HangoutListViewController.swift */; };
+		DB6322691EE93A8B0081948E /* HangoutListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB6322671EE93A8B0081948E /* HangoutListViewController.xib */; };
+		DB63226B1EE93CD80081948E /* HangoutCollectionViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63226A1EE93CD80081948E /* HangoutCollectionViewViewModel.swift */; };
+		DB63226D1EE93D1A0081948E /* HangoutCollectionViewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63226C1EE93D1A0081948E /* HangoutCollectionViewViewModelTests.swift */; };
+		DB6322701EE93D9D0081948E /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63226F1EE93D9D0081948E /* XCTestExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +79,11 @@
 		DB63225E1EE8B13D0081948E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB6322611EE8B8F30081948E /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		DB6322631EE8BC810081948E /* FirebaseManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManagerTests.swift; sourceTree = "<group>"; };
+		DB6322661EE93A8B0081948E /* HangoutListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutListViewController.swift; sourceTree = "<group>"; };
+		DB6322671EE93A8B0081948E /* HangoutListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HangoutListViewController.xib; sourceTree = "<group>"; };
+		DB63226A1EE93CD80081948E /* HangoutCollectionViewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutCollectionViewViewModel.swift; sourceTree = "<group>"; };
+		DB63226C1EE93D1A0081948E /* HangoutCollectionViewViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutCollectionViewViewModelTests.swift; sourceTree = "<group>"; };
+		DB63226F1EE93D9D0081948E /* XCTestExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
 		F8554C1A7C1427D1AA1BEFC2 /* Pods_LetsHangoutUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsHangoutUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -158,6 +168,7 @@
 		DB63222A1EE880A70081948E /* LetsHangoutTests */ = {
 			isa = PBXGroup;
 			children = (
+				DB63226E1EE93D820081948E /* Extensions */,
 				DB63224C1EE894F20081948E /* View Model Tests */,
 				DB6322481EE882F40081948E /* Model Tests */,
 				DB63222D1EE880A70081948E /* Info.plist */,
@@ -205,6 +216,7 @@
 			children = (
 				DB63224D1EE8956A0081948E /* HangoutViewModel.swift */,
 				DB63225C1EE8A82E0081948E /* AddHangoutViewModel.swift */,
+				DB63226A1EE93CD80081948E /* HangoutCollectionViewViewModel.swift */,
 			);
 			name = "View Model";
 			sourceTree = "<group>";
@@ -214,6 +226,7 @@
 			children = (
 				DB63224F1EE895920081948E /* HangoutViewModelTests.swift */,
 				DB63225A1EE8A7A50081948E /* AddHangoutViewModelTests.swift */,
+				DB63226C1EE93D1A0081948E /* HangoutCollectionViewViewModelTests.swift */,
 			);
 			name = "View Model Tests";
 			sourceTree = "<group>";
@@ -263,8 +276,18 @@
 		DB6322651EE937870081948E /* Hangout List */ = {
 			isa = PBXGroup;
 			children = (
+				DB6322661EE93A8B0081948E /* HangoutListViewController.swift */,
+				DB6322671EE93A8B0081948E /* HangoutListViewController.xib */,
 			);
 			name = "Hangout List";
+			sourceTree = "<group>";
+		};
+		DB63226E1EE93D820081948E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DB63226F1EE93D9D0081948E /* XCTestExtensions.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		EBF06DD06EC52E99F6A9EB0E /* Frameworks */ = {
@@ -401,6 +424,7 @@
 				DB63225F1EE8B13D0081948E /* GoogleService-Info.plist in Resources */,
 				DB6322551EE8A3E10081948E /* AddHangoutViewController.xib in Resources */,
 				DB63221E1EE880A70081948E /* Assets.xcassets in Resources */,
+				DB6322691EE93A8B0081948E /* HangoutListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,6 +590,8 @@
 				DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */,
 				DB6322461EE882570081948E /* Hangout.swift in Sources */,
 				DB6322621EE8B8F30081948E /* FirebaseManager.swift in Sources */,
+				DB6322681EE93A8B0081948E /* HangoutListViewController.swift in Sources */,
+				DB63226B1EE93CD80081948E /* HangoutCollectionViewViewModel.swift in Sources */,
 				DB6322541EE8A3E10081948E /* AddHangoutViewController.swift in Sources */,
 				DB6322141EE880A70081948E /* AppDelegate.swift in Sources */,
 				DB63224E1EE8956A0081948E /* HangoutViewModel.swift in Sources */,
@@ -578,8 +604,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB6322641EE8BC810081948E /* FirebaseManagerTests.swift in Sources */,
+				DB63226D1EE93D1A0081948E /* HangoutCollectionViewViewModelTests.swift in Sources */,
 				DB63224A1EE8830E0081948E /* HangoutTests.swift in Sources */,
 				DB6322501EE895920081948E /* HangoutViewModelTests.swift in Sources */,
+				DB6322701EE93D9D0081948E /* XCTestExtensions.swift in Sources */,
 				DB63225B1EE8A7A50081948E /* AddHangoutViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
