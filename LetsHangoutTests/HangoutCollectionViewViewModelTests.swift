@@ -10,20 +10,26 @@ import XCTest
 @testable import LetsHangout
 
 class HangoutCollectionViewViewModelTests: XCTestCase {
+    var viewModel: HangoutCollectionViewViewModel!
     
     override func setUp() {
         super.setUp()
+       viewModel = HangoutCollectionViewViewModel(hangouts: fakeHangouts())
     }
     
     override func tearDown() {
+        viewModel = nil
         super.tearDown()
     }
     
     func testHangoutCollectionViewViewModelNumberOfRows() {
-        let viewModel = HangoutCollectionViewViewModel(hangouts: fakeHangouts())
-        
         XCTAssertEqual(viewModel.numberOfHangouts, 2)
     }
     
+    func testHangoutCollectionViewViewModelViewModelForIndex() {
+        let hangoutViewModel = viewModel.viewModelFor(index: 1)
+        
+        XCTAssertEqual(hangoutViewModel.name, "Test 2")
+    }
     
 }
