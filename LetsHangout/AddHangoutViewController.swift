@@ -17,14 +17,22 @@ class AddHangoutViewController: UIViewController {
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
-
+    static var nibName: String { return "AddHangoutViewController" }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     @IBAction func onSaveButtonTapped(_ sender: UIButton) {
-        let addHangoutViewModel = AddHangoutViewModel()
-        //addHangoutViewModel.createHangout(name: <#T##String?#>, date: <#T##Date?#>, host: <#T##String?#>, description: <#T##String?#>, latitude: <#T##Double?#>, longitude: <#T##Double?#>)
+        let addHangoutVieModel = AddHangoutViewModel()
+        let firebaseManager = FirebaseManager.sharedInstance
+        let hangout = addHangoutVieModel.createHangout(name: nameTextField.text, date: dateTextField.text, host: hostTextField.text, description: descriptionTextView.text, latitude: nil, longitude: nil)
+        firebaseManager.save(hangout: hangout) { (error, ref) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+        }
     }
 
 }

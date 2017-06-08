@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C3B413338027D9E434AAD6A /* Pods_LetsHangout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D51E365BC4F1FC11046394 /* Pods_LetsHangout.framework */; };
+		772DD148E3ED4F30B4279FF4 /* Pods_LetsHangoutTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A05DDECB3D8E20130879BE4 /* Pods_LetsHangoutTests.framework */; };
+		CD14D3A33F8DD24CEF0351F8 /* Pods_LetsHangoutUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8554C1A7C1427D1AA1BEFC2 /* Pods_LetsHangoutUITests.framework */; };
 		DB6322141EE880A70081948E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322131EE880A70081948E /* AppDelegate.swift */; };
 		DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB63221A1EE880A70081948E /* LetsHangout.xcdatamodeld */; };
 		DB63221E1EE880A70081948E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB63221D1EE880A70081948E /* Assets.xcassets */; };
@@ -19,6 +22,14 @@
 		DB6322551EE8A3E10081948E /* AddHangoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB6322531EE8A3E10081948E /* AddHangoutViewController.xib */; };
 		DB63225B1EE8A7A50081948E /* AddHangoutViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63225A1EE8A7A50081948E /* AddHangoutViewModelTests.swift */; };
 		DB63225D1EE8A82E0081948E /* AddHangoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63225C1EE8A82E0081948E /* AddHangoutViewModel.swift */; };
+		DB63225F1EE8B13D0081948E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB63225E1EE8B13D0081948E /* GoogleService-Info.plist */; };
+		DB6322621EE8B8F30081948E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322611EE8B8F30081948E /* FirebaseManager.swift */; };
+		DB6322641EE8BC810081948E /* FirebaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322631EE8BC810081948E /* FirebaseManagerTests.swift */; };
+		DB6322681EE93A8B0081948E /* HangoutListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322661EE93A8B0081948E /* HangoutListViewController.swift */; };
+		DB6322691EE93A8B0081948E /* HangoutListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB6322671EE93A8B0081948E /* HangoutListViewController.xib */; };
+		DB63226B1EE93CD80081948E /* HangoutCollectionViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63226A1EE93CD80081948E /* HangoutCollectionViewViewModel.swift */; };
+		DB63226D1EE93D1A0081948E /* HangoutCollectionViewViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63226C1EE93D1A0081948E /* HangoutCollectionViewViewModelTests.swift */; };
+		DB6322701EE93D9D0081948E /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63226F1EE93D9D0081948E /* XCTestExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +50,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2002DE7EB8DEF588A9397C27 /* Pods-LetsHangoutUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsHangoutUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsHangoutUITests/Pods-LetsHangoutUITests.release.xcconfig"; sourceTree = "<group>"; };
+		31DBE609ACE722B304AD6BFB /* Pods-LetsHangoutTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsHangoutTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsHangoutTests/Pods-LetsHangoutTests.release.xcconfig"; sourceTree = "<group>"; };
+		32D51E365BC4F1FC11046394 /* Pods_LetsHangout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsHangout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		61857006DC72FA024F33D9FF /* Pods-LetsHangout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsHangout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsHangout/Pods-LetsHangout.debug.xcconfig"; sourceTree = "<group>"; };
+		6A05DDECB3D8E20130879BE4 /* Pods_LetsHangoutTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsHangoutTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7BECE9A3984E9AAD68036BA /* Pods-LetsHangoutTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsHangoutTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsHangoutTests/Pods-LetsHangoutTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C450A00E9EA12B2DBC6C35C1 /* Pods-LetsHangoutUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsHangoutUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsHangoutUITests/Pods-LetsHangoutUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D569185659F4546282E39A0E /* Pods-LetsHangout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsHangout.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsHangout/Pods-LetsHangout.release.xcconfig"; sourceTree = "<group>"; };
 		DB6322101EE880A70081948E /* LetsHangout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsHangout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6322131EE880A70081948E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB63221B1EE880A70081948E /* LetsHangout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LetsHangout.xcdatamodel; sourceTree = "<group>"; };
@@ -57,6 +76,15 @@
 		DB6322531EE8A3E10081948E /* AddHangoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddHangoutViewController.xib; sourceTree = "<group>"; };
 		DB63225A1EE8A7A50081948E /* AddHangoutViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHangoutViewModelTests.swift; sourceTree = "<group>"; };
 		DB63225C1EE8A82E0081948E /* AddHangoutViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHangoutViewModel.swift; sourceTree = "<group>"; };
+		DB63225E1EE8B13D0081948E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DB6322611EE8B8F30081948E /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		DB6322631EE8BC810081948E /* FirebaseManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManagerTests.swift; sourceTree = "<group>"; };
+		DB6322661EE93A8B0081948E /* HangoutListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutListViewController.swift; sourceTree = "<group>"; };
+		DB6322671EE93A8B0081948E /* HangoutListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HangoutListViewController.xib; sourceTree = "<group>"; };
+		DB63226A1EE93CD80081948E /* HangoutCollectionViewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutCollectionViewViewModel.swift; sourceTree = "<group>"; };
+		DB63226C1EE93D1A0081948E /* HangoutCollectionViewViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutCollectionViewViewModelTests.swift; sourceTree = "<group>"; };
+		DB63226F1EE93D9D0081948E /* XCTestExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
+		F8554C1A7C1427D1AA1BEFC2 /* Pods_LetsHangoutUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsHangoutUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C3B413338027D9E434AAD6A /* Pods_LetsHangout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				772DD148E3ED4F30B4279FF4 /* Pods_LetsHangoutTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,12 +108,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD14D3A33F8DD24CEF0351F8 /* Pods_LetsHangoutUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7820123CC3E31A6B4D9B3822 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				61857006DC72FA024F33D9FF /* Pods-LetsHangout.debug.xcconfig */,
+				D569185659F4546282E39A0E /* Pods-LetsHangout.release.xcconfig */,
+				A7BECE9A3984E9AAD68036BA /* Pods-LetsHangoutTests.debug.xcconfig */,
+				31DBE609ACE722B304AD6BFB /* Pods-LetsHangoutTests.release.xcconfig */,
+				C450A00E9EA12B2DBC6C35C1 /* Pods-LetsHangoutUITests.debug.xcconfig */,
+				2002DE7EB8DEF588A9397C27 /* Pods-LetsHangoutUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		DB6322071EE880A70081948E = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +135,8 @@
 				DB63222A1EE880A70081948E /* LetsHangoutTests */,
 				DB6322351EE880A70081948E /* LetsHangoutUITests */,
 				DB6322111EE880A70081948E /* Products */,
+				7820123CC3E31A6B4D9B3822 /* Pods */,
+				EBF06DD06EC52E99F6A9EB0E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,7 +160,6 @@
 				DB6322471EE882600081948E /* Supporting Files */,
 				DB63221D1EE880A70081948E /* Assets.xcassets */,
 				DB63221F1EE880A70081948E /* LaunchScreen.storyboard */,
-				DB6322221EE880A70081948E /* Info.plist */,
 				DB6322591EE8A75F0081948E /* Core Data */,
 			);
 			path = LetsHangout;
@@ -123,6 +168,7 @@
 		DB63222A1EE880A70081948E /* LetsHangoutTests */ = {
 			isa = PBXGroup;
 			children = (
+				DB63226E1EE93D820081948E /* Extensions */,
 				DB63224C1EE894F20081948E /* View Model Tests */,
 				DB6322481EE882F40081948E /* Model Tests */,
 				DB63222D1EE880A70081948E /* Info.plist */,
@@ -142,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				DB6322451EE882570081948E /* Hangout.swift */,
+				DB6322611EE8B8F30081948E /* FirebaseManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -149,6 +196,7 @@
 		DB6322471EE882600081948E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DB6322601EE8B1420081948E /* Info Plists */,
 				DB6322131EE880A70081948E /* AppDelegate.swift */,
 			);
 			name = "Supporting Files";
@@ -158,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				DB6322491EE8830E0081948E /* HangoutTests.swift */,
+				DB6322631EE8BC810081948E /* FirebaseManagerTests.swift */,
 			);
 			name = "Model Tests";
 			sourceTree = "<group>";
@@ -167,6 +216,7 @@
 			children = (
 				DB63224D1EE8956A0081948E /* HangoutViewModel.swift */,
 				DB63225C1EE8A82E0081948E /* AddHangoutViewModel.swift */,
+				DB63226A1EE93CD80081948E /* HangoutCollectionViewViewModel.swift */,
 			);
 			name = "View Model";
 			sourceTree = "<group>";
@@ -176,6 +226,7 @@
 			children = (
 				DB63224F1EE895920081948E /* HangoutViewModelTests.swift */,
 				DB63225A1EE8A7A50081948E /* AddHangoutViewModelTests.swift */,
+				DB63226C1EE93D1A0081948E /* HangoutCollectionViewViewModelTests.swift */,
 			);
 			name = "View Model Tests";
 			sourceTree = "<group>";
@@ -183,6 +234,7 @@
 		DB6322511EE8A3C40081948E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DB6322651EE937870081948E /* Hangout List */,
 				DB6322581EE8A6250081948E /* Add Hangout */,
 			);
 			name = Controller;
@@ -212,6 +264,42 @@
 			name = "Core Data";
 			sourceTree = "<group>";
 		};
+		DB6322601EE8B1420081948E /* Info Plists */ = {
+			isa = PBXGroup;
+			children = (
+				DB6322221EE880A70081948E /* Info.plist */,
+				DB63225E1EE8B13D0081948E /* GoogleService-Info.plist */,
+			);
+			name = "Info Plists";
+			sourceTree = "<group>";
+		};
+		DB6322651EE937870081948E /* Hangout List */ = {
+			isa = PBXGroup;
+			children = (
+				DB6322661EE93A8B0081948E /* HangoutListViewController.swift */,
+				DB6322671EE93A8B0081948E /* HangoutListViewController.xib */,
+			);
+			name = "Hangout List";
+			sourceTree = "<group>";
+		};
+		DB63226E1EE93D820081948E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DB63226F1EE93D9D0081948E /* XCTestExtensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		EBF06DD06EC52E99F6A9EB0E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32D51E365BC4F1FC11046394 /* Pods_LetsHangout.framework */,
+				6A05DDECB3D8E20130879BE4 /* Pods_LetsHangoutTests.framework */,
+				F8554C1A7C1427D1AA1BEFC2 /* Pods_LetsHangoutUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -219,9 +307,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB63223B1EE880A70081948E /* Build configuration list for PBXNativeTarget "LetsHangout" */;
 			buildPhases = (
+				6761D995202DD64717CC2A37 /* [CP] Check Pods Manifest.lock */,
 				DB63220C1EE880A70081948E /* Sources */,
 				DB63220D1EE880A70081948E /* Frameworks */,
 				DB63220E1EE880A70081948E /* Resources */,
+				BE6794342C991E8AB6BDBB14 /* [CP] Embed Pods Frameworks */,
+				E4969572BC978A74020A63B5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -236,9 +327,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB63223E1EE880A70081948E /* Build configuration list for PBXNativeTarget "LetsHangoutTests" */;
 			buildPhases = (
+				484A54F533A524C9C08EE15D /* [CP] Check Pods Manifest.lock */,
 				DB6322231EE880A70081948E /* Sources */,
 				DB6322241EE880A70081948E /* Frameworks */,
 				DB6322251EE880A70081948E /* Resources */,
+				8ABA989E0D9109FDBB0B9E91 /* [CP] Embed Pods Frameworks */,
+				705192A2E16F30A22DB4DC16 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -254,9 +348,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB6322411EE880A70081948E /* Build configuration list for PBXNativeTarget "LetsHangoutUITests" */;
 			buildPhases = (
+				BECF0149B991E42C3F6ED1FE /* [CP] Check Pods Manifest.lock */,
 				DB63222E1EE880A70081948E /* Sources */,
 				DB63222F1EE880A70081948E /* Frameworks */,
 				DB6322301EE880A70081948E /* Resources */,
+				7095CC81837A2A43CB96ED76 /* [CP] Embed Pods Frameworks */,
+				BEB85888B36A3E371790A044 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -324,8 +421,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB6322211EE880A70081948E /* LaunchScreen.storyboard in Resources */,
+				DB63225F1EE8B13D0081948E /* GoogleService-Info.plist in Resources */,
 				DB6322551EE8A3E10081948E /* AddHangoutViewController.xib in Resources */,
 				DB63221E1EE880A70081948E /* Assets.xcassets in Resources */,
+				DB6322691EE93A8B0081948E /* HangoutListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +444,144 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		484A54F533A524C9C08EE15D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6761D995202DD64717CC2A37 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		705192A2E16F30A22DB4DC16 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LetsHangoutTests/Pods-LetsHangoutTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7095CC81837A2A43CB96ED76 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LetsHangoutUITests/Pods-LetsHangoutUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8ABA989E0D9109FDBB0B9E91 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LetsHangoutTests/Pods-LetsHangoutTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE6794342C991E8AB6BDBB14 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LetsHangout/Pods-LetsHangout-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BEB85888B36A3E371790A044 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LetsHangoutUITests/Pods-LetsHangoutUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BECF0149B991E42C3F6ED1FE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E4969572BC978A74020A63B5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LetsHangout/Pods-LetsHangout-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DB63220C1EE880A70081948E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -352,6 +589,9 @@
 			files = (
 				DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */,
 				DB6322461EE882570081948E /* Hangout.swift in Sources */,
+				DB6322621EE8B8F30081948E /* FirebaseManager.swift in Sources */,
+				DB6322681EE93A8B0081948E /* HangoutListViewController.swift in Sources */,
+				DB63226B1EE93CD80081948E /* HangoutCollectionViewViewModel.swift in Sources */,
 				DB6322541EE8A3E10081948E /* AddHangoutViewController.swift in Sources */,
 				DB6322141EE880A70081948E /* AppDelegate.swift in Sources */,
 				DB63224E1EE8956A0081948E /* HangoutViewModel.swift in Sources */,
@@ -363,8 +603,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB6322641EE8BC810081948E /* FirebaseManagerTests.swift in Sources */,
+				DB63226D1EE93D1A0081948E /* HangoutCollectionViewViewModelTests.swift in Sources */,
 				DB63224A1EE8830E0081948E /* HangoutTests.swift in Sources */,
 				DB6322501EE895920081948E /* HangoutViewModelTests.swift in Sources */,
+				DB6322701EE93D9D0081948E /* XCTestExtensions.swift in Sources */,
 				DB63225B1EE8A7A50081948E /* AddHangoutViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,6 +741,7 @@
 		};
 		DB63223C1EE880A70081948E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61857006DC72FA024F33D9FF /* Pods-LetsHangout.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = YQ34X4S526;
@@ -511,6 +755,7 @@
 		};
 		DB63223D1EE880A70081948E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D569185659F4546282E39A0E /* Pods-LetsHangout.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = YQ34X4S526;
@@ -524,6 +769,7 @@
 		};
 		DB63223F1EE880A70081948E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7BECE9A3984E9AAD68036BA /* Pods-LetsHangoutTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -541,6 +787,7 @@
 		};
 		DB6322401EE880A70081948E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31DBE609ACE722B304AD6BFB /* Pods-LetsHangoutTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -557,6 +804,7 @@
 		};
 		DB6322421EE880A70081948E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C450A00E9EA12B2DBC6C35C1 /* Pods-LetsHangoutUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = YQ34X4S526;
@@ -571,6 +819,7 @@
 		};
 		DB6322431EE880A70081948E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2002DE7EB8DEF588A9397C27 /* Pods-LetsHangoutUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = YQ34X4S526;
@@ -602,6 +851,7 @@
 				DB63223D1EE880A70081948E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DB63223E1EE880A70081948E /* Build configuration list for PBXNativeTarget "LetsHangoutTests" */ = {
 			isa = XCConfigurationList;
@@ -610,6 +860,7 @@
 				DB6322401EE880A70081948E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DB6322411EE880A70081948E /* Build configuration list for PBXNativeTarget "LetsHangoutUITests" */ = {
 			isa = XCConfigurationList;
@@ -618,6 +869,7 @@
 				DB6322431EE880A70081948E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
