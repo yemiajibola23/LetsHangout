@@ -24,6 +24,7 @@
 		DB63225D1EE8A82E0081948E /* AddHangoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63225C1EE8A82E0081948E /* AddHangoutViewModel.swift */; };
 		DB63225F1EE8B13D0081948E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB63225E1EE8B13D0081948E /* GoogleService-Info.plist */; };
 		DB6322621EE8B8F30081948E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322611EE8B8F30081948E /* FirebaseManager.swift */; };
+		DB6322641EE8BC810081948E /* FirebaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322631EE8BC810081948E /* FirebaseManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		DB63225C1EE8A82E0081948E /* AddHangoutViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddHangoutViewModel.swift; sourceTree = "<group>"; };
 		DB63225E1EE8B13D0081948E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB6322611EE8B8F30081948E /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		DB6322631EE8BC810081948E /* FirebaseManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManagerTests.swift; sourceTree = "<group>"; };
 		F8554C1A7C1427D1AA1BEFC2 /* Pods_LetsHangoutUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsHangoutUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				DB6322491EE8830E0081948E /* HangoutTests.swift */,
+				DB6322631EE8BC810081948E /* FirebaseManagerTests.swift */,
 			);
 			name = "Model Tests";
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 		DB6322511EE8A3C40081948E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DB6322651EE937870081948E /* Hangout List */,
 				DB6322581EE8A6250081948E /* Add Hangout */,
 			);
 			name = Controller;
@@ -254,6 +258,13 @@
 				DB63225E1EE8B13D0081948E /* GoogleService-Info.plist */,
 			);
 			name = "Info Plists";
+			sourceTree = "<group>";
+		};
+		DB6322651EE937870081948E /* Hangout List */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Hangout List";
 			sourceTree = "<group>";
 		};
 		EBF06DD06EC52E99F6A9EB0E /* Frameworks */ = {
@@ -566,6 +577,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB6322641EE8BC810081948E /* FirebaseManagerTests.swift in Sources */,
 				DB63224A1EE8830E0081948E /* HangoutTests.swift in Sources */,
 				DB6322501EE895920081948E /* HangoutViewModelTests.swift in Sources */,
 				DB63225B1EE8A7A50081948E /* AddHangoutViewModelTests.swift in Sources */,

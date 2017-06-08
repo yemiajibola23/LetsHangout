@@ -21,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        let controller = AddHangoutViewController(nibName: AddHangoutViewController.nibName, bundle: nil)
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = controller
+        window?.makeKeyAndVisible()
+        
         return true
     }
 

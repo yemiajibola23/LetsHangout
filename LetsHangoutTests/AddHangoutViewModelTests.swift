@@ -25,7 +25,7 @@ class AddHangoutViewModelTests: XCTestCase {
         dateFormatter.dateFormat = "MMMM dd, yyyy"
         
         let addHangoutViewModel = AddHangoutViewModel()
-        let hangout = addHangoutViewModel.createHangout(name: "Test", date: dateFormatter.date(from: "May 23, 2017"), host: "Yemi", description: "Description", latitude: 25.034280, longitude: -77.396280)
+        let hangout = addHangoutViewModel.createHangout(name: "Test", date: "May 23, 2017", host: "Yemi", description: "Description", latitude: 25.034280, longitude: -77.396280)
         
         XCTAssertEqual(hangout.name, "Test")
         XCTAssertEqual(hangout.date, dateFormatter.date(from: "May 23, 2017"))
