@@ -33,6 +33,7 @@
 		DB6322721EE9B9D70081948E /* HangoutListDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322711EE9B9D70081948E /* HangoutListDataProvider.swift */; };
 		DB6322761EEA2CC80081948E /* HangoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322741EEA2CC80081948E /* HangoutCollectionViewCell.swift */; };
 		DB6322771EEA2CC80081948E /* HangoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB6322751EEA2CC80081948E /* HangoutCollectionViewCell.xib */; };
+		DB63227A1EEA54100081948E /* HangoutCollectionViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322791EEA54100081948E /* HangoutCollectionViewCellTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		DB6322711EE9B9D70081948E /* HangoutListDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutListDataProvider.swift; sourceTree = "<group>"; };
 		DB6322741EEA2CC80081948E /* HangoutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB6322751EEA2CC80081948E /* HangoutCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HangoutCollectionViewCell.xib; sourceTree = "<group>"; };
+		DB6322791EEA54100081948E /* HangoutCollectionViewCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutCollectionViewCellTests.swift; sourceTree = "<group>"; };
 		F8554C1A7C1427D1AA1BEFC2 /* Pods_LetsHangoutUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsHangoutUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -174,6 +176,7 @@
 		DB63222A1EE880A70081948E /* LetsHangoutTests */ = {
 			isa = PBXGroup;
 			children = (
+				DB6322781EEA53F20081948E /* View Tests */,
 				DB63226E1EE93D820081948E /* Extensions */,
 				DB63224C1EE894F20081948E /* View Model Tests */,
 				DB6322481EE882F40081948E /* Model Tests */,
@@ -305,6 +308,14 @@
 				DB6322751EEA2CC80081948E /* HangoutCollectionViewCell.xib */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		DB6322781EEA53F20081948E /* View Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DB6322791EEA54100081948E /* HangoutCollectionViewCellTests.swift */,
+			);
+			name = "View Tests";
 			sourceTree = "<group>";
 		};
 		EBF06DD06EC52E99F6A9EB0E /* Frameworks */ = {
@@ -629,6 +640,7 @@
 				DB6322501EE895920081948E /* HangoutViewModelTests.swift in Sources */,
 				DB6322701EE93D9D0081948E /* XCTestExtensions.swift in Sources */,
 				DB63225B1EE8A7A50081948E /* AddHangoutViewModelTests.swift in Sources */,
+				DB63227A1EEA54100081948E /* HangoutCollectionViewCellTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
