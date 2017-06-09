@@ -33,7 +33,7 @@ class FirebaseManagerTests: XCTestCase {
         let hangout = Hangout(name: "Test", date: dateFormatter.date(from: "May 23, 2017"), host: "Yemi", latitude: 25.034280, longitude: -77.396280, description: "Description")
         var hangoutRef: DatabaseReference!
         
-       
+        
         
         let saveExpectation = expectation(description: "Hangout should be saved")
         
@@ -78,6 +78,32 @@ class FirebaseManagerTests: XCTestCase {
             }
             
             XCTAssertNotNil(loggedInUser)
+        }
+    }
+    
+    func testFirebaseManagerFetchCurrentUserInfoSuccess() {
+        var fetchedUser: HangoutUser!
+        
+        let userExpectation = expectation(description: "A hangout user should be returned")
+        manager.currentUserRef = Database.database().reference(withPath: "users").child("quRhBuH1aBSr9GMeAhqKTMdZNfK2")
+        
+        manager.fetchCurrentUserInfo { error, user in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            }
+            
+            fetchedUser = user
+            userExpectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 30) { (error) in
+            guard error == nil else {
+                XCTFail("Timeout occurred")
+                return
+            }
+            
+            XCTAssertEqual(fetchedUser.name, "Yemi")
+            XCTAssertEqual(fetchedUser.email, "test1@gmail.com")
         }
     }
 }

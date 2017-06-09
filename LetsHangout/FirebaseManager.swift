@@ -61,4 +61,15 @@ class FirebaseManager {
             completion(user, error)
         }
     }
+    
+    func fetchCurrentUserInfo(completion:@escaping (Error?, HangoutUser?) -> Void) {
+        currentUserRef.observeSingleEvent(of: .value, with: { snapshot in
+            if let dict = snapshot.value as? [String: Any] {
+                completion(nil, HangoutUser(dict: dict))
+            } else {
+                // TODO: Handle error 
+                completion(nil, nil)
+            }
+        })
+    }
 }

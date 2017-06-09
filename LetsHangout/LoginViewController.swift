@@ -38,7 +38,10 @@ class LoginViewController: UIViewController {
             return
         }
         
-        //firebaseManager.loginWithCredentials(email, password, completion: <#(User?, Error?) -> Void#>)
+        firebaseManager.loginWithCredentials(email, password) { (user, error) in
+            if let _ = error { /*TODO: Handle error */ return }
+            
+        }
     }
 
     func registerNewUser() {
