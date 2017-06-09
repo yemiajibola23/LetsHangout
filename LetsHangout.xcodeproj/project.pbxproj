@@ -10,6 +10,8 @@
 		4C3B413338027D9E434AAD6A /* Pods_LetsHangout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D51E365BC4F1FC11046394 /* Pods_LetsHangout.framework */; };
 		772DD148E3ED4F30B4279FF4 /* Pods_LetsHangoutTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A05DDECB3D8E20130879BE4 /* Pods_LetsHangoutTests.framework */; };
 		CD14D3A33F8DD24CEF0351F8 /* Pods_LetsHangoutUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8554C1A7C1427D1AA1BEFC2 /* Pods_LetsHangoutUITests.framework */; };
+		DB2B0F0A1EEB180300E5E88D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F081EEB180300E5E88D /* LoginViewController.swift */; };
+		DB2B0F0B1EEB180300E5E88D /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB2B0F091EEB180300E5E88D /* LoginViewController.xib */; };
 		DB6322141EE880A70081948E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322131EE880A70081948E /* AppDelegate.swift */; };
 		DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB63221A1EE880A70081948E /* LetsHangout.xcdatamodeld */; };
 		DB63221E1EE880A70081948E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB63221D1EE880A70081948E /* Assets.xcassets */; };
@@ -62,6 +64,8 @@
 		A7BECE9A3984E9AAD68036BA /* Pods-LetsHangoutTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsHangoutTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsHangoutTests/Pods-LetsHangoutTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C450A00E9EA12B2DBC6C35C1 /* Pods-LetsHangoutUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsHangoutUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LetsHangoutUITests/Pods-LetsHangoutUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D569185659F4546282E39A0E /* Pods-LetsHangout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LetsHangout.release.xcconfig"; path = "Pods/Target Support Files/Pods-LetsHangout/Pods-LetsHangout.release.xcconfig"; sourceTree = "<group>"; };
+		DB2B0F081EEB180300E5E88D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DB2B0F091EEB180300E5E88D /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		DB6322101EE880A70081948E /* LetsHangout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsHangout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6322131EE880A70081948E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB63221B1EE880A70081948E /* LetsHangout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LetsHangout.xcdatamodel; sourceTree = "<group>"; };
@@ -134,6 +138,15 @@
 				2002DE7EB8DEF588A9397C27 /* Pods-LetsHangoutUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		DB2B0F071EEB17D900E5E88D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				DB2B0F081EEB180300E5E88D /* LoginViewController.swift */,
+				DB2B0F091EEB180300E5E88D /* LoginViewController.xib */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 		DB6322071EE880A70081948E = {
@@ -243,6 +256,7 @@
 		DB6322511EE8A3C40081948E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				DB2B0F071EEB17D900E5E88D /* Login */,
 				DB6322651EE937870081948E /* Hangout List */,
 				DB6322581EE8A6250081948E /* Add Hangout */,
 			);
@@ -453,6 +467,7 @@
 				DB6322551EE8A3E10081948E /* AddHangoutViewController.xib in Resources */,
 				DB63221E1EE880A70081948E /* Assets.xcassets in Resources */,
 				DB6322691EE93A8B0081948E /* HangoutListViewController.xib in Resources */,
+				DB2B0F0B1EEB180300E5E88D /* LoginViewController.xib in Resources */,
 				DB6322771EEA2CC80081948E /* HangoutCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,6 +631,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB2B0F0A1EEB180300E5E88D /* LoginViewController.swift in Sources */,
 				DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */,
 				DB6322461EE882570081948E /* Hangout.swift in Sources */,
 				DB6322621EE8B8F30081948E /* FirebaseManager.swift in Sources */,

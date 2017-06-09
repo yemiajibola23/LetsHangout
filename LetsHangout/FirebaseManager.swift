@@ -9,11 +9,16 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 
 class FirebaseManager {
     static let sharedInstance = FirebaseManager()
     
+    private let authHandler = Auth.auth()
+    
     private let hangoutsRef = Database.database().reference().child("hangouts")
+    private let usersRef = Database.database().reference().child("users")
+    var currentUserRef: DatabaseReference!
     
     private init() {}
     
@@ -39,5 +44,21 @@ class FirebaseManager {
             
             completion(hangouts, nil)
         })
+    }
+    
+    func loginWithCredentials(_ email: String, _ password: String, completion:@escaping (User?, Error?) -> Void) {
+        authHandler.signIn(withEmail: email, password: password) {[unowned self] (user, error) in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            guard let user = user else { /*TODO: Error occurred*/
+                completion(nil, nil)
+                return
+            }
+            
+            self.currentUserRef = self.usersRef.child(user.uid)
+            completion(user, error)
+        }
     }
 }
