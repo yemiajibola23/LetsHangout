@@ -20,11 +20,13 @@ class HangoutListViewController: UIViewController {
     var firebaseManager = FirebaseManager.sharedInstance
     
     @IBOutlet weak var hangoutCollectionView: UICollectionView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
         
+        activityIndicator.startAnimating()
         firebaseManager.loadHangouts { [unowned self] (hangouts, error) in
             if let error = error {
                 // TODO: Handle error
@@ -34,6 +36,7 @@ class HangoutListViewController: UIViewController {
             
             let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
             self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
+            self.activityIndicator.stopAnimating()
         }
     }
 
