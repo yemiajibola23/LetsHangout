@@ -24,7 +24,8 @@ class HangoutListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
+        //hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
+        hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
         
         activityIndicator.startAnimating()
         firebaseManager.loadHangouts { [unowned self] (hangouts, error) in

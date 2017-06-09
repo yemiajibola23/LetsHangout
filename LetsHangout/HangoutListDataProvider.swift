@@ -20,6 +20,13 @@ class HangoutListDataProvider: NSObject, UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: "HangoutCollectionViewCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier, for: indexPath) as! HangoutCollectionViewCell
+        cell.setupWith(viewModel: viewModel.viewModelFor(index: indexPath.row))
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 190, height: 250)
     }
 }
