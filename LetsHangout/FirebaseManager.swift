@@ -28,13 +28,16 @@ class FirebaseManager {
     func loadHangouts(completion:@escaping ([Hangout], Error?) -> Void) {
         hangoutsRef.observe(.value, with: { snapshot in
             var hangouts: [Hangout] = []
-            if let arr = snapshot.value as? [[String: Any]] {
-                for dict in arr { hangouts.append(Hangout(dict: dict)) }
-                
-                // TODO: Error Handling
-                completion(hangouts, nil)
+            
+            for snap in snapshot.children.allObjects {
+                if let dict = (snap as? DataSnapshot)?.value as? [String: Any] {
+                    hangouts.append(Hangout(dict: dict))
+                }
             }
             
+            if hangouts.count == 0 { /*TODO: Handle Error */ return }
+            
+            completion(hangouts, nil)
         })
     }
 }

@@ -9,17 +9,26 @@
 import UIKit
 
 class HangoutListViewController: UIViewController {
-    @IBOutlet weak var hangoutCollectionView: UICollectionView!
-    var dataProvider: HangoutListDataProvider!
+    
+    var dataProvider: HangoutListDataProvider! {
+        didSet {
+            hangoutCollectionView.delegate = dataProvider
+            hangoutCollectionView.dataSource = dataProvider
+        }
+    }
     static var nibName: String { return "HangoutListViewController" }
     var firebaseManager = FirebaseManager.sharedInstance
     
-    override func loadView() {
-        super.loadView()
+    @IBOutlet weak var hangoutCollectionView: UICollectionView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
         
-        firebaseManager.loadHangouts { (hangouts, error) in
+        firebaseManager.loadHangouts { [unowned self] (hangouts, error) in
             if let error = error {
                 // TODO: Handle error
+                print(error.localizedDescription)
                 return
             }
             
@@ -27,22 +36,5 @@ class HangoutListViewController: UIViewController {
             self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
         }
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
-        
-        hangoutCollectionView.delegate = dataProvider
-        hangoutCollectionView.dataSource = dataProvider
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
 }

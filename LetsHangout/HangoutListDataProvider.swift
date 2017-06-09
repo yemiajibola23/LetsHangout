@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HangoutListDataProvider: NSObject, UICollectionViewDelegate, UICollectionViewDataSource {
+class HangoutListDataProvider: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private var viewModel: HangoutCollectionViewViewModel!
     
     init(viewModel: HangoutCollectionViewViewModel) {
@@ -20,6 +20,6 @@ class HangoutListDataProvider: NSObject, UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        return collectionView.dequeueReusableCell(withReuseIdentifier: "HangoutCollectionViewCell", for: indexPath)
     }
 }
