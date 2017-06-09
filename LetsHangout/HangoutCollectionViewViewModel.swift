@@ -8,12 +8,15 @@
 
 import Foundation
 
-
 struct HangoutCollectionViewViewModel {
     private var hangouts:[Hangout]
     var numberOfHangouts: Int { return hangouts.count }
     
     init(hangouts: [Hangout]) {
         self.hangouts = hangouts
+    }
+    
+    func viewModelFor(index: Int) -> HangoutViewModel {
+        return HangoutViewModel(hangout: hangouts[index])
     }
 }
