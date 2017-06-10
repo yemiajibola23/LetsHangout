@@ -17,6 +17,44 @@ enum FirebaseError: Error {
     case userCreationError
 }
 
+enum FirebaseAuthenticationError: Error {
+    case invalidName
+    case invalidPassword
+    case userDisabled
+    case emailAlreadyInUse
+    case invalidEmail
+    case wrongPassword
+    case userNotFound
+    case accountExistsWithDifferentCredential
+    case networkError
+    case credentialAlreadyInUse
+    case unknown
+    
+    init(rawValue: Int) {
+        switch rawValue {
+        case 17005: self = .userDisabled
+        case 17007: self = .emailAlreadyInUse
+        case 17008: self = .invalidEmail
+        case 17009: self = .wrongPassword
+        case 17011: self = .userNotFound
+        case 17012: self = .accountExistsWithDifferentCredential
+        case 17020: self = .networkError
+        case 17025: self = .credentialAlreadyInUse
+        case 17026: self = .invalidPassword
+        default: self = .unknown
+        }
+    }
+}
+
+enum FirebaseResult<T, Error> {
+    case success(T)
+    case failure(Error)
+    
+}
+
+typealias AuthenticationResult = FirebaseResult<User, FirebaseAuthenticationError>
+
+
 class FirebaseManager {
     static let sharedInstance = FirebaseManager()
     
@@ -57,19 +95,24 @@ class FirebaseManager {
         })
     }
     
-    func loginWithCredentials(_ email: String, _ password: String, completion:@escaping (User?, FirebaseError?) -> Void) {
+    func loginWithCredentials(_ email: String, _ password: String, completion:@escaping (AuthenticationResult) -> Void) {
         authHandler.signIn(withEmail: email, password: password) {[unowned self] (user, error) in
-            if let _ = error {
-                completion(nil, .unknownError)
+           
+            if let authError = error {
+                let result = AuthenticationResult.failure(FirebaseAuthenticationError(rawValue: authError._code))
+                completion(result)
                 return
             }
+            
             guard let user = user else {
-                completion(nil, .noUser)
+                let result = AuthenticationResult.failure(FirebaseAuthenticationError.unknown)
+                completion(result)
                 return
             }
             
             self.currentUserRef = self.usersRef.child(user.uid)
-            completion(user, nil)
+            let result = AuthenticationResult.success(user)
+            completion(result)
         }
     }
     

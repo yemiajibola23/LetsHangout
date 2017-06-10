@@ -63,12 +63,15 @@ class FirebaseManagerTests: XCTestCase {
         
         var loggedInUser: User!
         
-        manager.loginWithCredentials(email, password) { user, error in
-            if let error = error {
-                XCTFail(error.localizedDescription)
+        manager.loginWithCredentials(email, password) { result in
+            
+            switch result {
+            case .success(let user):
+                loggedInUser = user
+            case .failure(let authError):
+                XCTFail(authError.localizedDescription)
             }
             
-            loggedInUser = user
             loginExpectation.fulfill()
         }
         
@@ -133,7 +136,7 @@ class FirebaseManagerTests: XCTestCase {
 //        
 //        let userExpectation = expectation(description: "A hangout user should be returned")
 //        
-//        manager.registerWithCredentials(<#T##email: String##String#>, <#T##password: String##String#>, <#T##name: String##String#>, completion: <#T##(User?, FirebaseError?) -> Void#>)
+//        manager.registerWithCredentials(email, <#T##password: String##String#>, <#T##name: String##String#>, completion: <#T##(User?, FirebaseError?) -> Void#>)
 //        
 //    }
 }

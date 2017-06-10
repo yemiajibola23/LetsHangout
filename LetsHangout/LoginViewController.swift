@@ -38,9 +38,15 @@ class LoginViewController: UIViewController {
             return
         }
         
-        firebaseManager.loginWithCredentials(email, password) { [unowned self] user, error in
-            if let _ = error { /*TODO: Handle error */ return }
-            self.hangoutListViewController()
+        firebaseManager.loginWithCredentials(email, password) { [unowned self] result in            
+            switch result {
+            case .success(_):
+                self.hangoutListViewController()
+            case .failure(let authError):
+                //TODO: Handle error
+                break
+            }
+            
         }
     }
     
