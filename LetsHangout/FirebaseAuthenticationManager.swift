@@ -69,8 +69,16 @@ class FirebaseAuthenticationManager {
     static let sharedInstance = FirebaseAuthenticationManager()
     private let authHandler = Auth.auth()
     private let databaseReference = Database.database().reference()
+    var currentUserRef: DatabaseReference?
+    var currentUser: User?
     
     private init() {}
+    
+    private func setCurrentUser() {
+        guard let currentUser = authHandler.currentUser else { return }
+        self.currentUser = currentUser
+        currentUserRef =  databaseReference.child(DatabasePath.users.rawValue).child(currentUser.uid)
+    }
     
     func registerWithCredentials(_ email: String, _ password: String, _ name: String, completion:@escaping (AuthenticationResult) -> Void) {
         authHandler.createUser(withEmail: email, password: password) {[unowned self] (user, error) in
@@ -81,10 +89,12 @@ class FirebaseAuthenticationManager {
             }
             
             if let newUser = user {
+                self.setCurrentUser()
                 self.createUser(user: newUser, email: email, name: name, completion: completion)
             }
         }
     }
+    
     
     func loginWithCredentials(_ email: String, _ password: String, completion: @escaping (AuthenticationResult) -> Void) {
         authHandler.signIn(withEmail: email, password: password) {[unowned self] (user, error) in
@@ -96,6 +106,7 @@ class FirebaseAuthenticationManager {
             
             
             if let loggedInUser = user {
+                self.setCurrentUser()
                 self.fetchUser(uid: loggedInUser.uid, completion: completion)
             }
         }

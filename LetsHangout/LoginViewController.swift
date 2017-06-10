@@ -46,7 +46,6 @@ class LoginViewController: UIViewController {
                 self.presentAlert(title: "An error occurred", message: authError.message)
                 break
             }
-            
         }
     }
     
@@ -63,12 +62,10 @@ class LoginViewController: UIViewController {
             case .failure(let authError):
               self.presentAlert(title: "An error occurred", message: authError.message)
             }
-            
-            
         }
     }
     
-    func hangoutListViewController(fetchedUser: HangoutUser) {
+    private func hangoutListViewController(fetchedUser: HangoutUser) {
         let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
         controller.currentUserViewModel = HangoutUserViewModel(user: fetchedUser)
         

@@ -32,18 +32,18 @@ class HangoutListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
-        hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
-        
-        activityIndicator.startAnimating()
-        
-        DispatchQueue.global().async {
-            self.firebaseDatabaseManager.loadHangouts { [unowned self]  hangouts in
-                DispatchQueue.main.async {
-                    let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
-                    self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
-                    self.activityIndicator.stopAnimating()
-                }
-            }
-        }
+//        hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
+//        
+//        activityIndicator.startAnimating()
+//        
+//        DispatchQueue.global().async {
+//            self.firebaseDatabaseManager.loadHangouts { [unowned self]  hangouts in
+//                DispatchQueue.main.async {
+//                    let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
+//                    self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
+//                    self.activityIndicator.stopAnimating()
+//                }
+//            }
+//        }
     }
 }
