@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseDatabase
+import FirebaseAuth
 
 enum FirebaseDatabaseError: Error {
     case unknown
@@ -41,13 +42,19 @@ enum FirebaseDatabaseError: Error {
 }
 
 class FirebaseDatabaseManager {
-    static let sharedInstance = FirebaseDatabaseManager()
     private let userRef = Database.database().reference().child(DatabasePath.users.rawValue)
     private let hangoutsRef = Database.database().reference().child(DatabasePath.hangouts.rawValue)
     private var currentUserRef: DatabaseReference!
     
     typealias DatabaseReferenceResult = Result<DatabaseReference, FirebaseDatabaseError>
     
+    static let sharedInstance = FirebaseDatabaseManager()
+    private init() {
+        guard let currentUser = Auth.auth().currentUser else { fatalError() }
+        currentUserRef = userRef.child(currentUser.uid)
+    }
+    
+ 
     func save(hangout: Hangout, completion: @escaping (DatabaseReferenceResult) -> Void) {
         let hangoutDictionary = generateHangoutDictionary(hangout: hangout)
         

@@ -8,6 +8,7 @@
 
 import XCTest
 import Firebase
+import FirebaseAuth
 @testable import LetsHangout
 
 class FirebaseAuthenticationManagerTests: XCTestCase {
@@ -15,6 +16,11 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
     private let userPassword = "dummy1"
     private let userName = "Test Dummy 1"
     private var manager: FirebaseAuthenticationManager!
+    
+    private var auth: Auth = {
+        if FirebaseApp.app() == nil { FirebaseApp.configure() }
+        return Auth.auth()
+    }()
     
     override func setUp() {
         super.setUp()
@@ -91,7 +97,7 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
             }
         }
         
-        waitForExpectations(timeout: 30) { (error) in
+        waitForExpectations(timeout: 30) {[unowned self] (error) in
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNil(authenticationError)
             XCTAssertNotNil(hangoutUser)
@@ -146,34 +152,4 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
     }
 }
 
-extension FirebaseAuthenticationManagerTests {
-    class FirebaseAuthenticationManagerMock: FirebaseAuthenticationManager {
-        var authenticationResult: AuthenticationResult?
-        var authenticatedUser: HangoutUser?
-        var authenticationError: FirebaseAuthenticationError?
-        
-        
-        override func registerWithCredentials(_ email: String, _ password: String, _ name: String, completion: @escaping (AuthenticationResult) -> Void) {
-            super.registerWithCredentials(email, password, name) {[unowned self] result in
-                self.authenticationResult = result
-                
-                switch result {
-                case .success(let newUser): self.authenticatedUser = newUser
-                case .failure(let authError): self.authenticationError = authError
-                }
-            }
-        }
-        
-        
-        override func loginWithCredentials(_ email: String, _ password: String, completion: @escaping (AuthenticationResult) -> Void) {
-            super.loginWithCredentials(email, password) {[unowned self] (result) in
-                self.authenticationResult = result
-                
-                switch result {
-                case .success(let user): self.authenticatedUser = user
-                case .failure(let error): self.authenticationError = error
-                }
-            }
-        }
-    }
-}
+

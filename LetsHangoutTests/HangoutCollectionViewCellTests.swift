@@ -15,13 +15,13 @@ class HangoutCollectionViewCellTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
-        let _ = controller.view
-        let collectionView = controller.hangoutCollectionView
-        let fakeDataSource = FakeDataSource()
-        collectionView?.dataSource = fakeDataSource
-        
-        cell = collectionView?.dequeueReusableCell(withReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier, for: IndexPath(item: 0, section: 0)) as! HangoutCollectionViewCell
+//        let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
+//        let _ = controller.view
+//        let collectionView = controller.hangoutCollectionView
+//        let fakeDataSource = FakeDataSource()
+//        collectionView?.dataSource = fakeDataSource
+//        
+//        cell = collectionView?.dequeueReusableCell(withReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier, for: IndexPath(item: 0, section: 0)) as! HangoutCollectionViewCell
     }
     
     override func tearDown() {
