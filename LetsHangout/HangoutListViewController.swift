@@ -37,9 +37,9 @@ class HangoutListViewController: UIViewController {
         activityIndicator.startAnimating()
         
         DispatchQueue.global().async {
-            self.firebaseManager.loadHangouts { [unowned self]  in
+            self.firebaseManager.loadHangouts { [unowned self]  hangouts in
                 DispatchQueue.main.async {
-                    let viewModel = HangoutCollectionViewViewModel(hangouts: self.firebaseManager.hangouts)
+                    let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
                     self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
                     self.activityIndicator.stopAnimating()
                 }

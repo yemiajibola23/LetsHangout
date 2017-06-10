@@ -40,23 +40,32 @@ class LoginViewController: UIViewController {
         
         firebaseManager.loginWithCredentials(email, password) { [unowned self] user, error in
             if let _ = error { /*TODO: Handle error */ return }
-            
-            self.firebaseManager.fetchCurrentUserInfo { (error, fetchedUser) in
-                if let _ = error { /*TODO: Handle error */ return }
-                guard let fetchedUser = fetchedUser else { return }
-                self.hangoutListViewControllerWith(user: fetchedUser)
-            }
+            self.hangoutListViewController()
         }
     }
     
     func registerNewUser() {
+        guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
+            //TODO: Error Alert
+            return
+        }
         
+        firebaseManager.registerWithCredentials(email, password, name) {[unowned self] (newUser, error) in
+            if let error = error { /* TODO: Handle error */ return }
+            self.hangoutListViewController()
+        }
     }
     
-    func hangoutListViewControllerWith(user: HangoutUser) {
-        let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
-        controller.currentUserViewModel = HangoutUserViewModel(user: user)
-        
-        present(controller, animated: true, completion: nil)
+    func hangoutListViewController() {
+        firebaseManager.fetchCurrentUserInfo { (error, fetchedUser) in
+            if let _ = error { /*TODO: Handle error */ return }
+            
+            guard let fetchedUser = fetchedUser else { /*TODO: Handle error */ return }
+            
+            let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
+            controller.currentUserViewModel = HangoutUserViewModel(user: fetchedUser)
+            
+            self.present(controller, animated: true, completion: nil)
+        }
     }
 }

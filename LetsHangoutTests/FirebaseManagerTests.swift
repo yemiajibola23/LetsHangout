@@ -112,12 +112,9 @@ class FirebaseManagerTests: XCTestCase {
         
         let fetchedHangoutsExpectation = expectation(description: "Hangouts should be fetched")
         
-        manager.loadHangouts { [unowned self] in
-//            if let error = error {
-//                XCTFail(error.localizedDescription)
-//            }
+        manager.loadHangouts { hangouts in
             
-            loadedHangouts = self.manager.hangouts
+            loadedHangouts = hangouts
             fetchedHangoutsExpectation.fulfill()
         }
         
@@ -130,4 +127,13 @@ class FirebaseManagerTests: XCTestCase {
             XCTAssertEqual(loadedHangouts.first?.name, "Test")
         }
     }
+    
+//    func testFirebaseManagerRegisterNewUserSuccess() {
+//        let newUser: HangoutUser!
+//        
+//        let userExpectation = expectation(description: "A hangout user should be returned")
+//        
+//        manager.registerWithCredentials(<#T##email: String##String#>, <#T##password: String##String#>, <#T##name: String##String#>, completion: <#T##(User?, FirebaseError?) -> Void#>)
+//        
+//    }
 }
