@@ -10,8 +10,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 
-enum FirebaseAuthenticationError: Error {
-    case invalidName
+enum FirebaseAuthenticationErrorType: Error {
     case invalidPassword
     case userDisabled
     case emailAlreadyInUse
@@ -39,6 +38,31 @@ enum FirebaseAuthenticationError: Error {
     }
 }
 
+struct FirebaseAuthenticationError {
+    var type: FirebaseAuthenticationErrorType
+    var message: String
+    
+    init(type: FirebaseAuthenticationErrorType) {
+        self.type = type
+        
+        switch type {
+        case .userDisabled: message = "User was disabled"
+        case .emailAlreadyInUse: message = "Email already in use."
+        case .invalidEmail: message = "Email is invalid."
+        case .wrongPassword: message = "Password is incorrect."
+        case .userNotFound: message = "User not found."
+        case .accountExistsWithDifferentCredential: message = "Account already exits with different credentials"
+        case .networkError: message = "Network error"
+        case .credentialAlreadyInUse: message = "Credential is already in use"
+        case .invalidPassword: message = "Password is invalid"
+        case .unknown: message = "An unknown error occurred"
+        }
+    }
+}
+
+
+
+
 typealias AuthenticationResult = Result<HangoutUser, FirebaseAuthenticationError>
 
 class FirebaseAuthenticationManager {
@@ -51,7 +75,7 @@ class FirebaseAuthenticationManager {
     func registerWithCredentials(_ email: String, _ password: String, _ name: String, completion:@escaping (AuthenticationResult) -> Void) {
         authHandler.createUser(withEmail: email, password: password) {[unowned self] (user, error) in
             if let error = error {
-                let result = AuthenticationResult.failure(FirebaseAuthenticationError(rawValue: error._code))
+                let result = AuthenticationResult.failure(FirebaseAuthenticationError(type: FirebaseAuthenticationErrorType(rawValue: error._code)))
                 completion(result)
                 return
             }
@@ -65,7 +89,7 @@ class FirebaseAuthenticationManager {
     func loginWithCredentials(_ email: String, _ password: String, completion: @escaping (AuthenticationResult) -> Void) {
         authHandler.signIn(withEmail: email, password: password) {[unowned self] (user, error) in
             if let error = error {
-                let result = AuthenticationResult.failure(FirebaseAuthenticationError(rawValue: error._code))
+                let result = AuthenticationResult.failure(FirebaseAuthenticationError(type: FirebaseAuthenticationErrorType(rawValue: error._code)))
                 completion(result)
                 return
             }

@@ -25,14 +25,20 @@ class AddHangoutViewController: UIViewController {
     
     @IBAction func onSaveButtonTapped(_ sender: UIButton) {
         let addHangoutVieModel = AddHangoutViewModel()
-        let firebaseManager = FirebaseManager.sharedInstance
+        let databaseManager = FirebaseDatabaseManager.sharedInstance
         let hangout = addHangoutVieModel.createHangout(name: nameTextField.text, date: dateTextField.text, host: hostTextField.text, description: descriptionTextView.text, latitude: nil, longitude: nil)
-        firebaseManager.save(hangout: hangout) { (error, ref) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
+        
+        databaseManager.save(hangout: hangout) { result in
+            switch result {
+            case .success(let reference):
+                break
+            case .failure(let saveError):
+                // TODO: Handle error
+                break
             }
         }
+        
+        
     }
 
 }

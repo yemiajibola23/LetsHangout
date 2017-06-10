@@ -10,7 +10,6 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    
     let firebaseAuthenticationManager = FirebaseAuthenticationManager.sharedInstance
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -33,9 +32,9 @@ class LoginViewController: UIViewController {
         //  TODO: Hide name textfield if login
     }
     
-    func loginUser() {
-        guard let email = emailTextField.text, let password = passwordTextField.text else {
-            // TODO: Error Alert
+    private func loginUser() {
+        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
+            presentAlert(title: "An error occurred", message: "All fields must be filled in")
             return
         }
         
@@ -44,16 +43,16 @@ class LoginViewController: UIViewController {
             case .success(let loggedInUser):
                 self.hangoutListViewController(fetchedUser: loggedInUser)
             case .failure(let authError):
-                //TODO: Handle error
+                self.presentAlert(title: "An error occurred", message: authError.message)
                 break
             }
             
         }
     }
     
-    func registerNewUser() {
-        guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
-            //TODO: Error Alert
+    private func registerNewUser() {
+        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty, let name = nameTextField.text, !name.isEmpty else {
+            presentAlert(title: "An error occurred", message: "All fields must be filled in")
             return
         }
         
@@ -61,9 +60,8 @@ class LoginViewController: UIViewController {
             switch result {
             case .success(let newUser):
                 self.hangoutListViewController(fetchedUser: newUser)
-                break
-            case .failure(let authError): break
-                //TODO: Error Alert
+            case .failure(let authError):
+              self.presentAlert(title: "An error occurred", message: authError.message)
             }
             
             

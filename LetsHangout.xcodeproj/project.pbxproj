@@ -18,6 +18,7 @@
 		DB2B0F151EEBC71800E5E88D /* FirebaseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F141EEBC71800E5E88D /* FirebaseResult.swift */; };
 		DB2B0F181EEBC92C00E5E88D /* DatabasePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F171EEBC92C00E5E88D /* DatabasePath.swift */; };
 		DB2B0F1A1EEBD28E00E5E88D /* FirebaseDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F191EEBD28E00E5E88D /* FirebaseDatabaseManager.swift */; };
+		DB2B0F1D1EEC581500E5E88D /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F1C1EEC581500E5E88D /* UIViewControllerExtensions.swift */; };
 		DB6322141EE880A70081948E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322131EE880A70081948E /* AppDelegate.swift */; };
 		DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB63221A1EE880A70081948E /* LetsHangout.xcdatamodeld */; };
 		DB63221E1EE880A70081948E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB63221D1EE880A70081948E /* Assets.xcassets */; };
@@ -76,6 +77,7 @@
 		DB2B0F141EEBC71800E5E88D /* FirebaseResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseResult.swift; sourceTree = "<group>"; };
 		DB2B0F171EEBC92C00E5E88D /* DatabasePath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabasePath.swift; sourceTree = "<group>"; };
 		DB2B0F191EEBD28E00E5E88D /* FirebaseDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseManager.swift; sourceTree = "<group>"; };
+		DB2B0F1C1EEC581500E5E88D /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		DB6322101EE880A70081948E /* LetsHangout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsHangout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6322131EE880A70081948E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB63221B1EE880A70081948E /* LetsHangout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LetsHangout.xcdatamodel; sourceTree = "<group>"; };
@@ -166,6 +168,14 @@
 			name = Enums;
 			sourceTree = "<group>";
 		};
+		DB2B0F1B1EEC57F300E5E88D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DB2B0F1C1EEC581500E5E88D /* UIViewControllerExtensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		DB6322071EE880A70081948E = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +201,7 @@
 		DB6322121EE880A70081948E /* LetsHangout */ = {
 			isa = PBXGroup;
 			children = (
+				DB2B0F1B1EEC57F300E5E88D /* Extensions */,
 				DB6322561EE8A5E50081948E /* View */,
 				DB6322511EE8A3C40081948E /* Controller */,
 				DB6322441EE8824D0081948E /* Model */,
@@ -655,6 +666,7 @@
 				DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */,
 				DB6322461EE882570081948E /* Hangout.swift in Sources */,
 				DB2B0F1A1EEBD28E00E5E88D /* FirebaseDatabaseManager.swift in Sources */,
+				DB2B0F1D1EEC581500E5E88D /* UIViewControllerExtensions.swift in Sources */,
 				DB6322721EE9B9D70081948E /* HangoutListDataProvider.swift in Sources */,
 				DB6322681EE93A8B0081948E /* HangoutListViewController.swift in Sources */,
 				DB63226B1EE93CD80081948E /* HangoutCollectionViewViewModel.swift in Sources */,
