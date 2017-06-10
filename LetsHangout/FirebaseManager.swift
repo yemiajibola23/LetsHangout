@@ -18,32 +18,39 @@ class FirebaseManager {
     
     private let hangoutsRef = Database.database().reference().child("hangouts")
     private let usersRef = Database.database().reference().child("users")
-    var currentUserRef: DatabaseReference!
+    var currentUserRef: DatabaseReference! = Database.database().reference(withPath: "users").child("quRhBuH1aBSr9GMeAhqKTMdZNfK2")
+    var hangouts: [Hangout] = []
     
     private init() {}
     
     func save(hangout: Hangout, completion: @escaping (Error?, DatabaseReference?) -> Void) {
         let dict: [String: Any] = ["ID": hangout.id, "name": hangout.name ?? "N/A", "date": hangout.date?.timeIntervalSince1970 ?? "N/A", "host": hangout.host ?? "N/A", "description": hangout.description ?? "N/A", "latitude": hangout.latitude ?? "N/A", "longitude": hangout.longitude ?? "N/A"]
         
-        hangoutsRef.child(hangout.id).setValue(dict, withCompletionBlock: { error, ref in
+        hangoutsRef.child(hangout.id).setValue(dict, withCompletionBlock: { [unowned self] error, ref in
+            self.currentUserRef.child("hangouts").child(ref.key).setValue(["key": 1])
             completion(error, ref)
         })
     }
     
-    func loadHangouts(completion:@escaping ([Hangout], Error?) -> Void) {
-        hangoutsRef.observe(.value, with: { snapshot in
-            var hangouts: [Hangout] = []
-            
+    func loadHangouts(completion: @escaping () -> Void) {
+        self.currentUserRef.child("hangouts").observe(.value, with: { [unowned self] snapshot in
+            var count = 0
+            var flag = true
             for snap in snapshot.children.allObjects {
-                if let dict = (snap as? DataSnapshot)?.value as? [String: Any] {
-                    hangouts.append(Hangout(dict: dict))
-                }
+                self.hangoutsRef.child((snap as? DataSnapshot)!.key).observeSingleEvent(of: .value, with: { (hangoutSnap) in
+                    if let dict = hangoutSnap.value as? [String: Any] {
+                        self.hangouts.append(Hangout(dict: dict))
+                        count += 1
+                        if count == Int(snapshot.childrenCount) && flag {
+                            completion()
+                            flag = false
+                        }
+                    }
+                })
             }
             
-            if hangouts.count == 0 { /*TODO: Handle Error */ return }
-            
-            completion(hangouts, nil)
         })
+        
     }
     
     func loginWithCredentials(_ email: String, _ password: String, completion:@escaping (User?, Error?) -> Void) {
@@ -52,7 +59,8 @@ class FirebaseManager {
                 completion(nil, error)
                 return
             }
-            guard let user = user else { /*TODO: Error occurred*/
+            guard let user = user else {
+                /*TODO: Error occurred*/
                 completion(nil, nil)
                 return
             }
@@ -67,7 +75,7 @@ class FirebaseManager {
             if let dict = snapshot.value as? [String: Any] {
                 completion(nil, HangoutUser(dict: dict))
             } else {
-                // TODO: Handle error 
+                // TODO: Handle error
                 completion(nil, nil)
             }
         })

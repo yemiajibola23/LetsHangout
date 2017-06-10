@@ -19,10 +19,11 @@ class FirebaseManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         manager = FirebaseManager.sharedInstance
+        manager.currentUserRef = Database.database().reference(withPath: "users").child("quRhBuH1aBSr9GMeAhqKTMdZNfK2")
     }
     
     override func tearDown() {
-        manager = nil
+        //  manager = nil
         super.tearDown()
     }
     
@@ -33,9 +34,8 @@ class FirebaseManagerTests: XCTestCase {
         let hangout = Hangout(name: "Test", date: dateFormatter.date(from: "May 23, 2017"), host: "Yemi", latitude: 25.034280, longitude: -77.396280, description: "Description")
         var hangoutRef: DatabaseReference!
         
-        
-        
         let saveExpectation = expectation(description: "Hangout should be saved")
+        
         
         manager.save(hangout: hangout) { (error, ref) in
             if let error = error { XCTFail(error.localizedDescription) }
@@ -44,13 +44,14 @@ class FirebaseManagerTests: XCTestCase {
             saveExpectation.fulfill()
         }
         
-        waitForExpectations(timeout: 30) { (error) in
+        waitForExpectations(timeout: 30) { [unowned self] (error) in
             if let error = error {
                 XCTFail(error.localizedDescription)
                 return
             }
             
             XCTAssertEqual(hangoutRef.key, hangout.id)
+            XCTAssertNotNil(self.manager.currentUserRef.child("hangouts").child(hangout.id))
         }
     }
     
@@ -85,7 +86,6 @@ class FirebaseManagerTests: XCTestCase {
         var fetchedUser: HangoutUser!
         
         let userExpectation = expectation(description: "A hangout user should be returned")
-        manager.currentUserRef = Database.database().reference(withPath: "users").child("quRhBuH1aBSr9GMeAhqKTMdZNfK2")
         
         manager.fetchCurrentUserInfo { error, user in
             if let error = error {
@@ -104,6 +104,30 @@ class FirebaseManagerTests: XCTestCase {
             
             XCTAssertEqual(fetchedUser.name, "Yemi")
             XCTAssertEqual(fetchedUser.email, "test1@gmail.com")
+        }
+    }
+    
+    func testFirebaseManagerLoadHangoutsSuccess() {
+        var loadedHangouts: [Hangout]!
+        
+        let fetchedHangoutsExpectation = expectation(description: "Hangouts should be fetched")
+        
+        manager.loadHangouts { [unowned self] in
+//            if let error = error {
+//                XCTFail(error.localizedDescription)
+//            }
+            
+            loadedHangouts = self.manager.hangouts
+            fetchedHangoutsExpectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 30) { (error) in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+                return
+            }
+            
+            XCTAssertEqual(loadedHangouts.first?.name, "Test")
         }
     }
 }

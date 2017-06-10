@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -38,13 +38,25 @@ class LoginViewController: UIViewController {
             return
         }
         
-        firebaseManager.loginWithCredentials(email, password) { (user, error) in
+        firebaseManager.loginWithCredentials(email, password) { [unowned self] user, error in
             if let _ = error { /*TODO: Handle error */ return }
             
+            self.firebaseManager.fetchCurrentUserInfo { (error, fetchedUser) in
+                if let _ = error { /*TODO: Handle error */ return }
+                guard let fetchedUser = fetchedUser else { return }
+                self.hangoutListViewControllerWith(user: fetchedUser)
+            }
         }
     }
-
+    
     func registerNewUser() {
         
+    }
+    
+    func hangoutListViewControllerWith(user: HangoutUser) {
+        let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
+        controller.currentUserViewModel = HangoutUserViewModel(user: user)
+        
+        present(controller, animated: true, completion: nil)
     }
 }

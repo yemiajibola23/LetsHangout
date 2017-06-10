@@ -16,6 +16,13 @@ class HangoutListViewController: UIViewController {
             hangoutCollectionView.dataSource = dataProvider
         }
     }
+    
+    var currentUserViewModel: HangoutUserViewModel! {
+        didSet {
+            // TODO: Update profile pic
+        }
+    }
+    
     static var nibName: String { return "HangoutListViewController" }
     var firebaseManager = FirebaseManager.sharedInstance
     
@@ -28,17 +35,15 @@ class HangoutListViewController: UIViewController {
         hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
         
         activityIndicator.startAnimating()
-        firebaseManager.loadHangouts { [unowned self] (hangouts, error) in
-            if let error = error {
-                // TODO: Handle error
-                print(error.localizedDescription)
-                return
+        
+        DispatchQueue.global().async {
+            self.firebaseManager.loadHangouts { [unowned self]  in
+                DispatchQueue.main.async {
+                    let viewModel = HangoutCollectionViewViewModel(hangouts: self.firebaseManager.hangouts)
+                    self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
+                    self.activityIndicator.stopAnimating()
+                }
             }
-            
-            let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
-            self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
-            self.activityIndicator.stopAnimating()
         }
     }
-
 }
