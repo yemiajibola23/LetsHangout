@@ -94,8 +94,7 @@ class FirebaseAuthenticationManager {
             }
         }
     }
-    
-    
+
     func loginWithCredentials(_ email: String, _ password: String, completion: @escaping (AuthenticationResult) -> Void) {
         authHandler.signIn(withEmail: email, password: password) {[unowned self] (user, error) in
             if let error = error {
