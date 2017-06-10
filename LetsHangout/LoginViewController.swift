@@ -10,7 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    let firebaseManager = FirebaseManager.sharedInstance
+    
+    let firebaseAuthenticationManager = FirebaseAuthenticationManager.sharedInstance
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -38,10 +39,10 @@ class LoginViewController: UIViewController {
             return
         }
         
-        firebaseManager.loginWithCredentials(email, password) { [unowned self] result in            
+        firebaseAuthenticationManager.loginWithCredentials(email, password) { [unowned self] result in
             switch result {
-            case .success(_):
-                self.hangoutListViewController()
+            case .success(let loggedInUser):
+                self.hangoutListViewController(fetchedUser: loggedInUser)
             case .failure(let authError):
                 //TODO: Handle error
                 break
@@ -56,22 +57,23 @@ class LoginViewController: UIViewController {
             return
         }
         
-        firebaseManager.registerWithCredentials(email, password, name) {[unowned self] (newUser, error) in
-            if let error = error { /* TODO: Handle error */ return }
-            self.hangoutListViewController()
+        firebaseAuthenticationManager.registerWithCredentials(email, password, name) {[unowned self] result in
+            switch result {
+            case .success(let newUser):
+                self.hangoutListViewController(fetchedUser: newUser)
+                break
+            case .failure(let authError): break
+                //TODO: Error Alert
+            }
+            
+            
         }
     }
     
-    func hangoutListViewController() {
-        firebaseManager.fetchCurrentUserInfo { (error, fetchedUser) in
-            if let _ = error { /*TODO: Handle error */ return }
-            
-            guard let fetchedUser = fetchedUser else { /*TODO: Handle error */ return }
-            
-            let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
-            controller.currentUserViewModel = HangoutUserViewModel(user: fetchedUser)
-            
-            self.present(controller, animated: true, completion: nil)
-        }
+    func hangoutListViewController(fetchedUser: HangoutUser) {
+        let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
+        controller.currentUserViewModel = HangoutUserViewModel(user: fetchedUser)
+        
+        self.present(controller, animated: true, completion: nil)
     }
 }

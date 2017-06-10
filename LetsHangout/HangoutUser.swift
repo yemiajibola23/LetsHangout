@@ -18,4 +18,10 @@ struct HangoutUser {
         email = dict["email"] as! String
         profilePictureURL = dict["profilePictureURL"] as? String
     }
+    
+    init(name: String, email: String, profilePictureURL: String?) {
+        self.name = name
+        self.email = email
+        self.profilePictureURL = profilePictureURL
+    }
 }

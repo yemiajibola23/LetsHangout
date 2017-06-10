@@ -24,7 +24,7 @@ class HangoutListViewController: UIViewController {
     }
     
     static var nibName: String { return "HangoutListViewController" }
-    var firebaseManager = FirebaseManager.sharedInstance
+    var firebaseDatabaseManager = FirebaseDatabaseManager.sharedInstance
     
     @IBOutlet weak var hangoutCollectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -37,7 +37,7 @@ class HangoutListViewController: UIViewController {
         activityIndicator.startAnimating()
         
         DispatchQueue.global().async {
-            self.firebaseManager.loadHangouts { [unowned self]  hangouts in
+            self.firebaseDatabaseManager.loadHangouts { [unowned self]  hangouts in
                 DispatchQueue.main.async {
                     let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
                     self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
