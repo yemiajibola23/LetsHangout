@@ -16,8 +16,15 @@ class HangoutListViewController: UIViewController {
             hangoutCollectionView.dataSource = dataProvider
         }
     }
+    
+    var currentUserViewModel: HangoutUserViewModel! {
+        didSet {
+            // TODO: Update profile pic
+        }
+    }
+    
     static var nibName: String { return "HangoutListViewController" }
-    var firebaseManager = FirebaseManager.sharedInstance
+    var firebaseDatabaseManager = FirebaseDatabaseManager.sharedInstance
     
     @IBOutlet weak var hangoutCollectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -25,20 +32,18 @@ class HangoutListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
-        hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
-        
-        activityIndicator.startAnimating()
-        firebaseManager.loadHangouts { [unowned self] (hangouts, error) in
-            if let error = error {
-                // TODO: Handle error
-                print(error.localizedDescription)
-                return
-            }
-            
-            let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
-            self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
-            self.activityIndicator.stopAnimating()
-        }
+//        hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
+//        
+//        activityIndicator.startAnimating()
+//        
+//        DispatchQueue.global().async {
+//            self.firebaseDatabaseManager.loadHangouts { [unowned self]  hangouts in
+//                DispatchQueue.main.async {
+//                    let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
+//                    self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
+//                    self.activityIndicator.stopAnimating()
+//                }
+//            }
+//        }
     }
-
 }

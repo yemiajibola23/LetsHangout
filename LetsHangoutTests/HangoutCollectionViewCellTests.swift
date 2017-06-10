@@ -28,9 +28,9 @@ class HangoutCollectionViewCellTests: XCTestCase {
         super.tearDown()
     }
     
-    func testCellNameLabel() {
-        XCTAssertNotNil(cell.nameLabel)
-    }
+//    func testCellNameLabel() {
+//        XCTAssertNotNil(cell.nameLabel)
+//    }
 }
 
 extension HangoutCollectionViewCellTests {
