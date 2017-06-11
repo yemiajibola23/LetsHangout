@@ -61,16 +61,14 @@ struct FirebaseAuthenticationError {
 }
 
 
-
-
-typealias AuthenticationResult = Result<HangoutUser, FirebaseAuthenticationError>
-
 class FirebaseAuthenticationManager {
     static let sharedInstance = FirebaseAuthenticationManager()
     private let authHandler = Auth.auth()
     private let databaseReference = Database.database().reference()
     var currentUserRef: DatabaseReference?
     var currentUser: User?
+    
+    typealias AuthenticationResult = Result<HangoutUser, FirebaseAuthenticationError>
     
     private init() {}
     

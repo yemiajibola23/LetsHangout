@@ -186,6 +186,15 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		DB2B0F281EECF39400E5E88D /* Firebase Managers */ = {
+			isa = PBXGroup;
+			children = (
+				DB2B0F121EEBC57200E5E88D /* FirebaseAuthenticationManager.swift */,
+				DB2B0F191EEBD28E00E5E88D /* FirebaseDatabaseManager.swift */,
+			);
+			name = "Firebase Managers";
+			sourceTree = "<group>";
+		};
 		DB6322071EE880A70081948E = {
 			isa = PBXGroup;
 			children = (
@@ -247,11 +256,10 @@
 		DB6322441EE8824D0081948E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DB2B0F161EEBC90E00E5E88D /* Enums */,
 				DB6322451EE882570081948E /* Hangout.swift */,
 				DB2B0F0E1EEB2AAC00E5E88D /* HangoutUser.swift */,
-				DB2B0F121EEBC57200E5E88D /* FirebaseAuthenticationManager.swift */,
-				DB2B0F191EEBD28E00E5E88D /* FirebaseDatabaseManager.swift */,
+				DB2B0F161EEBC90E00E5E88D /* Enums */,
+				DB2B0F281EECF39400E5E88D /* Firebase Managers */,
 			);
 			name = Model;
 			sourceTree = "<group>";

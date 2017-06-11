@@ -58,7 +58,7 @@ class FirebaseDatabaseManagerTests: XCTestCase {
     private func deleteCurrentUserAndHangouts() {
         guard let currentUser = authManager.currentUser else { return }
         let userRef = Database.database().reference().child(DatabasePath.users.rawValue)
-    
+        
         userRef.removeValue()
         currentUser.delete { XCTAssertNil($0) }
         Database.database().reference().child(DatabasePath.hangouts.rawValue).removeValue()
@@ -110,33 +110,62 @@ class FirebaseDatabaseManagerTests: XCTestCase {
         
     }
     
-//    func testSaveHangoutResultErrorPermissionDenied() {
-//        var newHangoutReference: DatabaseReference?
-//        var saveError: FirebaseDatabaseError?
-//        let saveExpectation = expectation(description: "A database error should occur")
-//        let hangout = singleHangout()
-//        
-//        login {
-//            self.logout { [unowned self] _ in
-//                self.manager.save(hangout: hangout) { result in
-//                    switch result {
-//                    case let .success(reference): newHangoutReference = reference
-//                    case let .failure(databaseError):
-//                        saveError = databaseError
-//                    }
-//                    saveExpectation.fulfill()
-//                }
-//            }
-//        }
-//        
-//        
-//        waitForExpectations(timeout: 30) { error in
-//            XCTAssertNil(error, error!.localizedDescription)
-//            XCTAssertNotNil(saveError)
-//            XCTAssertNil(newHangoutReference)
-//            XCTAssertEqual(saveError?.type, .permissionDenied)
-//        }
-//    }
+    func testLoadHangoutsSuccess() {
+        var loadedHangouts:[Hangout]!
+        let hangoutsExpecation = expectation(description: "There should be hangouts")
+        let hangout = singleHangout()
+        
+        login { [unowned self] in
+            self.manager.save(hangout: hangout) { [unowned self] _ in
+                self.manager.loadHangouts(completion: { (fetchedHangouts) in
+                    loadedHangouts = fetchedHangouts
+                    hangoutsExpecation.fulfill()
+                })
+            }
+        }
+        
+        waitForExpectations(timeout: 30) { error in
+            XCTAssertNil(error, error!.localizedDescription)
+            XCTAssertNotNil(loadedHangouts)
+            XCTAssertEqual(loadedHangouts.count, 1)
+            XCTAssertEqual(loadedHangouts.first!.name, "Test")
+            XCTAssertEqual(loadedHangouts.first!.host, "Brian")
+            XCTAssertNil(loadedHangouts.first?.latitude)
+            XCTAssertNil(loadedHangouts.first?.longitude)
+            XCTAssertEqual(loadedHangouts.first?.description, "Description")
+        }
+    }
+    
+    //    func testSaveHangoutResultErrorPermissionDenied() {
+    //        var newHangoutReference: DatabaseReference?
+    //        var saveError: FirebaseDatabaseError?
+    //        let saveExpectation = expectation(description: "A database error should occur")
+    //        let hangout = singleHangout()
+    //
+    //        login {
+    //            self.logout { [unowned self] _ in
+    //                self.manager.save(hangout: hangout) { result in
+    //                    switch result {
+    //                    case let .success(reference): newHangoutReference = reference
+    //                    case let .failure(databaseError):
+    //                        saveError = databaseError
+    //                    }
+    //                    saveExpectation.fulfill()
+    //                }
+    //            }
+    //        }
+    //
+    //
+    //        waitForExpectations(timeout: 30) { error in
+    //            XCTAssertNil(error, error!.localizedDescription)
+    //            XCTAssertNotNil(saveError)
+    //            XCTAssertNil(newHangoutReference)
+    //            XCTAssertEqual(saveError?.type, .permissionDenied)
+    //        }
+    //    }
+    
+    
+    
     
 }
 
