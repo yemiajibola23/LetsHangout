@@ -10,7 +10,7 @@ import Foundation
 import FirebaseDatabase
 import FirebaseAuth
 
-enum FirebaseDatabaseError: Error {
+enum FirebaseDatabaseErrorType: Error {
     case unknown
     case disconnected
     case expiredToken
@@ -22,7 +22,6 @@ enum FirebaseDatabaseError: Error {
     case permissionDenied
     case unavailable
     case userCodeException
-    case writeCanceled
     
     init(rawValue: Int) {
         switch rawValue {
@@ -38,6 +37,30 @@ enum FirebaseDatabaseError: Error {
         case -11: self = .userCodeException
         default: self = .unknown
         }
+    }
+}
+
+struct FirebaseDatabaseError {
+    var type: FirebaseDatabaseErrorType
+    var message: String
+    
+    init(type: FirebaseDatabaseErrorType) {
+        self.type = type
+        
+        switch type {
+        case .disconnected: message = ""
+        case .expiredToken: message = ""
+        case .invalidToken: message = ""
+        case .maxRetries: message = ""
+        case .networkError: message = ""
+        case .operationFailed: message = ""
+        case .overriddenBySet: message = ""
+        case .permissionDenied: message = ""
+        case .unavailable: message = ""
+        case .userCodeException: message = ""
+        case .unknown: message = ""
+        }
+        
     }
 }
 
@@ -60,7 +83,7 @@ class FirebaseDatabaseManager {
         
         hangoutsRef.child(hangout.id).setValue(hangoutDictionary, withCompletionBlock: { [unowned self] error, ref in
             if let databaseError = error {
-                let result = DatabaseReferenceResult.failure(FirebaseDatabaseError(rawValue: databaseError._code))
+                let result = DatabaseReferenceResult.failure(FirebaseDatabaseError(type: FirebaseDatabaseErrorType(rawValue: databaseError._code)))
                 completion(result)
                 return
             }

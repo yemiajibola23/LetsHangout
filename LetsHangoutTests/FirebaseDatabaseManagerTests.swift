@@ -34,7 +34,6 @@ class FirebaseDatabaseManagerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        manager = FirebaseDatabseManagerMock.sharedInstance
         authManager = FirebaseAuthenticationManagerMock.sharedInstance
     }
     
@@ -46,10 +45,14 @@ class FirebaseDatabaseManagerTests: XCTestCase {
     private func login(completion: @escaping () -> Void) {
         authManager.registerWithCredentials(userEmail, userPassword, userName) { [unowned self] _ in
             self.authManager.loginWithCredentials(self.userEmail, self.userPassword, completion: {[unowned self] _ in
-                self.manager = FirebaseDatabaseManager.sharedInstance
+                self.manager = FirebaseDatabaseManagerMock.sharedInstance
                 completion()
             })
         }
+    }
+    
+    private func logout(completion: @escaping (FirebaseAuthenticationError?) -> Void) {
+        authManager.logout(completion: completion)
     }
     
     private func deleteCurrentUserAndHangouts() {
@@ -107,15 +110,41 @@ class FirebaseDatabaseManagerTests: XCTestCase {
         
     }
     
+//    func testSaveHangoutResultErrorPermissionDenied() {
+//        var newHangoutReference: DatabaseReference?
+//        var saveError: FirebaseDatabaseError?
+//        let saveExpectation = expectation(description: "A database error should occur")
+//        let hangout = singleHangout()
+//        
+//        login {
+//            self.logout { [unowned self] _ in
+//                self.manager.save(hangout: hangout) { result in
+//                    switch result {
+//                    case let .success(reference): newHangoutReference = reference
+//                    case let .failure(databaseError):
+//                        saveError = databaseError
+//                    }
+//                    saveExpectation.fulfill()
+//                }
+//            }
+//        }
+//        
+//        
+//        waitForExpectations(timeout: 30) { error in
+//            XCTAssertNil(error, error!.localizedDescription)
+//            XCTAssertNotNil(saveError)
+//            XCTAssertNil(newHangoutReference)
+//            XCTAssertEqual(saveError?.type, .permissionDenied)
+//        }
+//    }
+    
 }
 
 extension FirebaseDatabaseManagerTests {
-    class FirebaseDatabseManagerMock: FirebaseDatabaseManager {
+    class FirebaseDatabaseManagerMock: FirebaseDatabaseManager {
         var databaseResult: DatabaseReferenceResult?
         var databaseReference: DatabaseReference?
         var databaseError: FirebaseDatabaseError?
-        var auth: Auth!
-        
         
         override func save(hangout: Hangout, completion: @escaping (FirebaseDatabaseManager.DatabaseReferenceResult) -> Void) {
             super.save(hangout: hangout) { [unowned self] result in

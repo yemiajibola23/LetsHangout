@@ -111,6 +111,18 @@ class FirebaseAuthenticationManager {
         }
     }
     
+    func logout(completion: (FirebaseAuthenticationError?) -> Void) {
+        do {
+            try authHandler.signOut()
+        } catch (let signOutError) {
+            completion(FirebaseAuthenticationError(type: FirebaseAuthenticationErrorType(rawValue: signOutError._code)))
+        }
+        
+        currentUserRef = nil
+        currentUser = nil
+        completion(nil)
+    }
+    
     private func createUser(user: User, email: String, name: String, completion:@escaping (AuthenticationResult) -> Void) {
         let reference = databaseReference.child(DatabasePath.users.rawValue).child(user.uid)
         let userDictionary = generateHangoutUserDictionary(id: user.uid, email: email, name: name)
@@ -130,6 +142,7 @@ class FirebaseAuthenticationManager {
             }
         })
     }
+    
     
     private func generateHangoutUser(dictionary: [String: Any]) -> HangoutUser {
         return HangoutUser(dict: dictionary)
