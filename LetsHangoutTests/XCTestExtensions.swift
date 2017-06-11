@@ -20,7 +20,6 @@ extension XCTest {
         return Hangout(name: "Test", date: dateFormatter.date(from: "May 31, 2017"), host: "Brian", latitude: nil, longitude: nil, description: "Description")
     }
     
-    
     func multipleHangouts() -> [Hangout] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"

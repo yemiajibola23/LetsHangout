@@ -21,7 +21,7 @@
 		DB2B0F1D1EEC581500E5E88D /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F1C1EEC581500E5E88D /* UIViewControllerExtensions.swift */; };
 		DB2B0F1F1EEC731F00E5E88D /* FirebaseAuthenticationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F1E1EEC731F00E5E88D /* FirebaseAuthenticationManagerTests.swift */; };
 		DB2B0F211EEC8FE600E5E88D /* FirebaseDatabaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F201EEC8FE600E5E88D /* FirebaseDatabaseManagerTests.swift */; };
-		DB2B0F231EEC9A3400E5E88D /* XCTExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F221EEC9A3400E5E88D /* XCTExtensions.swift */; };
+		DB2B0F231EEC9A3400E5E88D /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F221EEC9A3400E5E88D /* XCTestExtensions.swift */; };
 		DB6322141EE880A70081948E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322131EE880A70081948E /* AppDelegate.swift */; };
 		DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB63221A1EE880A70081948E /* LetsHangout.xcdatamodeld */; };
 		DB63221E1EE880A70081948E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB63221D1EE880A70081948E /* Assets.xcassets */; };
@@ -85,7 +85,7 @@
 		DB2B0F1C1EEC581500E5E88D /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		DB2B0F1E1EEC731F00E5E88D /* FirebaseAuthenticationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationManagerTests.swift; sourceTree = "<group>"; };
 		DB2B0F201EEC8FE600E5E88D /* FirebaseDatabaseManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDatabaseManagerTests.swift; sourceTree = "<group>"; };
-		DB2B0F221EEC9A3400E5E88D /* XCTExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTExtensions.swift; sourceTree = "<group>"; };
+		DB2B0F221EEC9A3400E5E88D /* XCTestExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
 		DB6322101EE880A70081948E /* LetsHangout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsHangout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6322131EE880A70081948E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB63221B1EE880A70081948E /* LetsHangout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LetsHangout.xcdatamodel; sourceTree = "<group>"; };
@@ -227,8 +227,8 @@
 		DB63222A1EE880A70081948E /* LetsHangoutTests */ = {
 			isa = PBXGroup;
 			children = (
-				DB6322781EEA53F20081948E /* View Tests */,
 				DB63226E1EE93D820081948E /* Extensions */,
+				DB6322781EEA53F20081948E /* View Tests */,
 				DB63224C1EE894F20081948E /* View Model Tests */,
 				DB6322481EE882F40081948E /* Model Tests */,
 				DB63222D1EE880A70081948E /* Info.plist */,
@@ -353,7 +353,7 @@
 		DB63226E1EE93D820081948E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DB2B0F221EEC9A3400E5E88D /* XCTExtensions.swift */,
+				DB2B0F221EEC9A3400E5E88D /* XCTestExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -704,7 +704,7 @@
 				DB63224A1EE8830E0081948E /* HangoutTests.swift in Sources */,
 				DB6322501EE895920081948E /* HangoutViewModelTests.swift in Sources */,
 				DB2B0F211EEC8FE600E5E88D /* FirebaseDatabaseManagerTests.swift in Sources */,
-				DB2B0F231EEC9A3400E5E88D /* XCTExtensions.swift in Sources */,
+				DB2B0F231EEC9A3400E5E88D /* XCTestExtensions.swift in Sources */,
 				DB63225B1EE8A7A50081948E /* AddHangoutViewModelTests.swift in Sources */,
 				DB63227A1EEA54100081948E /* HangoutCollectionViewCellTests.swift in Sources */,
 			);
