@@ -164,9 +164,6 @@ class FirebaseDatabaseManagerTests: XCTestCase {
     //        }
     //    }
     
-    
-    
-    
 }
 
 extension FirebaseDatabaseManagerTests {

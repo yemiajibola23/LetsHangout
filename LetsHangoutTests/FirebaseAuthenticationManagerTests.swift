@@ -19,11 +19,6 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
     private var hangoutUser: HangoutUser?
     private var authenticationError: FirebaseAuthenticationError?
     
-    private var auth: Auth = {
-        if FirebaseApp.app() == nil { FirebaseApp.configure() }
-        return Auth.auth()
-    }()
-    
     override func setUp() {
         super.setUp()
         manager = FirebaseAuthenticationManagerMock.sharedInstance
