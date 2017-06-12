@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
+        let controller = LoginViewController(nibName: LoginViewController.nibName, bundle: nil)
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = controller
         window?.makeKeyAndVisible()

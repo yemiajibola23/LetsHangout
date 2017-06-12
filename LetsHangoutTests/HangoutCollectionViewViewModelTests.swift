@@ -14,7 +14,7 @@ class HangoutCollectionViewViewModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-       viewModel = HangoutCollectionViewViewModel(hangouts: fakeHangouts())
+       viewModel = HangoutCollectionViewViewModel(hangouts: multipleHangouts())
     }
     
     override func tearDown() {

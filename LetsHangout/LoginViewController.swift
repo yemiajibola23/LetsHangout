@@ -18,6 +18,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginRegisterSegmentControl: UISegmentedControl!
     @IBOutlet weak var loginRegisterButton: UIButton!
     
+    static let nibName = "LoginViewController"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
