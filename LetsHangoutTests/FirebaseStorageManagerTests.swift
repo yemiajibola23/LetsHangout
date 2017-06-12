@@ -20,6 +20,8 @@ class FirebaseStorageManagerTests: XCTestCase {
         super.tearDown()
     }
     
-    func 
+    func testSavePhoto() {
+        
+    }
     
 }
