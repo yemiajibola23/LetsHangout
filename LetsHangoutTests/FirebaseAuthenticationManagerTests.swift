@@ -12,16 +12,21 @@ import FirebaseAuth
 @testable import LetsHangout
 
 class FirebaseAuthenticationManagerTests: XCTestCase {
-    private let userEmail = "fake@gmail.com"
-    private let userPassword = "dummy1"
-    private let userName = "Test Dummy 1"
+
     private var manager: FirebaseAuthenticationManager!
     private var hangoutUser: HangoutUser?
     private var authenticationError: FirebaseAuthenticationError?
     
+    let emailArray = ["fake@gmail.com", "fake1@gmail.com","fake2@gmail.com", "fake3@gmail.com", "fake4@gmail.com"]
+    
+    var userEmail = ""
+    let userPassword = "dummy1"
+    let userName = "Test Dummy 1"
+    
     override func setUp() {
         super.setUp()
         manager = FirebaseAuthenticationManagerMock.sharedInstance
+        userEmail = emailArray[Int(arc4random_uniform(5))]
     }
     
     override func tearDown() {
@@ -39,12 +44,8 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
     }
     
     func testRegisterCredentialsResultHangoutUser() {
-        let tempEmail = "fake1@gmail.com"
-        let tempPassword = "dummy2"
-        let tempName = "Dummy 2"
-        
         let newUserExpectation = expectation(description: "A new user should be created")
-        manager.registerWithCredentials(tempEmail, tempPassword, tempName) { [unowned self] result in
+        manager.registerWithCredentials(self.userEmail, self.userPassword, self.userName) { [unowned self] result in
             switch result {
             case  .success(let user): self.hangoutUser = user
             case .failure(let error): self.authenticationError = error
@@ -57,8 +58,11 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNil(self.authenticationError)
             XCTAssertNotNil(self.hangoutUser)
-            XCTAssertEqual(tempEmail, self.hangoutUser?.email)
-            XCTAssertEqual(tempName, self.hangoutUser?.name)
+            
+            guard let hangoutUser = self.hangoutUser else { return }
+            
+            XCTAssertEqual(self.userEmail, hangoutUser.email)
+            XCTAssertEqual(self.userName, hangoutUser.name)
         }
     }
     
@@ -120,7 +124,7 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
         waitForExpectations(timeout: 30) { (error) in
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNotNil(self.authenticationError)
-            XCTAssertEqual(self.authenticationError!.type, FirebaseAuthenticationErrorType.userNotFound)
+            XCTAssertEqual(self.authenticationError?.type, FirebaseAuthenticationErrorType.userNotFound)
             XCTAssertNil(self.hangoutUser)
         }
     }

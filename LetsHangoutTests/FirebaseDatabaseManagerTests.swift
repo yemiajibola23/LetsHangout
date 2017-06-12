@@ -22,9 +22,8 @@ class FirebaseDatabaseManagerTests: XCTestCase {
     var hangoutDescription: String?
     var hangoutHost: String?
     
-    private let userEmail = "fake@gmail.com"
-    private let userPassword = "dummy1"
-    private let userName = "Test Dummy 1"
+    
+
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM dd, yyyy"
@@ -43,11 +42,22 @@ class FirebaseDatabaseManagerTests: XCTestCase {
     }
     
     private func login(completion: @escaping () -> Void) {
-        authManager.registerWithCredentials(userEmail, userPassword, userName) { [unowned self] _ in
-            self.authManager.loginWithCredentials(self.userEmail, self.userPassword, completion: {[unowned self] _ in
+        let emailArray = ["fake@gmail.com", "fake@gmail1.com","fake@gmail2.com"]
+        
+        let userEmail = emailArray[Int(arc4random_uniform(3))]
+        let userPassword = "dummy1"
+        let userName = "Test Dummy 1"
+
+        authManager.registerWithCredentials(userEmail, userPassword, userName) {[unowned self] result in
+            switch result {
+            case .failure(let authError):
+                print(authError.message)
+                return
+            case .success(_):
                 self.manager = FirebaseDatabaseManagerMock.sharedInstance
-                completion()
-            })
+            }
+            
+            completion()
         }
     }
     
@@ -79,7 +89,7 @@ class FirebaseDatabaseManagerTests: XCTestCase {
         let saveExpectation = expectation(description: "A new hangout should be saved")
         let hangout = singleHangout()
         
-        self.login { [unowned self] in
+        login { [unowned self] in
             self.manager.save(hangout: hangout) { [unowned self] result in
                 switch result {
                 case let .success(reference):
@@ -102,20 +112,20 @@ class FirebaseDatabaseManagerTests: XCTestCase {
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNil(saveError)
             XCTAssertNotNil(newHangoutReference)
-            XCTAssertEqual(self.hangoutName, hangout.name)
+            guard let hangoutName = self.hangoutName else { return }
+            XCTAssertEqual(hangoutName, hangout.name)
             XCTAssertEqual(self.hangoutDate, hangout.date)
             XCTAssertEqual(self.hangoutHost, hangout.host)
             XCTAssertEqual(self.hangoutDescription, hangout.description)
         }
-        
     }
     
     func testLoadHangoutsSuccess() {
-        var loadedHangouts:[Hangout]!
+        var loadedHangouts: [Hangout]?
         let hangoutsExpecation = expectation(description: "There should be hangouts")
         let hangout = singleHangout()
         
-        login { [unowned self] in
+       login { [unowned self] in
             self.manager.save(hangout: hangout) { [unowned self] _ in
                 self.manager.loadHangouts(completion: { (fetchedHangouts) in
                     loadedHangouts = fetchedHangouts
@@ -127,6 +137,7 @@ class FirebaseDatabaseManagerTests: XCTestCase {
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNotNil(loadedHangouts)
+            guard let loadedHangouts = loadedHangouts else { return }
             XCTAssertEqual(loadedHangouts.count, 1)
             XCTAssertEqual(loadedHangouts.first!.name, "Test")
             XCTAssertEqual(loadedHangouts.first!.host, "Brian")
@@ -169,17 +180,17 @@ class FirebaseDatabaseManagerTests: XCTestCase {
 extension FirebaseDatabaseManagerTests {
     class FirebaseDatabaseManagerMock: FirebaseDatabaseManager {
         var databaseResult: DatabaseReferenceResult?
-        var databaseReference: DatabaseReference?
-        var databaseError: FirebaseDatabaseError?
+//        var databaseReference: DatabaseReference?
+//        var databaseError: FirebaseDatabaseError?
         
         override func save(hangout: Hangout, completion: @escaping (FirebaseDatabaseManager.DatabaseReferenceResult) -> Void) {
             super.save(hangout: hangout) { [unowned self] result in
                 self.databaseResult = result
-                
-                switch result {
-                case let .success(savedReference): self.databaseReference = savedReference
-                case let .failure(dataError): self.databaseError = dataError
-                }
+//                
+//                switch result {
+//                case let .success(savedReference): self.databaseReference = savedReference
+//                case let .failure(dataError): self.databaseError = dataError
+//                }
             }
         }
     }
