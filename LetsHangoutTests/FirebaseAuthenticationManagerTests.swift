@@ -12,16 +12,32 @@ import FirebaseAuth
 @testable import LetsHangout
 
 class FirebaseAuthenticationManagerTests: XCTestCase {
-    private let userEmail = "fake@gmail.com"
-    private let userPassword = "dummy1"
-    private let userName = "Test Dummy 1"
+
     private var manager: FirebaseAuthenticationManager!
     private var hangoutUser: HangoutUser?
     private var authenticationError: FirebaseAuthenticationError?
     
+    let emailArray = ["fake@gmail.com", "fake1@gmail.com","fake2@gmail.com", "fake3@gmail.com", "fake4@gmail.com"]
+    
+    var userEmail = ""
+    let userPassword = "dummy1"
+    let userName = "Test Dummy 1"
+    
+    var previousRandomNumber: UInt32?
+    
+    private func randomNumber() -> Int {
+        var randomNumber = arc4random_uniform(5)
+        while previousRandomNumber == randomNumber {
+            randomNumber = arc4random_uniform(5)
+        }
+        previousRandomNumber = randomNumber
+        return Int(randomNumber)
+    }
+    
     override func setUp() {
         super.setUp()
         manager = FirebaseAuthenticationManagerMock.sharedInstance
+        userEmail = emailArray[randomNumber()]
     }
     
     override func tearDown() {
@@ -39,12 +55,8 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
     }
     
     func testRegisterCredentialsResultHangoutUser() {
-        let tempEmail = "fake1@gmail.com"
-        let tempPassword = "dummy2"
-        let tempName = "Dummy 2"
-        
         let newUserExpectation = expectation(description: "A new user should be created")
-        manager.registerWithCredentials(tempEmail, tempPassword, tempName) { [unowned self] result in
+        manager.registerWithCredentials(self.userEmail, self.userPassword, self.userName) { [unowned self] result in
             switch result {
             case  .success(let user): self.hangoutUser = user
             case .failure(let error): self.authenticationError = error
@@ -57,8 +69,11 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNil(self.authenticationError)
             XCTAssertNotNil(self.hangoutUser)
-            XCTAssertEqual(tempEmail, self.hangoutUser?.email)
-            XCTAssertEqual(tempName, self.hangoutUser?.name)
+            
+            guard let hangoutUser = self.hangoutUser else { return }
+            
+            XCTAssertEqual(self.userEmail, hangoutUser.email)
+            XCTAssertEqual(self.userName, hangoutUser.name)
         }
     }
     
@@ -100,15 +115,17 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
             XCTAssertNil(self.authenticationError)
             XCTAssertNotNil(self.hangoutUser)
             XCTAssertNotNil(self.manager.currentUser)
-            XCTAssertEqual(self.userEmail, self.hangoutUser?.email)
-            XCTAssertEqual(self.userName, self.hangoutUser?.name)
+            
+            guard let user = self.hangoutUser else { return }
+            XCTAssertEqual(self.userEmail, user.email)
+            XCTAssertEqual(self.userName, user.name)
         }
     }
     
     func testLoginWithCredentialsResultErrorUserNotFound() {
         let authenticationErrorExpectation = expectation(description: "There should be an authentication error")
         manager.registerWithCredentials(userEmail, userPassword, userName) { [unowned self] _ in
-            self.manager.loginWithCredentials("fake2@gmail.com", self.userPassword) { [unowned self] result in
+            self.manager.loginWithCredentials("random@gmail.com", self.userPassword) { [unowned self] result in
                 switch result {
                 case let .success(loggedInUser): self.hangoutUser = loggedInUser
                 case let .failure(authError): self.authenticationError = authError
@@ -120,7 +137,7 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
         waitForExpectations(timeout: 30) { (error) in
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNotNil(self.authenticationError)
-            XCTAssertEqual(self.authenticationError!.type, FirebaseAuthenticationErrorType.userNotFound)
+            XCTAssertEqual(self.authenticationError?.type, FirebaseAuthenticationErrorType.userNotFound)
             XCTAssertNil(self.hangoutUser)
         }
     }

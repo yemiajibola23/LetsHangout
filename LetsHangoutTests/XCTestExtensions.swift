@@ -26,13 +26,13 @@ extension XCTest {
         
         return [Hangout(name: "Test", date: dateFormatter.date(from: "May 22, 2017"), host: "Yemi", latitude: nil, longitude: nil, description: "Description"), Hangout(name: "Test 2", date: dateFormatter.date(from: "March 31, 2017"), host: "Jocelyn", latitude: 21.161908, longitude: -86.851528, description: "Description 2")]
     }
-    
-    
+   
     class FirebaseAuthenticationManagerMock: FirebaseAuthenticationManager {
         var authenticationResult: AuthenticationResult?
         var authenticatedUser: HangoutUser?
         var authenticationError: FirebaseAuthenticationError?
-     
+        
+             
         override func registerWithCredentials(_ email: String, _ password: String, _ name: String, completion: @escaping (AuthenticationResult) -> Void) {
             super.registerWithCredentials(email, password, name) {[unowned self] result in
                 self.authenticationResult = result
@@ -54,5 +54,8 @@ extension XCTest {
                 }
             }
         }
+        
+       
+        
     }
 }
