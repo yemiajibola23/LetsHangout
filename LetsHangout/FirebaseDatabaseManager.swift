@@ -112,8 +112,6 @@ class FirebaseDatabaseManager {
                 })
             }
         })
-        
-        //self.currentUserRef.child(DatabasePath.hangouts.rawValue).removeObserver(withHandle: handle)
     }
     
     func deleteHangout(_ reference: DatabaseReference, completion:@escaping (DatabaseReferenceResult) -> Void) {
