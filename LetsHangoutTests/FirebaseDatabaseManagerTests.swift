@@ -32,7 +32,7 @@ class FirebaseDatabaseManagerTests: XCTestCase {
         previousRandomNumber = randomNumber
         return Int(randomNumber)
     }
-
+    
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM dd, yyyy"
@@ -56,7 +56,7 @@ class FirebaseDatabaseManagerTests: XCTestCase {
         let userEmail = emailArray[randomNumber()]
         let userPassword = "dummy1"
         let userName = "Test Dummy 1"
-
+        
         authManager.registerWithCredentials(userEmail, userPassword, userName) {[unowned self] result in
             switch result {
             case .failure(let authError):
@@ -85,12 +85,9 @@ class FirebaseDatabaseManagerTests: XCTestCase {
         currentUser.delete { XCTAssertNil($0) }
     }
     
-    
-    private func readHangout(ref: DatabaseReference, completion: @escaping ([String: Any]) -> Void) {
+    private func readHangout(ref: DatabaseReference, completion: (([String: Any]?) -> Void)?) {
         ref.observe(.value, with: { snapshot in
-            if let dictionary = snapshot.value as? [String: Any] {
-                completion(dictionary)
-            }
+            completion?(snapshot.value as? [String: Any])
         })
     }
     
@@ -105,17 +102,19 @@ class FirebaseDatabaseManagerTests: XCTestCase {
                 switch result {
                 case let .success(reference):
                     newHangoutReference = reference
-                    self.readHangout(ref: newHangoutReference!) { [unowned self] dict in
-                        self.hangoutName = dict["name"] as? String
-                        self.hangoutHost = dict["host"] as? String
-                        self.hangoutDescription = dict["description"] as? String
-                        self.hangoutDate = Date(timeIntervalSince1970: dict["date"] as! Double)
+                    self.readHangout(ref: reference) { [unowned self] dictionary in
+                        guard let dictionary = dictionary else { return }
+                        self.hangoutName = dictionary["name"] as? String
+                        self.hangoutHost = dictionary["host"] as? String
+                        self.hangoutDescription = dictionary["description"] as? String
+                        if let date = dictionary["date"] as? Double { self.hangoutDate = Date(timeIntervalSince1970: date) }
+                        saveExpectation.fulfill()
                     }
                 case let .failure(databaseError):
                     saveError = databaseError
+                    saveExpectation.fulfill()
                 }
                 
-                saveExpectation.fulfill()
             }
         }
         
@@ -123,8 +122,8 @@ class FirebaseDatabaseManagerTests: XCTestCase {
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNil(saveError)
             XCTAssertNotNil(newHangoutReference)
-            guard let hangoutName = self.hangoutName else { return }
-            XCTAssertEqual(hangoutName, hangout.name)
+            guard newHangoutReference != nil else { return }
+            XCTAssertEqual(self.hangoutName, hangout.name)
             XCTAssertEqual(self.hangoutDate, hangout.date)
             XCTAssertEqual(self.hangoutHost, hangout.host)
             XCTAssertEqual(self.hangoutDescription, hangout.description)
@@ -136,7 +135,7 @@ class FirebaseDatabaseManagerTests: XCTestCase {
         let hangoutsExpecation = expectation(description: "There should be hangouts")
         let hangout = singleHangout()
         
-       login { [unowned self] in
+        login { [unowned self] in
             self.manager.save(hangout: hangout) { [unowned self] _ in
                 self.manager.loadHangouts(completion: { (fetchedHangouts) in
                     loadedHangouts = fetchedHangouts
@@ -150,11 +149,47 @@ class FirebaseDatabaseManagerTests: XCTestCase {
             XCTAssertNotNil(loadedHangouts)
             guard let loadedHangouts = loadedHangouts else { return }
             XCTAssertEqual(loadedHangouts.count, 1)
-            XCTAssertEqual(loadedHangouts.first!.name, "Test")
-            XCTAssertEqual(loadedHangouts.first!.host, "Brian")
+            XCTAssertEqual(loadedHangouts.first?.name, "Test")
+            XCTAssertEqual(loadedHangouts.first?.host, "Brian")
             XCTAssertNil(loadedHangouts.first?.latitude)
             XCTAssertNil(loadedHangouts.first?.longitude)
             XCTAssertEqual(loadedHangouts.first?.description, "Description")
+        }
+    }
+    
+    func testDeleteHangoutSuccess() {
+        var deleteError: FirebaseDatabaseError?
+        let deleteExpecation = expectation(description: "Hangout should be deleted")
+        let hangout = singleHangout()
+        var deletedHangout: [String: Any]?
+        
+        login { [unowned self] in
+            self.manager.save(hangout: hangout) { (result) in
+                var addedReference: DatabaseReference?
+                switch result {
+                case .success(let reference):
+                    addedReference = reference
+                case .failure(_):
+                    break
+                }
+                guard let addReference = addedReference else { XCTFail("No Reference saved"); return }
+                
+                self.manager.deleteHangout(addReference) { [unowned self] result in
+                    switch result {
+                    case .success(let reference):
+                        self.readHangout(ref: reference) { deletedHangout = $0 }
+                    case .failure(let databaseError): deleteError = databaseError
+                    }
+                    
+                    deleteExpecation.fulfill()
+                }
+            }
+        }
+        
+        waitForExpectations(timeout: 30) { (error) in
+            XCTAssertNil(error, error!.localizedDescription)
+            XCTAssertNil(deleteError)
+            XCTAssertNil(deletedHangout)
         }
     }
 }
@@ -166,7 +201,7 @@ extension FirebaseDatabaseManagerTests {
         override func save(hangout: Hangout, completion: @escaping (FirebaseDatabaseManager.DatabaseReferenceResult) -> Void) {
             super.save(hangout: hangout) { [unowned self] result in
                 self.databaseResult = result
-
+                
             }
         }
     }

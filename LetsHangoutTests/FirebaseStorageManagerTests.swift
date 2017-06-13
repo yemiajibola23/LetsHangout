@@ -28,7 +28,7 @@ class FirebaseStorageManagerTests: XCTestCase {
         super.tearDown()
     }
     
-     var previousRandomNumber: UInt32?
+    var previousRandomNumber: UInt32?
     
     private func randomNumber() -> Int {
         var randomNumber = arc4random_uniform(5)
@@ -38,7 +38,7 @@ class FirebaseStorageManagerTests: XCTestCase {
         previousRandomNumber = randomNumber
         return Int(randomNumber)
     }
-
+    
     
     private func login(completion: @escaping () -> Void) {
         let emailArray = ["fake@gmail.com", "fake2@gmail.com","fake3@gmail.com", "fake1@gmail.com", "fake4@gmail.com"]
@@ -101,8 +101,8 @@ class FirebaseStorageManagerTests: XCTestCase {
 extension FirebaseStorageManagerTests {
     class FirebaseStorageManagerMock: FirebaseStorageManager {
         var storageResult: StorageResult?
-//        var storageReference: StorageReference?
-//        var storageError: FirebaseStorageError?
+        //        var storageReference: StorageReference?
+        //        var storageError: FirebaseStorageError?
         
         override func save(photo: UIImage, with id: String, for path: StoragePath, completion: @escaping (FirebaseStorageManager.StorageResult) -> Void) {
             super.save(photo: photo, with: id, for: path) {[unowned self] result  in
