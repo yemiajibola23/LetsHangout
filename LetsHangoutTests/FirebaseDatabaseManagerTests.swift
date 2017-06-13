@@ -64,12 +64,9 @@ class FirebaseDatabaseManagerTests: XCTestCase {
         Database.database().reference().child(DatabasePath.hangouts.rawValue).removeValue()
     }
     
-    
-    private func readHangout(ref: DatabaseReference, completion: @escaping ([String: Any]) -> Void) {
-        ref.observe(.value, with: { snapshot in
-            if let dictionary = snapshot.value as? [String: Any] {
-                completion(dictionary)
-            }
+    private func readHangout(ref: DatabaseReference, completion: (([String: Any]?) -> Void)?) {
+         ref.observe(.value, with: { snapshot in
+            completion?(snapshot.value as? [String: Any])
         })
     }
     
@@ -84,11 +81,12 @@ class FirebaseDatabaseManagerTests: XCTestCase {
                 switch result {
                 case let .success(reference):
                     newHangoutReference = reference
-                    self.readHangout(ref: newHangoutReference!) { [unowned self] dict in
-                        self.hangoutName = dict["name"] as? String
-                        self.hangoutHost = dict["host"] as? String
-                        self.hangoutDescription = dict["description"] as? String
-                        self.hangoutDate = Date(timeIntervalSince1970: dict["date"] as! Double)
+                    self.readHangout(ref: reference) { [unowned self] dictionary in
+                        guard let dictionary = dictionary else { return }
+                        self.hangoutName = dictionary["name"] as? String
+                        self.hangoutHost = dictionary["host"] as? String
+                        self.hangoutDescription = dictionary["description"] as? String
+                        if let date = dictionary["date"] as? Double { self.hangoutDate = Date(timeIntervalSince1970: date) }
                         saveExpectation.fulfill()
                     }
                 case let .failure(databaseError):
@@ -102,6 +100,7 @@ class FirebaseDatabaseManagerTests: XCTestCase {
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNil(saveError)
             XCTAssertNotNil(newHangoutReference)
+            guard newHangoutReference != nil else { return }
             XCTAssertEqual(self.hangoutName, hangout.name)
             XCTAssertEqual(self.hangoutDate, hangout.date)
             XCTAssertEqual(self.hangoutHost, hangout.host)
@@ -111,7 +110,7 @@ class FirebaseDatabaseManagerTests: XCTestCase {
     }
     
     func testLoadHangoutsSuccess() {
-        var loadedHangouts:[Hangout]!
+        var loadedHangouts:[Hangout]?
         let hangoutsExpecation = expectation(description: "There should be hangouts")
         let hangout = singleHangout()
         
@@ -127,43 +126,51 @@ class FirebaseDatabaseManagerTests: XCTestCase {
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNotNil(loadedHangouts)
+            guard let loadedHangouts = loadedHangouts else { return }
             XCTAssertEqual(loadedHangouts.count, 1)
-            XCTAssertEqual(loadedHangouts.first!.name, "Test")
-            XCTAssertEqual(loadedHangouts.first!.host, "Brian")
+            XCTAssertEqual(loadedHangouts.first?.name, "Test")
+            XCTAssertEqual(loadedHangouts.first?.host, "Brian")
             XCTAssertNil(loadedHangouts.first?.latitude)
             XCTAssertNil(loadedHangouts.first?.longitude)
             XCTAssertEqual(loadedHangouts.first?.description, "Description")
         }
     }
     
-    //    func testSaveHangoutResultErrorPermissionDenied() {
-    //        var newHangoutReference: DatabaseReference?
-    //        var saveError: FirebaseDatabaseError?
-    //        let saveExpectation = expectation(description: "A database error should occur")
-    //        let hangout = singleHangout()
-    //
-    //        login {
-    //            self.logout { [unowned self] _ in
-    //                self.manager.save(hangout: hangout) { result in
-    //                    switch result {
-    //                    case let .success(reference): newHangoutReference = reference
-    //                    case let .failure(databaseError):
-    //                        saveError = databaseError
-    //                    }
-    //                    saveExpectation.fulfill()
-    //                }
-    //            }
-    //        }
-    //
-    //
-    //        waitForExpectations(timeout: 30) { error in
-    //            XCTAssertNil(error, error!.localizedDescription)
-    //            XCTAssertNotNil(saveError)
-    //            XCTAssertNil(newHangoutReference)
-    //            XCTAssertEqual(saveError?.type, .permissionDenied)
-    //        }
-    //    }
-    
+    func testDeleteHangoutSuccess() {
+        var deleteError: FirebaseDatabaseError?
+        let deleteExpecation = expectation(description: "Hangout should be deleted")
+        let hangout = singleHangout()
+        var deletedHangout: [String: Any]?
+        
+        login { [unowned self] in
+            self.manager.save(hangout: hangout) { (result) in
+                var addedReference: DatabaseReference?
+                switch result {
+                case .success(let reference):
+                    addedReference = reference
+                case .failure(_):
+                    break
+                }
+                guard let addReference = addedReference else { XCTFail("No Reference saved"); return }
+                
+                self.manager.deleteHangout(addReference) { [unowned self] result in
+                    switch result {
+                    case .success(let reference):
+                        self.readHangout(ref: reference) { deletedHangout = $0 }
+                    case .failure(let databaseError): deleteError = databaseError
+                    }
+                    
+                    deleteExpecation.fulfill()
+                }
+            }
+        }
+        
+        waitForExpectations(timeout: 30) { (error) in
+            XCTAssertNil(error, error!.localizedDescription)
+            XCTAssertNil(deleteError)
+            XCTAssertNil(deletedHangout)
+        }
+    }
 }
 
 extension FirebaseDatabaseManagerTests {
