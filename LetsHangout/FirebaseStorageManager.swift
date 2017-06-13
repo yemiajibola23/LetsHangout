@@ -67,20 +67,20 @@ struct FirebaseStorageError {
 class FirebaseStorageManager {
     static let sharedInstance =
         FirebaseStorageManager()
-    private let hangoutsRef = Storage.storage().reference().child(StoragePath.hangouts.rawValue)
-    private let profilesRef = Storage.storage().reference().child(StoragePath.profiles.rawValue)
     
     typealias StorageResult = Result<StorageReference, FirebaseStorageError>
     
     private init() {}
     
-    func save(photo: UIImage, with id: String, completion: @escaping (StorageResult) -> Void) {
+    private let storageRef = Storage.storage().reference()
+    
+    func save(photo: UIImage, with id: String, for path: StoragePath, completion: @escaping (StorageResult) -> Void) {
         
         guard let data = UIImageJPEGRepresentation(photo, 0.5) else { fatalError() }
         
-        let imageReference = hangoutsRef.child(id)
+        let imageReference = storageRef.child(path.rawValue).child(id)
         
-        imageReference.child(id).putData(data, metadata: nil) { (metadata, error) in
+        imageReference.putData(data, metadata: nil) { (metadata, error) in
             if let storageError = error {
                 completion(StorageResult.failure(FirebaseStorageError(type: FirebaseStorageErrorType(code: storageError._code))))
                 return

@@ -27,10 +27,22 @@ class FirebaseStorageManagerTests: XCTestCase {
         super.tearDown()
     }
     
+     var previousRandomNumber: UInt32?
+    
+    private func randomNumber() -> Int {
+        var randomNumber = arc4random_uniform(5)
+        while previousRandomNumber == randomNumber {
+            randomNumber = arc4random_uniform(5)
+        }
+        previousRandomNumber = randomNumber
+        return Int(randomNumber)
+    }
+
+    
     private func login(completion: @escaping () -> Void) {
-        let emailArray = ["fake@gmail.com", "fake@gmail1.com","fake@gmail2.com"]
+        let emailArray = ["fake@gmail.com", "fake2@gmail.com","fake3@gmail.com", "fake1@gmail.com", "fake4@gmail.com"]
         
-        let userEmail = emailArray[Int(arc4random_uniform(3))]
+        let userEmail = emailArray[randomNumber()]
         let userPassword = "dummy1"
         let userName = "Test Dummy 1"
         
@@ -60,19 +72,17 @@ class FirebaseStorageManagerTests: XCTestCase {
     }
     
     func testSavePhoto() {
-        var newPhotoReference: StorageReference?
-        var saveError: FirebaseStorageError?
         let storageExpectation = expectation(description: "A new photo should be stored")
         let id = singleHangout().id
         let image = #imageLiteral(resourceName: "friends")
         
         login { [unowned self] _ in
-            self.manager.save(photo: image, with: id) { result in
+            self.manager.save(photo: image, with: id, for: .hangouts) { result in
                 switch result {
                 case let .success(reference):
-                    newPhotoReference = reference
-                case let .failure(storageError):
-                    saveError = storageError
+                    self.storageReference = reference
+                case let .failure(error):
+                    self.storageError = error
                 }
                 storageExpectation.fulfill()
             }
@@ -80,8 +90,8 @@ class FirebaseStorageManagerTests: XCTestCase {
         
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, error!.localizedDescription)
-            XCTAssertNil(saveError)
-            XCTAssertNotNil(newPhotoReference)
+            XCTAssertNil(self.storageError)
+            XCTAssertNotNil(self.storageReference)
         }
     }
     
@@ -93,15 +103,9 @@ extension FirebaseStorageManagerTests {
 //        var storageReference: StorageReference?
 //        var storageError: FirebaseStorageError?
         
-        override func save(photo: UIImage, with id: String, completion: @escaping (FirebaseStorageManager.StorageResult) -> Void) {
-            super.save(photo: photo, with: id) {[unowned self] result  in
+        override func save(photo: UIImage, with id: String, for path: StoragePath, completion: @escaping (FirebaseStorageManager.StorageResult) -> Void) {
+            super.save(photo: photo, with: id, for: path) {[unowned self] result  in
                 self.storageResult = result
-//                switch result {
-//                case .success(let reference): self.storageReference = reference
-//                case .failure(let error): self.storageError = error
-//                }
-                
-//                completion(result)
             }
         }
     }

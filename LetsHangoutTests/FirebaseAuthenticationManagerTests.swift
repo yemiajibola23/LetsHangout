@@ -23,10 +23,21 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
     let userPassword = "dummy1"
     let userName = "Test Dummy 1"
     
+    var previousRandomNumber: UInt32?
+    
+    private func randomNumber() -> Int {
+        var randomNumber = arc4random_uniform(5)
+        while previousRandomNumber == randomNumber {
+            randomNumber = arc4random_uniform(5)
+        }
+        previousRandomNumber = randomNumber
+        return Int(randomNumber)
+    }
+    
     override func setUp() {
         super.setUp()
         manager = FirebaseAuthenticationManagerMock.sharedInstance
-        userEmail = emailArray[Int(arc4random_uniform(5))]
+        userEmail = emailArray[randomNumber()]
     }
     
     override func tearDown() {
@@ -104,15 +115,17 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
             XCTAssertNil(self.authenticationError)
             XCTAssertNotNil(self.hangoutUser)
             XCTAssertNotNil(self.manager.currentUser)
-            XCTAssertEqual(self.userEmail, self.hangoutUser?.email)
-            XCTAssertEqual(self.userName, self.hangoutUser?.name)
+            
+            guard let user = self.hangoutUser else { return }
+            XCTAssertEqual(self.userEmail, user.email)
+            XCTAssertEqual(self.userName, user.name)
         }
     }
     
     func testLoginWithCredentialsResultErrorUserNotFound() {
         let authenticationErrorExpectation = expectation(description: "There should be an authentication error")
         manager.registerWithCredentials(userEmail, userPassword, userName) { [unowned self] _ in
-            self.manager.loginWithCredentials("fake2@gmail.com", self.userPassword) { [unowned self] result in
+            self.manager.loginWithCredentials("random@gmail.com", self.userPassword) { [unowned self] result in
                 switch result {
                 case let .success(loggedInUser): self.hangoutUser = loggedInUser
                 case let .failure(authError): self.authenticationError = authError

@@ -22,7 +22,16 @@ class FirebaseDatabaseManagerTests: XCTestCase {
     var hangoutDescription: String?
     var hangoutHost: String?
     
+    var previousRandomNumber: UInt32?
     
+    private func randomNumber() -> Int {
+        var randomNumber = arc4random_uniform(5)
+        while previousRandomNumber == randomNumber {
+            randomNumber = arc4random_uniform(5)
+        }
+        previousRandomNumber = randomNumber
+        return Int(randomNumber)
+    }
 
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -42,9 +51,9 @@ class FirebaseDatabaseManagerTests: XCTestCase {
     }
     
     private func login(completion: @escaping () -> Void) {
-        let emailArray = ["fake@gmail.com", "fake@gmail1.com","fake@gmail2.com"]
+        let emailArray = ["fake@gmail.com", "fake2@gmail.com","fake3@gmail.com", "fake1@gmail.com", "fake4@gmail.com"]
         
-        let userEmail = emailArray[Int(arc4random_uniform(3))]
+        let userEmail = emailArray[randomNumber()]
         let userPassword = "dummy1"
         let userName = "Test Dummy 1"
 
