@@ -8,6 +8,7 @@
 
 import XCTest
 import FirebaseStorage
+import FirebaseAuth
 @testable import LetsHangout
 
 class FirebaseStorageManagerTests: XCTestCase {

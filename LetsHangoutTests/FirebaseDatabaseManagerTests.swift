@@ -77,10 +77,12 @@ class FirebaseDatabaseManagerTests: XCTestCase {
     private func deleteCurrentUserAndHangouts() {
         guard let currentUser = authManager.currentUser else { return }
         let userRef = Database.database().reference().child(DatabasePath.users.rawValue)
-        
         userRef.removeValue()
+        
+        let hangoutsReference =  Database.database().reference().child(DatabasePath.hangouts.rawValue)
+        hangoutsReference.removeValue()
+        
         currentUser.delete { XCTAssertNil($0) }
-        Database.database().reference().child(DatabasePath.hangouts.rawValue).removeValue()
     }
     
     
@@ -108,12 +110,12 @@ class FirebaseDatabaseManagerTests: XCTestCase {
                         self.hangoutHost = dict["host"] as? String
                         self.hangoutDescription = dict["description"] as? String
                         self.hangoutDate = Date(timeIntervalSince1970: dict["date"] as! Double)
-                        saveExpectation.fulfill()
                     }
                 case let .failure(databaseError):
                     saveError = databaseError
-                    saveExpectation.fulfill()
                 }
+                
+                saveExpectation.fulfill()
             }
         }
         
@@ -155,51 +157,16 @@ class FirebaseDatabaseManagerTests: XCTestCase {
             XCTAssertEqual(loadedHangouts.first?.description, "Description")
         }
     }
-    
-    //    func testSaveHangoutResultErrorPermissionDenied() {
-    //        var newHangoutReference: DatabaseReference?
-    //        var saveError: FirebaseDatabaseError?
-    //        let saveExpectation = expectation(description: "A database error should occur")
-    //        let hangout = singleHangout()
-    //
-    //        login {
-    //            self.logout { [unowned self] _ in
-    //                self.manager.save(hangout: hangout) { result in
-    //                    switch result {
-    //                    case let .success(reference): newHangoutReference = reference
-    //                    case let .failure(databaseError):
-    //                        saveError = databaseError
-    //                    }
-    //                    saveExpectation.fulfill()
-    //                }
-    //            }
-    //        }
-    //
-    //
-    //        waitForExpectations(timeout: 30) { error in
-    //            XCTAssertNil(error, error!.localizedDescription)
-    //            XCTAssertNotNil(saveError)
-    //            XCTAssertNil(newHangoutReference)
-    //            XCTAssertEqual(saveError?.type, .permissionDenied)
-    //        }
-    //    }
-    
 }
 
 extension FirebaseDatabaseManagerTests {
     class FirebaseDatabaseManagerMock: FirebaseDatabaseManager {
         var databaseResult: DatabaseReferenceResult?
-//        var databaseReference: DatabaseReference?
-//        var databaseError: FirebaseDatabaseError?
         
         override func save(hangout: Hangout, completion: @escaping (FirebaseDatabaseManager.DatabaseReferenceResult) -> Void) {
             super.save(hangout: hangout) { [unowned self] result in
                 self.databaseResult = result
-//                
-//                switch result {
-//                case let .success(savedReference): self.databaseReference = savedReference
-//                case let .failure(dataError): self.databaseError = dataError
-//                }
+
             }
         }
     }
