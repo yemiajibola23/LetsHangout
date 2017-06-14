@@ -9,8 +9,8 @@
 import UIKit
 import CoreLocation
 
-struct HangoutViewModel {
-    private let hangout: Hangout
+class HangoutViewModel {
+    private var hangout: Hangout
     
     var name: String? { return hangout.name }
     var host: String? { return hangout.host }
@@ -31,11 +31,30 @@ struct HangoutViewModel {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
-    var image: UIImage? {
-        return nil
-    }
+    var image: UIImage?
     
     init(hangout: Hangout) {
         self.hangout = hangout
+        fetchImage(url: hangout.imageURL) {(image) in
+            self.image = image
+        }
+    }
+    
+    private func fetchImage(url: String?, completion:@escaping (UIImage?) -> Void) {
+        
+        guard let url = url else {
+            completion(nil)
+            return
+        }
+        
+        let storageManager = FirebaseStorageManager.sharedInstance
+        
+        storageManager.downloadPhoto(from: url) { result in
+            switch result {
+            case .success(let imageData): completion(UIImage(data: imageData))
+            case .failure(_):
+                completion(nil)
+            }
+        }
     }
 }

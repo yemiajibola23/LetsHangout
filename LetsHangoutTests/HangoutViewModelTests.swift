@@ -47,4 +47,9 @@ class HangoutViewModelTests: XCTestCase {
     func testHangoutViewModelDescription() {
         XCTAssertEqual(hangoutViewModel.description, "Description")
     }
+    
+    func testHangoutViewModelImageNil() {
+        XCTAssertNil(hangoutViewModel.image)
+    }
+    
 }
