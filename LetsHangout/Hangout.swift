@@ -16,8 +16,9 @@ struct Hangout {
     var latitude: Double?
     var longitude: Double?
     var description: String?
+    var imageURL: String?
     
-    init(name: String?, date: Date?, host: String?, latitude: Double?, longitude: Double?, description: String?) {
+    init(name: String?, date: Date?, host: String?, latitude: Double?, longitude: Double?, description: String?, imageURL: String?) {
         id = UUID().uuidString
         self.name = name
         self.date = date
@@ -25,6 +26,7 @@ struct Hangout {
         self.latitude = latitude
         self.longitude = longitude
         self.description = description
+        self.imageURL = imageURL
     }
     
     init(dict: [String: Any]) {
@@ -35,5 +37,6 @@ struct Hangout {
         latitude = dict["latitude"] as? Double
         longitude = dict["longitude"] as? Double
         description = dict["description"] as? String
+        imageURL = dict["imageURL"] as? String
     }
 }

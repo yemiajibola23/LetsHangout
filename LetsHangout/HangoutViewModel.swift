@@ -6,7 +6,7 @@
 //  Copyright © 2017 Yemi Ajibola. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreLocation
 
 struct HangoutViewModel {
@@ -29,6 +29,10 @@ struct HangoutViewModel {
         guard let latitude = hangout.latitude, let longitude = hangout.longitude else { return nil }
         
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+    
+    var image: UIImage? {
+        return nil
     }
     
     init(hangout: Hangout) {
