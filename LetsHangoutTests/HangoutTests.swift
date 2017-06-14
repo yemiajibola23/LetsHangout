@@ -18,7 +18,7 @@ class HangoutTests: XCTestCase {
         super.setUp()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
         
-        hangout = Hangout(name: "Test", date: dateFormatter.date(from: dateString), host: "Yemi", latitude: 25.034280, longitude: -77.396280, description: "Description")
+        hangout = Hangout(name: "Test", date: dateFormatter.date(from: dateString), host: "Yemi", latitude: 25.034280, longitude: -77.396280, description: "Description", imageURL: nil)
     }
     
     override func tearDown() {
@@ -50,5 +50,9 @@ class HangoutTests: XCTestCase {
     
     func testHangoutDescription() {
         XCTAssertEqual(hangout.description, "Description")
+    }
+    
+    func testImageURL() {
+        XCTAssertNil(hangout.imageURL)
     }
 }
