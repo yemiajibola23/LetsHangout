@@ -15,7 +15,7 @@ class FirebaseStorageManagerTests: XCTestCase {
     var manager: FirebaseStorageManager!
     var authManager: FirebaseAuthenticationManager!
     
-    var storageReference: StorageReference?
+    var storagePath: String?
     var storageError: FirebaseStorageError?
     
     override func setUp() {
@@ -49,8 +49,7 @@ class FirebaseStorageManagerTests: XCTestCase {
         
         authManager.registerWithCredentials(userEmail, userPassword, userName) {[unowned self] result in
             switch result {
-            case .failure(let authError):
-                print(authError.message)
+            case .failure(_):
                 return
             case .success(_):
                 self.manager = FirebaseStorageManagerMock.sharedInstance
@@ -67,12 +66,13 @@ class FirebaseStorageManagerTests: XCTestCase {
     private func deleteCurrentUserAndStorage() {
         guard let currentUser = authManager.currentUser, let userRef = authManager.currentUserRef else { return }
         userRef.removeValue()
-        
-        storageReference?.delete(completion: nil)
+        if let storagePath = storagePath {
+            Storage.storage().reference(withPath: storagePath).delete(completion: nil)
+        }
         currentUser.delete { XCTAssertNil($0) }
     }
     
-    func testSavePhoto() {
+    func testSavePhotoResultStorageReference() {
         let storageExpectation = expectation(description: "A new photo should be stored")
         let id = singleHangout().id
         let image = #imageLiteral(resourceName: "friends")
@@ -80,8 +80,8 @@ class FirebaseStorageManagerTests: XCTestCase {
         login { [unowned self] _ in
             self.manager.save(photo: image, with: id, for: .hangouts) { result in
                 switch result {
-                case let .success(reference):
-                    self.storageReference = reference
+                case let .success(path):
+                    self.storagePath = path
                 case let .failure(error):
                     self.storageError = error
                 }
@@ -92,21 +92,53 @@ class FirebaseStorageManagerTests: XCTestCase {
         waitForExpectations(timeout: 30) { error in
             XCTAssertNil(error, error!.localizedDescription)
             XCTAssertNil(self.storageError)
-            XCTAssertNotNil(self.storageReference)
+            XCTAssertNotNil(self.storagePath)
         }
     }
-    
+  
+    func testDownloadPhotoResultImage() {
+          let storageExpectation = expectation(description: "A new photo should be stored")
+        let id = singleHangout().id
+        let image = #imageLiteral(resourceName: "friends")
+        var imageData: Data?
+        var downloadError: FirebaseStorageError?
+        
+        login { [unowned self] _ in
+            self.manager.save(photo: image, with: id, for: .hangouts, completion: { result in
+                switch result {
+                case .success(let path): self.storagePath = path
+                case .failure(let err): XCTFail(err.message)
+                }
+                guard let storagePath = self.storagePath else { XCTFail("No image path"); return }
+                guard let imageReference = self.manager.createReferenceFrom(path: storagePath) else { XCTFail("Couldn't create reference"); return }
+                self.manager.downloadPhoto(from: imageReference.description, completion: { imageResult in
+                    switch(imageResult) {
+                    case .success(let data): imageData = data
+                    case .failure(let error): downloadError = error
+                    }
+                    
+                    storageExpectation.fulfill()
+                })
+            })
+        }
+        
+        waitForExpectations(timeout: 30) { (error) in
+            XCTAssertNil(error, error!.localizedDescription)
+            XCTAssertNil(downloadError)
+            XCTAssertNotNil(imageData)
+        }
+    }
 }
 
 extension FirebaseStorageManagerTests {
     class FirebaseStorageManagerMock: FirebaseStorageManager {
-        var storageResult: StorageResult?
+        var storageReferenceResult: StorageReferenceResult?
         //        var storageReference: StorageReference?
         //        var storageError: FirebaseStorageError?
         
-        override func save(photo: UIImage, with id: String, for path: StoragePath, completion: @escaping (FirebaseStorageManager.StorageResult) -> Void) {
+        override func save(photo: UIImage, with id: String, for path: StoragePath, completion: @escaping (FirebaseStorageManager.StorageReferenceResult) -> Void) {
             super.save(photo: photo, with: id, for: path) {[unowned self] result  in
-                self.storageResult = result
+                self.storageReferenceResult = result
             }
         }
     }

@@ -68,26 +68,49 @@ class FirebaseStorageManager {
     static let sharedInstance =
         FirebaseStorageManager()
     
-    typealias StorageResult = Result<StorageReference, FirebaseStorageError>
+    typealias StorageReferenceResult = Result<String, FirebaseStorageError>
+    typealias StorageDataResult = Result<Data, FirebaseStorageError>
     
     private init() {}
     
     private let storageRef = Storage.storage().reference()
     
-    func save(photo: UIImage, with id: String, for path: StoragePath, completion: @escaping (StorageResult) -> Void) {
+    func save(photo: UIImage, with id: String, for path: StoragePath, completion: @escaping (StorageReferenceResult) -> Void) {
         
-        guard let data = UIImageJPEGRepresentation(photo, 0.5) else { fatalError() }
+        guard let data = UIImageJPEGRepresentation(photo, 0.5) else { completion(.failure(FirebaseStorageError(type: .unknown))); return}
         
         let imageReference = storageRef.child(path.rawValue).child(id)
         
         imageReference.putData(data, metadata: nil) { (metadata, error) in
             if let storageError = error {
-                completion(StorageResult.failure(FirebaseStorageError(type: FirebaseStorageErrorType(code: storageError._code))))
+                completion(StorageReferenceResult.failure(FirebaseStorageError(type: FirebaseStorageErrorType(code: storageError._code))))
                 return
             }
             
-            completion(StorageResult.success(imageReference))
+            guard let metadata = metadata else {  completion(.failure(FirebaseStorageError(type: .unknown))); return }
+            
+            completion(StorageReferenceResult.success(metadata.path!))
         }
     }
     
+    func createReferenceFrom(path: String) -> StorageReference? {
+        return storageRef.child(path)
+    }
+    
+    func downloadPhoto(from url: String, completion: @escaping (StorageDataResult) -> Void) {
+        let imageReference = Storage.storage().reference(forURL: url)
+        imageReference.getData(maxSize: INT64_MAX) { (data, error) in
+            if let error = error {
+                completion(StorageDataResult.failure(FirebaseStorageError.init(type: FirebaseStorageErrorType.init(code: error._code))))
+                return
+            }
+            
+            if let data = data {
+                completion(StorageDataResult.success(data))
+                return
+            }
+            
+            completion(StorageDataResult.failure(FirebaseStorageError(type: .unknown)))
+        }
+    }
 }

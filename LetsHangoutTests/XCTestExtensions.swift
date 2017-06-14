@@ -17,14 +17,14 @@ extension XCTest {
        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
         
-        return Hangout(name: "Test", date: dateFormatter.date(from: "May 31, 2017"), host: "Brian", latitude: nil, longitude: nil, description: "Description")
+        return Hangout(name: "Test", date: dateFormatter.date(from: "May 31, 2017"), host: "Brian", latitude: nil, longitude: nil, description: "Description", imageURL: nil)
     }
     
     func multipleHangouts() -> [Hangout] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
         
-        return [Hangout(name: "Test", date: dateFormatter.date(from: "May 22, 2017"), host: "Yemi", latitude: nil, longitude: nil, description: "Description"), Hangout(name: "Test 2", date: dateFormatter.date(from: "March 31, 2017"), host: "Jocelyn", latitude: 21.161908, longitude: -86.851528, description: "Description 2")]
+        return [Hangout(name: "Test", date: dateFormatter.date(from: "May 22, 2017"), host: "Yemi", latitude: nil, longitude: nil, description: "Description", imageURL: nil), Hangout(name: "Test 2", date: dateFormatter.date(from: "March 31, 2017"), host: "Jocelyn", latitude: 21.161908, longitude: -86.851528, description: "Description 2", imageURL: nil)]
     }
    
     class FirebaseAuthenticationManagerMock: FirebaseAuthenticationManager {
@@ -32,7 +32,6 @@ extension XCTest {
         var authenticatedUser: HangoutUser?
         var authenticationError: FirebaseAuthenticationError?
         
-             
         override func registerWithCredentials(_ email: String, _ password: String, _ name: String, completion: @escaping (AuthenticationResult) -> Void) {
             super.registerWithCredentials(email, password, name) {[unowned self] result in
                 self.authenticationResult = result

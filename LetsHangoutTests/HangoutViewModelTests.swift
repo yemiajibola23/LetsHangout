@@ -19,7 +19,7 @@ class HangoutViewModelTests: XCTestCase {
         super.setUp()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
         
-        hangout = Hangout(name: "Test", date: dateFormatter.date(from: "May 23, 2017"), host: "Yemi", latitude: 25.034280, longitude: -77.396280, description: "Description")
+        hangout = Hangout(name: "Test", date: dateFormatter.date(from: "May 23, 2017"), host: "Yemi", latitude: 25.034280, longitude: -77.396280, description: "Description", imageURL: nil)
         hangoutViewModel = HangoutViewModel(hangout: hangout)
     }
     
