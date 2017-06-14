@@ -29,15 +29,15 @@ class HangoutViewModelTests: XCTestCase {
     }
     
     func testHangoutViewModelName() {
-        XCTAssertEqual(hangoutViewModel.name, "Test")
+        XCTAssertEqual(hangoutViewModel.name, hangout.name)
     }
     
     func testHangoutViewModelDate() {
-        XCTAssertEqual(hangoutViewModel.date, "May 23, 2017")
+        XCTAssertEqual(hangoutViewModel.date, dateFormatter.string(from: hangout.date!))
     }
     
     func testHangoutViewModelHost() {
-        XCTAssertEqual(hangoutViewModel.host, "Yemi")
+        XCTAssertEqual(hangoutViewModel.host, hangout.host)
     }
     
     func testHangoutViewModelLocationCoordinate() {
@@ -45,7 +45,7 @@ class HangoutViewModelTests: XCTestCase {
     }
     
     func testHangoutViewModelDescription() {
-        XCTAssertEqual(hangoutViewModel.description, "Description")
+        XCTAssertEqual(hangoutViewModel.description, hangout.description)
     }
     
     func testHangoutViewModelImageNil() {
