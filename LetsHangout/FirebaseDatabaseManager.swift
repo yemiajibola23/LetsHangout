@@ -6,7 +6,7 @@
 //  Copyright © 2017 Yemi Ajibola. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
@@ -77,7 +77,6 @@ class FirebaseDatabaseManager {
         currentUserRef = userRef.child(currentUser.uid)
     }
     
-    
     func save(hangout: Hangout, completion: @escaping (DatabaseReferenceResult) -> Void) {
         let hangoutDictionary = generateHangoutDictionary(hangout: hangout)
         
@@ -89,6 +88,7 @@ class FirebaseDatabaseManager {
             }
             
             self.currentUserRef.child(DatabasePath.hangouts.rawValue).child(ref.key).setValue(["key": 1])
+            
             let result = DatabaseReferenceResult.success(ref)
             completion(result)
         })

@@ -15,6 +15,7 @@ class HangoutViewModel {
     var name: String? { return hangout.name }
     var host: String? { return hangout.host }
     var description: String? { return hangout.description }
+    var image: UIImage?
     
     var date: String? {
         let formatter = DateFormatter()
@@ -31,24 +32,21 @@ class HangoutViewModel {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
-    var image: UIImage?
-    
     init(hangout: Hangout) {
         self.hangout = hangout
         fetchImage(url: hangout.imageURL) {(image) in
             self.image = image
         }
     }
-    
+
     private func fetchImage(url: String?, completion:@escaping (UIImage?) -> Void) {
-        
         guard let url = url else {
             completion(nil)
             return
         }
         
         let storageManager = FirebaseStorageManager.sharedInstance
-        
+    
         storageManager.downloadPhoto(from: url) { result in
             switch result {
             case .success(let imageData): completion(UIImage(data: imageData))

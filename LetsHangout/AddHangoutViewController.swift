@@ -24,21 +24,33 @@ class AddHangoutViewController: UIViewController {
     }
     
     @IBAction func onSaveButtonTapped(_ sender: UIButton) {
-        let addHangoutVieModel = AddHangoutViewModel()
+        let addViewModel = AddHangoutViewModel(name: nameTextField.text, date: dateTextField.text, host: hostTextField.text, description: descriptionTextView.text, location: nil)
+        
         let databaseManager = FirebaseDatabaseManager.sharedInstance
-        let hangout = addHangoutVieModel.createHangout(name: nameTextField.text, date: dateTextField.text, host: hostTextField.text, description: descriptionTextView.text, latitude: nil, longitude: nil, image: hangoutImageView.image)
+        let storageManager = FirebaseStorageManager.sharedInstance
+        
+        guard let hangout = addViewModel.hangout else { return }
         
         databaseManager.save(hangout: hangout) { result in
-//            switch result {
-//            case .success(let reference):
-//                break
-//            case .failure(let saveError):
-//                // TODO: Handle error
-//                break
-//            }
+            switch result {
+            case .success(let reference):
+                if self.hangoutImageView.image != nil && self.hangoutImageView.image != #imageLiteral(resourceName: "noimage") {
+                    storageManager.save(photo: self.hangoutImageView.image!, with: reference.key, for: .hangouts, completion: { storageResult in
+                        switch storageResult {
+                        case .success(let path): reference.updateChildValues(["imageURL": path])
+                        case .failure(let storError):
+                            self.presentAlert(title: "An error ocurred", message: storError.message)
+                        }
+                    })
+                }
+                
+            case .failure(let saveError):
+                self.presentAlert(title: "An error occurred", message: saveError.message)
+                break
+            }
         }
         
         
     }
-
+    
 }
