@@ -50,10 +50,10 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
     
     private func deleteCurrentUser() {
         guard let currentUser = manager.currentUser, let userRef = manager.currentUserRef else { return }
+        userRef.removeValue()
         currentUser.delete {
             XCTAssertNil($0)
         }
-        userRef.removeValue()
     }
     
     func testRegisterCredentialsResultHangoutUser() {
