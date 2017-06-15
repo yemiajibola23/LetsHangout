@@ -16,7 +16,7 @@ class AddHangoutViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        viewModel = AddHangoutViewModel(name: "Test", date: "May 23, 2017", host: "Yemi", description: "Description", location: CLLocation(latitude: 25.034280, longitude: -77.396280))
+        viewModel = AddHangoutViewModel(name: "Test", date: "May 23, 2017", host: "Yemi", description: "Description", location: CLLocationCoordinate2D(latitude: 25.034280, longitude: -77.396280))
     }
     
     override func tearDown() {
@@ -41,8 +41,8 @@ class AddHangoutViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.description, "Description")
     }
     
-    func testAddHangoutViewModelLocation() {
-        XCTAssertNotNil(viewModel.location)
+    func testAddHangoutViewModelLocationCoordinate() {
+        XCTAssertNotNil(viewModel.locationCoordinate)
     }
     
     func testAddHangoutViewModelHangout() {

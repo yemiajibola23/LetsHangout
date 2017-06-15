@@ -16,19 +16,19 @@ class AddHangoutViewModel {
     var date: String?
     var host: String?
     var description: String?
-    var location: CLLocation?
+    var locationCoordinate: CLLocationCoordinate2D?
     //var image: UIImage?
     
-    init(name: String?, date: String?, host: String?, description: String?, location: CLLocation?) {
+    init(name: String?, date: String?, host: String?, description: String?, location: CLLocationCoordinate2D?) {
         self.name = name
         self.date = date
         self.host = host
         self.description = description
 //        self.image = image
-        self.location = location
+        self.locationCoordinate = location
         
-        let latitude = location?.coordinate.latitude
-        let longitude = location?.coordinate.longitude
+        let latitude = location?.latitude
+        let longitude = location?.longitude
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"

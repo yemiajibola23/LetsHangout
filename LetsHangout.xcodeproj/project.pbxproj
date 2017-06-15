@@ -238,6 +238,7 @@
 		DB6322121EE880A70081948E /* LetsHangout */ = {
 			isa = PBXGroup;
 			children = (
+				DB2B0F161EEBC90E00E5E88D /* Enums */,
 				DB2B0F1B1EEC57F300E5E88D /* Extensions */,
 				DB6322561EE8A5E50081948E /* View */,
 				DB2B0F281EECF39400E5E88D /* Managers */,
@@ -278,7 +279,6 @@
 			children = (
 				DB6322451EE882570081948E /* Hangout.swift */,
 				DB2B0F0E1EEB2AAC00E5E88D /* HangoutUser.swift */,
-				DB2B0F161EEBC90E00E5E88D /* Enums */,
 			);
 			name = Model;
 			sourceTree = "<group>";
