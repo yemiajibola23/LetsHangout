@@ -17,27 +17,27 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
     private var hangoutUser: HangoutUser?
     private var authenticationError: FirebaseAuthenticationError?
     
-    let emailArray = ["fake@gmail.com", "fake1@gmail.com","fake2@gmail.com", "fake3@gmail.com", "fake4@gmail.com"]
+//    let emailArray = ["fake@gmail.com", "fake1@gmail.com","fake2@gmail.com", "fake3@gmail.com", "fake4@gmail.com"]
     
-    var userEmail = ""
+    var userEmail = "fake@gmail.com"
     let userPassword = "dummy1"
     let userName = "Test Dummy 1"
     
     var previousRandomNumber: UInt32?
     
-    private func randomNumber() -> Int {
-        var randomNumber = arc4random_uniform(5)
-        while previousRandomNumber == randomNumber {
-            randomNumber = arc4random_uniform(5)
-        }
-        previousRandomNumber = randomNumber
-        return Int(randomNumber)
-    }
+//    private func randomNumber() -> Int {
+//        var randomNumber = arc4random_uniform(5)
+//        while previousRandomNumber == randomNumber {
+//            randomNumber = arc4random_uniform(5)
+//        }
+//        previousRandomNumber = randomNumber
+//        return Int(randomNumber)
+//    }
     
     override func setUp() {
         super.setUp()
         manager = FirebaseAuthenticationManagerMock.sharedInstance
-        userEmail = emailArray[randomNumber()]
+//        userEmail = emailArray[randomNumber()]
     }
     
     override func tearDown() {
@@ -50,8 +50,10 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
     
     private func deleteCurrentUser() {
         guard let currentUser = manager.currentUser, let userRef = manager.currentUserRef else { return }
+        currentUser.delete {
+            XCTAssertNil($0)
+        }
         userRef.removeValue()
-        currentUser.delete { XCTAssertNil($0) }
     }
     
     func testRegisterCredentialsResultHangoutUser() {
@@ -67,7 +69,7 @@ class FirebaseAuthenticationManagerTests: XCTestCase {
         
         waitForExpectations(timeout: 30) { [unowned self] error in
             XCTAssertNil(error, error!.localizedDescription)
-            XCTAssertNil(self.authenticationError)
+            XCTAssertNil(self.authenticationError, self.authenticationError!.message)
             XCTAssertNotNil(self.hangoutUser)
             
             guard let hangoutUser = self.hangoutUser else { return }

@@ -7,30 +7,46 @@
 //
 
 import XCTest
+import CoreLocation
 @testable import LetsHangout
 
 class AddHangoutViewModelTests: XCTestCase {
+    var viewModel: AddHangoutViewModel!
     
     override func setUp() {
         super.setUp()
+        
+        viewModel = AddHangoutViewModel(name: "Test", date: "May 23, 2017", host: "Yemi", description: "Description", location: CLLocation(latitude: 25.034280, longitude: -77.396280))
     }
     
     override func tearDown() {
+        viewModel = nil
         super.tearDown()
     }
+
     
-    func testAddHangoutViewModelCreateHangout() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy"
-        
-        let addHangoutViewModel = AddHangoutViewModel()
-        let hangout = addHangoutViewModel.createHangout(name: "Test", date: "May 23, 2017", host: "Yemi", description: "Description", latitude: 25.034280, longitude: -77.396280, image: nil)
-        
-        XCTAssertEqual(hangout.name, "Test")
-        XCTAssertEqual(hangout.date, dateFormatter.date(from: "May 23, 2017"))
-        XCTAssertEqual(hangout.host, "Yemi")
-        XCTAssertEqual(hangout.description, "Description")
-        XCTAssertEqual(hangout.latitude, 25.034280)
-        XCTAssertEqual(hangout.longitude, -77.396280)
+    func testAddHangoutViewModelName() {
+        XCTAssertEqual(viewModel.name, "Test")
     }
+    
+    func testAddHangoutViewModelDate() {
+        XCTAssertEqual(viewModel.date, "May 23, 2017")
+    }
+    
+    func testAddHangoutViewModelHost() {
+        XCTAssertEqual(viewModel.host, "Yemi")
+    }
+    
+    func testAddHangoutViewModelDescription() {
+        XCTAssertEqual(viewModel.description, "Description")
+    }
+    
+    func testAddHangoutViewModelLocation() {
+        XCTAssertNotNil(viewModel.location)
+    }
+    
+    func testAddHangoutViewModelHangout() {
+        XCTAssertNotNil(viewModel.hangout)
+    }
+    
 }
