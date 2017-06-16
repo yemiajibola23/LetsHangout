@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var loginRegisterSegmentControl: UISegmentedControl!
     @IBOutlet weak var loginRegisterButton: UIButton!
+    @IBOutlet weak var profileImageView: ProfileImageView!
     
     static let nibName = "LoginViewController"
     
