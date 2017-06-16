@@ -25,6 +25,8 @@
 		DB2B0F2A1EEE2C8F00E5E88D /* FirebaseStorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F291EEE2C8F00E5E88D /* FirebaseStorageManagerTests.swift */; };
 		DB2B0F2C1EEE2CEE00E5E88D /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F2B1EEE2CEE00E5E88D /* FirebaseStorageManager.swift */; };
 		DB2B0F2F1EEE3A5F00E5E88D /* StoragePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F2E1EEE3A5F00E5E88D /* StoragePath.swift */; };
+		DB2B0F3B1EF4329100E5E88D /* HangoutImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F3A1EF4329100E5E88D /* HangoutImageView.swift */; };
+		DB2B0F3D1EF433D300E5E88D /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F3C1EF433D300E5E88D /* ProfileImageView.swift */; };
 		DB6322141EE880A70081948E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322131EE880A70081948E /* AppDelegate.swift */; };
 		DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB63221A1EE880A70081948E /* LetsHangout.xcdatamodeld */; };
 		DB63221E1EE880A70081948E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB63221D1EE880A70081948E /* Assets.xcassets */; };
@@ -92,6 +94,8 @@
 		DB2B0F291EEE2C8F00E5E88D /* FirebaseStorageManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManagerTests.swift; sourceTree = "<group>"; };
 		DB2B0F2B1EEE2CEE00E5E88D /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
 		DB2B0F2E1EEE3A5F00E5E88D /* StoragePath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoragePath.swift; sourceTree = "<group>"; };
+		DB2B0F3A1EF4329100E5E88D /* HangoutImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutImageView.swift; sourceTree = "<group>"; };
+		DB2B0F3C1EF433D300E5E88D /* ProfileImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		DB6322101EE880A70081948E /* LetsHangout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsHangout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6322131EE880A70081948E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB63221B1EE880A70081948E /* LetsHangout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LetsHangout.xcdatamodel; sourceTree = "<group>"; };
@@ -335,6 +339,8 @@
 			isa = PBXGroup;
 			children = (
 				DB6322731EEA2C950081948E /* Cells */,
+				DB2B0F3A1EF4329100E5E88D /* HangoutImageView.swift */,
+				DB2B0F3C1EF433D300E5E88D /* ProfileImageView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -706,6 +712,7 @@
 				DB2B0F1D1EEC581500E5E88D /* UIViewControllerExtensions.swift in Sources */,
 				DB6322721EE9B9D70081948E /* HangoutListDataProvider.swift in Sources */,
 				DB6322681EE93A8B0081948E /* HangoutListViewController.swift in Sources */,
+				DB2B0F3B1EF4329100E5E88D /* HangoutImageView.swift in Sources */,
 				DB63226B1EE93CD80081948E /* HangoutCollectionViewViewModel.swift in Sources */,
 				DB6322761EEA2CC80081948E /* HangoutCollectionViewCell.swift in Sources */,
 				DB2B0F111EEB351B00E5E88D /* HangoutUserViewModel.swift in Sources */,
@@ -714,6 +721,7 @@
 				DB2B0F181EEBC92C00E5E88D /* DatabasePath.swift in Sources */,
 				DB2B0F0F1EEB2AAC00E5E88D /* HangoutUser.swift in Sources */,
 				DB6322141EE880A70081948E /* AppDelegate.swift in Sources */,
+				DB2B0F3D1EF433D300E5E88D /* ProfileImageView.swift in Sources */,
 				DB2B0F2C1EEE2CEE00E5E88D /* FirebaseStorageManager.swift in Sources */,
 				DB2B0F131EEBC57200E5E88D /* FirebaseAuthenticationManager.swift in Sources */,
 				DB63224E1EE8956A0081948E /* HangoutViewModel.swift in Sources */,

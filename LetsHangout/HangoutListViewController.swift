@@ -28,6 +28,7 @@ class HangoutListViewController: UIViewController {
     
     @IBOutlet weak var hangoutCollectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var profileImageView: ProfileImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -34,7 +34,7 @@ class AddHangoutViewController: UIViewController {
         databaseManager.save(hangout: hangout) { result in
             switch result {
             case .success(let reference):
-                if self.hangoutImageView.image != nil && self.hangoutImageView.image != #imageLiteral(resourceName: "noimage") {
+                if self.hangoutImageView.image != #imageLiteral(resourceName: "noimage") {
                     storageManager.save(photo: self.hangoutImageView.image!, with: reference.key, for: .hangouts, completion: { storageResult in
                         switch storageResult {
                         case .success(let path): reference.updateChildValues(["imageURL": path])

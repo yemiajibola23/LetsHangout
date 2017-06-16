@@ -129,6 +129,13 @@ class FirebaseDatabaseManager {
         }
     }
     
+    func observeAddedHangouts(completion:@escaping ([Hangout]) -> Void) {
+        self.currentUserRef.child(DatabasePath.hangouts.rawValue).observe(.childAdded, with: { snapshot in
+            print(snapshot.value ?? "N/A")
+            completion([])
+        })
+    }
+    
     
     private func generateHangoutDictionary(hangout: Hangout) -> [String: Any] {
         return ["ID": hangout.id, "name": hangout.name ?? "N/A", "date": hangout.date?.timeIntervalSince1970 ?? "N/A", "host": hangout.host ?? "N/A", "description": hangout.description ?? "N/A", "latitude": hangout.latitude ?? "N/A", "longitude": hangout.longitude ?? "N/A"]

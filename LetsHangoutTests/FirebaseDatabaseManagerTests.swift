@@ -192,6 +192,32 @@ class FirebaseDatabaseManagerTests: XCTestCase {
             XCTAssertNil(deletedHangout)
         }
     }
+    
+    
+//    func testObserveAddedHangoutsResultSuccess() {
+//        let observeExpectation = expectation(description: "There should be hangouts added")
+////        let newHangouts: [Hangout]?
+////        let observeError: FirebaseDatabaseError?
+//        let hangouts = multipleHangouts()
+//        
+//        login {
+//            self.manager.observeAddedHangouts { _ in
+//                self.manager.save(hangout: hangouts.first!, completion: { result in
+//                    switch result {
+//                    case .failure(let error): XCTFail(error.message)
+//                    case .success(_): break
+//                    }
+//                })
+//                
+//                observeExpectation.fulfill()
+//            }
+//        }
+//        
+//        
+//        waitForExpectations(timeout: 20) { error in
+//            XCTAssertNil(error, error!.localizedDescription)
+//        }
+//    }
 }
 
 extension FirebaseDatabaseManagerTests {

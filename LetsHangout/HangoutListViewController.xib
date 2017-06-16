@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="activityIndicator" destination="SW1-qH-YOc" id="O8S-Db-qyr"/>
                 <outlet property="hangoutCollectionView" destination="pg0-bW-PbE" id="SW9-kO-1cS"/>
+                <outlet property="profileImageView" destination="pbD-Zv-e1O" id="CUw-CF-ohp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pbD-Zv-e1O">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pbD-Zv-e1O" customClass="ProfileImageView" customModule="LetsHangout" customModuleProvider="target">
                     <rect key="frame" x="279" y="20" width="80" height="80"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
