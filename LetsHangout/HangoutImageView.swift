@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HangoutImageViewDelegate: class {
-    func imageViewWasTapped(_ imageView: UIImageView)
+    func imageViewWasTapped(_ imageView: HangoutImageView)
 }
 
 
@@ -19,13 +19,11 @@ class HangoutImageView: UIImageView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        layer.cornerRadius = 40
+        layer.cornerRadius = 25
         clipsToBounds = true
         isUserInteractionEnabled = true
         
-        addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(handleImageTap)))
-        
-        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleImageTap)))
     }
     
     func handleImageTap() {
