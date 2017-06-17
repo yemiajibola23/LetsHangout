@@ -13,7 +13,6 @@ enum AuthenticationState {
     case notAuthenticated
 }
 
-
 class LoginViewModel {
     private let authenticationManager = FirebaseAuthenticationManager.sharedInstance
     var state: AuthenticationState = .notAuthenticated {
