@@ -17,4 +17,13 @@ extension UIViewController {
         
         present(alertController, animated: true, completion: nil)
     }
+    
+    func choosePhotoWith(sourceType: UIImagePickerControllerSourceType) {
+        let imagePicker = UIImagePickerController(rootViewController: self)
+        imagePicker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        imagePicker.sourceType = sourceType
+        imagePicker.allowsEditing = true
+        
+        present(imagePicker, animated: true, completion: nil)
+    }
 }

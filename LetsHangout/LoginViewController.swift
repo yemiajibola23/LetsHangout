@@ -79,43 +79,10 @@ class LoginViewController: UIViewController {
         self.present(controller, animated: true, completion: nil)
     }
     
-    
-    fileprivate func choosePhotoWith(sourceType: UIImagePickerControllerSourceType) {
-        let imagePicker = UIImagePickerController(rootViewController: self)
-        imagePicker.delegate = self
-        imagePicker.sourceType = sourceType
-        imagePicker.allowsEditing = true
-        
-        present(imagePicker, animated: true, completion: nil)
-    }
 }
 
 
 extension LoginViewController: HangoutImageViewDelegate {
-    func imageViewWasTapped(_ imageView: HangoutImageView) {
-       let profilePictureAlert = UIAlertController(title: "Choose a source type", message: nil, preferredStyle: .actionSheet)
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            profilePictureAlert.addAction(UIAlertAction(title: "Camera", style: .default) { _ in
-                self.choosePhotoWith(sourceType: .camera)
-            })
-        }
-        
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            profilePictureAlert.addAction(UIAlertAction(title: "Photo Library", style: .default) { _ in
-                self.choosePhotoWith(sourceType: .photoLibrary)
-            })
-        }
-        
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            profilePictureAlert.addAction(UIAlertAction(title: "Saved Photos", style: .default) { _ in
-                self.choosePhotoWith(sourceType: .savedPhotosAlbum)
-            })
-        }
-        
-        profilePictureAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(profilePictureAlert, animated: true, completion: nil)
-    }
 }
 extension LoginViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
