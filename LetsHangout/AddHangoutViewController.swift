@@ -37,7 +37,10 @@ class AddHangoutViewController: UIViewController {
                 if self.hangoutImageView.image != #imageLiteral(resourceName: "noimage") {
                     storageManager.save(photo: self.hangoutImageView.image!, with: reference.key, for: .hangouts, completion: { storageResult in
                         switch storageResult {
-                        case .success(let path): reference.updateChildValues(["imageURL": path])
+                        case .success(let path):
+                            reference.updateChildValues(["imageURL": path])
+                            self.presentAlert(title: "Hangout Saved", message: nil)
+                            self.dismiss(animated: true, completion: nil)
                         case .failure(let storError):
                             self.presentAlert(title: "An error ocurred", message: storError.message)
                         }
