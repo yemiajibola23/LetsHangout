@@ -14,7 +14,6 @@ class ProfileImageView: HangoutImageView {
         super.init(coder: aDecoder)
         
         layer.cornerRadius = 0.5 * self.frame.height
-        clipsToBounds = true
     }
 
 }

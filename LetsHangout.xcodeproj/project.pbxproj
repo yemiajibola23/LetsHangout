@@ -221,6 +221,15 @@
 			name = "Manager Tests";
 			sourceTree = "<group>";
 		};
+		DB2B0F421EF5F41A00E5E88D /* Image Views */ = {
+			isa = PBXGroup;
+			children = (
+				DB2B0F3A1EF4329100E5E88D /* HangoutImageView.swift */,
+				DB2B0F3C1EF433D300E5E88D /* ProfileImageView.swift */,
+			);
+			name = "Image Views";
+			sourceTree = "<group>";
+		};
 		DB6322071EE880A70081948E = {
 			isa = PBXGroup;
 			children = (
@@ -254,9 +263,9 @@
 				DB6322441EE8824D0081948E /* Model */,
 				DB63224B1EE894DD0081948E /* View Model */,
 				DB6322471EE882600081948E /* Supporting Files */,
+				DB6322591EE8A75F0081948E /* Core Data */,
 				DB63221D1EE880A70081948E /* Assets.xcassets */,
 				DB63221F1EE880A70081948E /* LaunchScreen.storyboard */,
-				DB6322591EE8A75F0081948E /* Core Data */,
 			);
 			path = LetsHangout;
 			sourceTree = "<group>";
@@ -344,8 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				DB6322731EEA2C950081948E /* Cells */,
-				DB2B0F3A1EF4329100E5E88D /* HangoutImageView.swift */,
-				DB2B0F3C1EF433D300E5E88D /* ProfileImageView.swift */,
+				DB2B0F421EF5F41A00E5E88D /* Image Views */,
 			);
 			name = View;
 			sourceTree = "<group>";
