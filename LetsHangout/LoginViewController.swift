@@ -28,42 +28,36 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginRegisterButtonWasTapped(_ sender: UIButton) {
-        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
+        loginRegisterSegmentControl.selectedSegmentIndex == 0 ? login() : register()
+    }
+    
+    func register() {
+        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty, let name = nameTextField.text, !name.isEmpty else {
             presentAlert(title: "An error occurred", message: "All fields must be filled in")
             return
         }
         
-        if loginRegisterSegmentControl.selectedSegmentIndex == 1 {
-            guard let name = nameTextField.text, !name.isEmpty else {
-                presentAlert(title: "An error occurred", message: "All fields must be filled in")
-                return
-            }
-            register(email: email, password: password, name: name)
-        
-        } else {
-            login(email: email, password: password)
-        }
-    }
-    
-    func register(email: String, password: String, name: String) {
         loginViewModel.registerNewUser(email: email, password: password, name: name) { [unowned self] result in
-            switch result {
-            case .success(let newUser): self.hangoutListViewController(fetchedUser: newUser)
-            case .failure(let authError): self.presentAlert(title: "An error occurred", message: authError.message)
-            }
+            self.handle(result: result)
         }
     }
     
-    func login(email: String, password: String) {
+    func login() {
+        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
+            presentAlert(title: "An error occurred", message: "All fields must be filled in")
+            return
+        }
         loginViewModel.loginUser(email: email, password: password) { [unowned self] result in
-            switch result {
-            case .success(let loggedInUser):
-                self.hangoutListViewController(fetchedUser: loggedInUser)
-            case .failure(let authError): self.presentAlert(title: "An error occurred", message: authError.message)
-            }
+            self.handle(result: result)
         }
     }
     
+    private func handle(result: AuthenticationResult) {
+        switch result {
+        case .success(let newUser): self.hangoutListViewController(fetchedUser: newUser)
+        case .failure(let authError): self.presentAlert(title: "An error occurred", message: authError.message)
+        }
+    }
     
     @IBAction func loginRegisterSegmentControlDidChange(_ sender: UISegmentedControl) {
         //  TODO: Hide name textfield if login

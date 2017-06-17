@@ -27,6 +27,13 @@ class LoginViewModel {
         }
     }
     
+    init() {
+        if let id = UserDefaults.standard.value(forKey: "authenticated") as? String {
+            state = .authenticated(id)
+        } else {
+            state = .notAuthenticated
+        }
+    }
     
     func loginUser(email: String, password: String, completion: @escaping (AuthenticationResult) -> Void) {
         authenticationManager.loginWithCredentials(email, password, completion: completion)

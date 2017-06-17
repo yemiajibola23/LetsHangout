@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         let controller = LoginViewController(nibName: LoginViewController.nibName, bundle: nil)
+        controller.loginViewModel = LoginViewModel()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = controller
         window?.makeKeyAndVisible()
