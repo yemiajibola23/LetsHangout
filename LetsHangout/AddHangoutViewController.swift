@@ -63,5 +63,20 @@ class AddHangoutViewController: UIViewController {
     
 }
 
-extension AddHangoutViewController: HangoutImageViewDelegate {
+extension AddHangoutViewController: HangoutImageViewDelegate {}
+
+extension AddHangoutViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            hangoutImageView.image = editedImage
+        } else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            hangoutImageView.image = originalImage
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

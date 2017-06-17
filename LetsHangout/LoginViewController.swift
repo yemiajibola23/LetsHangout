@@ -82,8 +82,8 @@ class LoginViewController: UIViewController {
 }
 
 
-extension LoginViewController: HangoutImageViewDelegate {
-}
+extension LoginViewController: HangoutImageViewDelegate {}
+
 extension LoginViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
