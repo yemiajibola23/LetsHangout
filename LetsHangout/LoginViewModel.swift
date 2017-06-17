@@ -16,9 +16,14 @@ enum AuthenticationState {
 
 class LoginViewModel {
     private let authenticationManager = FirebaseAuthenticationManager.sharedInstance
-    var state: AuthenticationState? = .notAuthenticated {
+    var state: AuthenticationState = .notAuthenticated {
         didSet {
-            //TODO: Save in user defaults
+            switch state {
+            case .authenticated(let uid):
+                UserDefaults.standard.set(uid, forKey: "authenticated")
+            case .notAuthenticated:
+                UserDefaults.standard.set(nil, forKey: "authenticated")
+            }
         }
     }
     

@@ -77,6 +77,7 @@ class LoginViewController: UIViewController {
         
         let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
         controller.currentUserViewModel = HangoutUserViewModel(user: fetchedUser)
+        controller.loginViewModel = loginViewModel
         
         self.present(controller, animated: true, completion: nil)
     }

@@ -70,7 +70,7 @@ class HangoutListViewController: UIViewController {
     }
     
     fileprivate func hangoutSettingsAlert() {
-        let settingsAlert = UIAlertController(title: <#T##String?#>, message: <#T##String?#>, preferredStyle: .actionSheet)
+        let settingsAlert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         settingsAlert.addAction(UIAlertAction(title: "Logout", style: .default) { [unowned self] _ in
             self.logoutUser()
         })
