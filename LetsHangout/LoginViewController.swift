@@ -24,8 +24,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
         profileImageView.delegate = self
     }
     
@@ -40,24 +38,32 @@ class LoginViewController: UIViewController {
                 presentAlert(title: "An error occurred", message: "All fields must be filled in")
                 return
             }
-            
-            loginViewModel.registerNewUser(email: email, password: password, name: name) { [unowned self] result in
-                switch result {
-                case .success(let newUser): self.hangoutListViewController(fetchedUser: newUser)
-                case .failure(let authError): self.presentAlert(title: "An error occurred", message: authError.message)
-                }
-                
-            }
+            register(email: email, password: password, name: name)
+        
         } else {
-            loginViewModel.loginUser(email: email, password: password, completion: { [unowned self] result in
-                switch result {
-                case .success(let loggedInUser): self.hangoutListViewController(fetchedUser: loggedInUser)
-                case .failure(let authError): self.presentAlert(title: "An error occurred", message: authError.message)
-                }
-                
-            })
+            login(email: email, password: password)
         }
     }
+    
+    func register(email: String, password: String, name: String) {
+        loginViewModel.registerNewUser(email: email, password: password, name: name) { [unowned self] result in
+            switch result {
+            case .success(let newUser): self.hangoutListViewController(fetchedUser: newUser)
+            case .failure(let authError): self.presentAlert(title: "An error occurred", message: authError.message)
+            }
+        }
+    }
+    
+    func login(email: String, password: String) {
+        loginViewModel.loginUser(email: email, password: password) { [unowned self] result in
+            switch result {
+            case .success(let loggedInUser):
+                self.hangoutListViewController(fetchedUser: loggedInUser)
+            case .failure(let authError): self.presentAlert(title: "An error occurred", message: authError.message)
+            }
+        }
+    }
+    
     
     @IBAction func loginRegisterSegmentControlDidChange(_ sender: UISegmentedControl) {
         //  TODO: Hide name textfield if login
@@ -67,6 +73,8 @@ class LoginViewController: UIViewController {
     }
     
     private func hangoutListViewController(fetchedUser: HangoutUser) {
+        loginViewModel.state = .authenticated(fetchedUser.uid)
+        
         let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
         controller.currentUserViewModel = HangoutUserViewModel(user: fetchedUser)
         

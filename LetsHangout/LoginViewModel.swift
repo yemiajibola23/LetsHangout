@@ -8,8 +8,19 @@
 
 import Foundation
 
+enum AuthenticationState {
+    case authenticated(String)
+    case notAuthenticated
+}
+
+
 class LoginViewModel {
-    let authenticationManager = FirebaseAuthenticationManager.sharedInstance
+    private let authenticationManager = FirebaseAuthenticationManager.sharedInstance
+    var state: AuthenticationState? = .notAuthenticated {
+        didSet {
+            //TODO: Save in user defaults
+        }
+    }
     
     
     func loginUser(email: String, password: String, completion: @escaping (AuthenticationResult) -> Void) {
@@ -20,5 +31,8 @@ class LoginViewModel {
         authenticationManager.registerWithCredentials(email, password, name, completion: completion)
     }
     
+    func logout(completion: (FirebaseAuthenticationError?) -> Void) {
+        authenticationManager.logout(completion: completion)
+    }
     
 }

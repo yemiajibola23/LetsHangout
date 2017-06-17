@@ -24,27 +24,65 @@ class HangoutListViewController: UIViewController {
     }
     
     static var nibName: String { return "HangoutListViewController" }
-    var firebaseDatabaseManager = FirebaseDatabaseManager.sharedInstance
+    let firebaseDatabaseManager = FirebaseDatabaseManager.sharedInstance
+    var loginViewModel: LoginViewModel!
     
     @IBOutlet weak var hangoutCollectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var profileImageView: ProfileImageView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        profileImageView.delegate = self
+        
         //hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
-//        hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
-//        
-//        activityIndicator.startAnimating()
-//        
-//        DispatchQueue.global().async {
-//            self.firebaseDatabaseManager.loadHangouts { [unowned self]  hangouts in
-//                DispatchQueue.main.async {
-//                    let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
-//                    self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
-//                    self.activityIndicator.stopAnimating()
-//                }
-//            }
-//        }
+        //        hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
+        //
+        //        activityIndicator.startAnimating()
+        //
+        //        DispatchQueue.global().async {
+        //            self.firebaseDatabaseManager.loadHangouts { [unowned self]  hangouts in
+        //                DispatchQueue.main.async {
+        //                    let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
+        //                    self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
+        //                    self.activityIndicator.stopAnimating()
+        //                }
+        //            }
+        //        }
     }
+    
+    fileprivate func logoutUser() {
+        loginViewModel.logout {[unowned self] error in
+            if let authError = error {
+                self.presentAlert(title: "An error ocurred", message: authError.message)
+                return
+            }
+            
+            self.loginViewModel.state = .notAuthenticated
+            self.loginViewController()
+        }
+    }
+    
+    private func loginViewController() {
+        let controller = LoginViewController(nibName: LoginViewController.nibName, bundle: nil)
+        present(controller, animated: true, completion: nil)
+    }
+    
+    fileprivate func hangoutSettingsAlert() {
+        let settingsAlert = UIAlertController(title: <#T##String?#>, message: <#T##String?#>, preferredStyle: .actionSheet)
+        settingsAlert.addAction(UIAlertAction(title: "Logout", style: .default) { [unowned self] _ in
+            self.logoutUser()
+        })
+        
+        present(settingsAlert, animated: true, completion: nil)
+    }
+}
+
+extension HangoutListViewController: HangoutImageViewDelegate {
+    func imageViewWasTapped(_ imageView: HangoutImageView) {
+        hangoutSettingsAlert()
+    }
+    
+    
 }

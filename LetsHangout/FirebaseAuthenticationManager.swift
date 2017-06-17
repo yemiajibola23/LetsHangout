@@ -121,7 +121,8 @@ class FirebaseAuthenticationManager {
         completion(nil)
     }
     
-    private func createUser(user: User, email: String, name: String, completion:@escaping (AuthenticationResult) -> Void) {
+    private func createUser(user: User, email: String, name: String, completion:
+        @escaping (AuthenticationResult) -> Void) {
         let reference = databaseReference.child(DatabasePath.users.rawValue).child(user.uid)
         let userDictionary = generateHangoutUserDictionary(id: user.uid, email: email, name: name)
         
@@ -147,7 +148,7 @@ class FirebaseAuthenticationManager {
     }
     
     private func generateHangoutUser(id: String, email: String, name: String) -> HangoutUser {
-        return HangoutUser(name: name, email: email, profilePictureURL: nil)
+        return HangoutUser(name: name, email: email, profilePictureURL: nil, uid: id)
     }
     
     private func generateHangoutUserDictionary(id: String, email: String, name: String) -> [String: Any] {
