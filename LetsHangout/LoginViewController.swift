@@ -11,6 +11,7 @@ import UIKit
 class LoginViewController: UIViewController {
     
     let firebaseAuthenticationManager = FirebaseAuthenticationManager.sharedInstance
+    var loginViewModel: LoginViewModel!
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -29,7 +30,33 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginRegisterButtonWasTapped(_ sender: UIButton) {
-        loginRegisterSegmentControl.selectedSegmentIndex == 1 ? loginUser() : registerNewUser()
+        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
+            presentAlert(title: "An error occurred", message: "All fields must be filled in")
+            return
+        }
+        
+        if loginRegisterSegmentControl.selectedSegmentIndex == 1 {
+            guard let name = nameTextField.text, !name.isEmpty else {
+                presentAlert(title: "An error occurred", message: "All fields must be filled in")
+                return
+            }
+            
+            loginViewModel.registerNewUser(email: email, password: password, name: name) { [unowned self] result in
+                switch result {
+                case .success(let newUser): self.hangoutListViewController(fetchedUser: newUser)
+                case .failure(let authError): self.presentAlert(title: "An error occurred", message: authError.message)
+                }
+                
+            }
+        } else {
+            loginViewModel.loginUser(email: email, password: password, completion: { [unowned self] result in
+                switch result {
+                case .success(let loggedInUser): self.hangoutListViewController(fetchedUser: loggedInUser)
+                case .failure(let authError): self.presentAlert(title: "An error occurred", message: authError.message)
+                }
+                
+            })
+        }
     }
     
     @IBAction func loginRegisterSegmentControlDidChange(_ sender: UISegmentedControl) {
@@ -39,46 +66,12 @@ class LoginViewController: UIViewController {
         loginRegisterButton.setTitle(title, for: .normal)
     }
     
-    private func loginUser() {
-        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
-            presentAlert(title: "An error occurred", message: "All fields must be filled in")
-            return
-        }
-        
-        firebaseAuthenticationManager.loginWithCredentials(email, password) { [unowned self] result in
-            switch result {
-            case .success(let loggedInUser):
-                self.hangoutListViewController(fetchedUser: loggedInUser)
-            case .failure(let authError):
-                self.presentAlert(title: "An error occurred", message: authError.message)
-                break
-            }
-        }
-    }
-    
-    private func registerNewUser() {
-        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty, let name = nameTextField.text, !name.isEmpty else {
-            presentAlert(title: "An error occurred", message: "All fields must be filled in")
-            return
-        }
-        
-        firebaseAuthenticationManager.registerWithCredentials(email, password, name) {[unowned self] result in
-            switch result {
-            case .success(let newUser):
-                self.hangoutListViewController(fetchedUser: newUser)
-            case .failure(let authError):
-              self.presentAlert(title: "An error occurred", message: authError.message)
-            }
-        }
-    }
-    
     private func hangoutListViewController(fetchedUser: HangoutUser) {
         let controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
         controller.currentUserViewModel = HangoutUserViewModel(user: fetchedUser)
         
         self.present(controller, animated: true, completion: nil)
     }
-    
 }
 
 

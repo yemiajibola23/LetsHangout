@@ -27,6 +27,7 @@
 		DB2B0F2F1EEE3A5F00E5E88D /* StoragePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F2E1EEE3A5F00E5E88D /* StoragePath.swift */; };
 		DB2B0F3B1EF4329100E5E88D /* HangoutImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F3A1EF4329100E5E88D /* HangoutImageView.swift */; };
 		DB2B0F3D1EF433D300E5E88D /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F3C1EF433D300E5E88D /* ProfileImageView.swift */; };
+		DB2B0F3F1EF51AA000E5E88D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B0F3E1EF51AA000E5E88D /* LoginViewModel.swift */; };
 		DB6322141EE880A70081948E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322131EE880A70081948E /* AppDelegate.swift */; };
 		DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB63221A1EE880A70081948E /* LetsHangout.xcdatamodeld */; };
 		DB63221E1EE880A70081948E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB63221D1EE880A70081948E /* Assets.xcassets */; };
@@ -96,6 +97,7 @@
 		DB2B0F2E1EEE3A5F00E5E88D /* StoragePath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoragePath.swift; sourceTree = "<group>"; };
 		DB2B0F3A1EF4329100E5E88D /* HangoutImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutImageView.swift; sourceTree = "<group>"; };
 		DB2B0F3C1EF433D300E5E88D /* ProfileImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		DB2B0F3E1EF51AA000E5E88D /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		DB6322101EE880A70081948E /* LetsHangout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsHangout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6322131EE880A70081948E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB63221B1EE880A70081948E /* LetsHangout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LetsHangout.xcdatamodel; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				DB63225C1EE8A82E0081948E /* AddHangoutViewModel.swift */,
 				DB63226A1EE93CD80081948E /* HangoutCollectionViewViewModel.swift */,
 				DB2B0F101EEB351B00E5E88D /* HangoutUserViewModel.swift */,
+				DB2B0F3E1EF51AA000E5E88D /* LoginViewModel.swift */,
 			);
 			name = "View Model";
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB2B0F3F1EF51AA000E5E88D /* LoginViewModel.swift in Sources */,
 				DB2B0F0A1EEB180300E5E88D /* LoginViewController.swift in Sources */,
 				DB63221C1EE880A70081948E /* LetsHangout.xcdatamodeld in Sources */,
 				DB6322461EE882570081948E /* Hangout.swift in Sources */,

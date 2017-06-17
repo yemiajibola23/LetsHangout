@@ -19,7 +19,7 @@ class HangoutListViewController: UIViewController {
     
     var currentUserViewModel: HangoutUserViewModel! {
         didSet {
-            // TODO: Update profile pic
+            profileImageView.image = currentUserViewModel.image
         }
     }
     
