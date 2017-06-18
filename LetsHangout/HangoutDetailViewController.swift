@@ -20,6 +20,8 @@ class HangoutDetailViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var profileImageView: ProfileImageView!
     
+    var viewModel: HangoutViewModel!
+    static var nibName: String { return "HangoutDetailViewController" }
     
     override func viewDidLoad() {
         super.viewDidLoad()

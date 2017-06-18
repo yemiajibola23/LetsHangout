@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol HangoutListDataProviderDelegate: class {
+    func cellWasSelected(with viewModel: HangoutViewModel)
+}
+
 class HangoutListDataProvider: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private var collectionViewModel: HangoutCollectionViewViewModel!
+    weak var delegate: HangoutListDataProviderDelegate?
     
     init(viewModel: HangoutCollectionViewViewModel) {
         self.collectionViewModel = viewModel
@@ -32,5 +37,10 @@ class HangoutListDataProvider: NSObject, UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 50, bottom: 50, right: 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewModel = collectionViewModel.viewModelFor(index: indexPath.row)
+        delegate?.cellWasSelected(with: viewModel)
     }
 }

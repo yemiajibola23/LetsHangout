@@ -35,21 +35,22 @@ class HangoutListViewController: UIViewController {
         super.viewDidLoad()
         
         profileImageView.delegate = self
-        
-        //hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
-        //        hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
-        //
-        //        activityIndicator.startAnimating()
-        //
-        //        DispatchQueue.global().async {
-        //            self.firebaseDatabaseManager.loadHangouts { [unowned self]  hangouts in
-        //                DispatchQueue.main.async {
-        //                    let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
-        //                    self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
-        //                    self.activityIndicator.stopAnimating()
-        //                }
-        //            }
-        //        }
+//        
+//        hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
+//                hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
+//        
+//                activityIndicator.startAnimating()
+//        
+//                DispatchQueue.global().async {
+//                    self.firebaseDatabaseManager.loadHangouts { [unowned self]  hangouts in
+//                        DispatchQueue.main.async {
+//                            let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
+//                            self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
+//                            self.dataProvider.delegate = self
+//                            self.activityIndicator.stopAnimating()
+//                        }
+//                    }
+//                }
     }
     
     fileprivate func logoutUser() {
@@ -66,6 +67,15 @@ class HangoutListViewController: UIViewController {
     
     private func loginViewController() {
         let controller = LoginViewController(nibName: LoginViewController.nibName, bundle: nil)
+        controller.loginViewModel = loginViewModel
+        
+        present(controller, animated: true, completion: nil)
+    }
+    
+    fileprivate func detailViewController(viewModel: HangoutViewModel) {
+        let controller = HangoutDetailViewController(nibName: HangoutDetailViewController.nibName, bundle: nil)
+        controller.viewModel = viewModel
+        
         present(controller, animated: true, completion: nil)
     }
     
@@ -83,6 +93,10 @@ extension HangoutListViewController: HangoutImageViewDelegate {
     func imageViewWasTapped(_ imageView: HangoutImageView) {
         hangoutSettingsAlert()
     }
-    
-    
+}
+
+extension HangoutListViewController: HangoutListDataProviderDelegate {
+    func cellWasSelected(with viewModel: HangoutViewModel) {
+        detailViewController(viewModel: viewModel)
+    }
 }
