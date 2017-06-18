@@ -270,15 +270,15 @@
 		DB6322121EE880A70081948E /* LetsHangout */ = {
 			isa = PBXGroup;
 			children = (
+				DB6322511EE8A3C40081948E /* Controller */,
+				DB6322591EE8A75F0081948E /* Core Data */,
 				DB2B0F161EEBC90E00E5E88D /* Enums */,
 				DB2B0F1B1EEC57F300E5E88D /* Extensions */,
-				DB6322561EE8A5E50081948E /* View */,
 				DB2B0F281EECF39400E5E88D /* Managers */,
-				DB6322511EE8A3C40081948E /* Controller */,
 				DB6322441EE8824D0081948E /* Model */,
-				DB63224B1EE894DD0081948E /* View Model */,
 				DB6322471EE882600081948E /* Supporting Files */,
-				DB6322591EE8A75F0081948E /* Core Data */,
+				DB6322561EE8A5E50081948E /* View */,
+				DB63224B1EE894DD0081948E /* View Model */,
 				DB63221D1EE880A70081948E /* Assets.xcassets */,
 				DB63221F1EE880A70081948E /* LaunchScreen.storyboard */,
 			);
@@ -289,10 +289,10 @@
 			isa = PBXGroup;
 			children = (
 				DB63226E1EE93D820081948E /* Extensions */,
-				DB6322781EEA53F20081948E /* View Tests */,
 				DB2B0F2D1EEE2D6500E5E88D /* Manager Tests */,
-				DB63224C1EE894F20081948E /* View Model Tests */,
 				DB6322481EE882F40081948E /* Model Tests */,
+				DB6322781EEA53F20081948E /* View Tests */,
+				DB63224C1EE894F20081948E /* View Model Tests */,
 				DB63222D1EE880A70081948E /* Info.plist */,
 			);
 			path = LetsHangoutTests;

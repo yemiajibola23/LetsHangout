@@ -27,9 +27,9 @@ class AddHangoutViewController: UIViewController {
     }
     
     @IBAction func onSaveButtonTapped(_ sender: UIButton) {
-        let addViewModel = AddHangoutViewModel(name: nameTextField.text, date: dateTextField.text, host: hostTextField.text, description: descriptionTextView.text, location: nil)
-        
         let databaseManager = FirebaseDatabaseManager.sharedInstance
+        
+        let addViewModel = AddHangoutViewModel(name: nameTextField.text, date: dateTextField.text, host: hostTextField.text, description: descriptionTextView.text, location: nil, uid: UserDefaults.standard.value(forKey: "authentication") as! String)
         
         guard let hangout = addViewModel.hangout else { return }
         

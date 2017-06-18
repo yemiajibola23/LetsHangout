@@ -104,22 +104,22 @@ class FirebaseStorageManagerTests: XCTestCase {
         var downloadError: FirebaseStorageError?
         
         login { [unowned self] _ in
-            self.manager.save(photo: image, with: id, for: .hangouts, completion: { result in
+            self.manager.save(photo: image, with: id, for: .hangouts) { result in
                 switch result {
                 case .success(let path): self.storagePath = path
                 case .failure(let err): XCTFail(err.message)
                 }
                 guard let storagePath = self.storagePath else { XCTFail("No image path"); return }
                 guard let imageReference = self.manager.createReferenceFrom(path: storagePath) else { XCTFail("Couldn't create reference"); return }
-                self.manager.downloadPhoto(from: imageReference.description, completion: { imageResult in
+                self.manager.downloadPhoto(from: imageReference.description) { imageResult in
                     switch(imageResult) {
                     case .success(let data): imageData = data
                     case .failure(let error): downloadError = error
                     }
                     
                     storageExpectation.fulfill()
-                })
-            })
+                }
+            }
         }
         
         waitForExpectations(timeout: 30) { (error) in

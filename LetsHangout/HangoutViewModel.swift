@@ -16,6 +16,7 @@ class HangoutViewModel {
     var host: String? { return hangout.host }
     var description: String? { return hangout.description }
     var image: UIImage?
+    var uid: String { return hangout.uid }
     
     var date: String? {
         let formatter = DateFormatter()

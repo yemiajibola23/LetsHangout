@@ -100,7 +100,7 @@ class FirebaseDatabaseManager {
             var flag = true
             var hangouts: [Hangout] = []
             for snap in snapshot.children.allObjects {
-                self.hangoutsRef.child((snap as? DataSnapshot)!.key).observeSingleEvent(of: .value, with: { (hangoutSnap) in
+                self.hangoutsRef.child((snap as? DataSnapshot)!.key).observeSingleEvent(of: .value, with: { hangoutSnap in
                     if let dict = hangoutSnap.value as? [String: Any] {
                         hangouts.append(Hangout(dict: dict))
                         count += 1
@@ -138,6 +138,6 @@ class FirebaseDatabaseManager {
     
     
     private func generateHangoutDictionary(hangout: Hangout) -> [String: Any] {
-        return ["ID": hangout.id, "name": hangout.name ?? "N/A", "date": hangout.date?.timeIntervalSince1970 ?? "N/A", "host": hangout.host ?? "N/A", "description": hangout.description ?? "N/A", "latitude": hangout.latitude ?? "N/A", "longitude": hangout.longitude ?? "N/A"]
+        return ["ID": hangout.id, "name": hangout.name ?? "N/A", "date": hangout.date?.timeIntervalSince1970 ?? "N/A", "host": hangout.host ?? "N/A", "description": hangout.description ?? "N/A", "latitude": hangout.latitude ?? "N/A", "longitude": hangout.longitude ?? "N/A", "uid": Auth.auth().currentUser!.uid]
     }
 }
