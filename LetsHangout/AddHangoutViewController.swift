@@ -20,6 +20,8 @@ class AddHangoutViewController: UIViewController {
     
     static var nibName: String { return "AddHangoutViewController" }
     
+    var currentUserViewModel: HangoutUserViewModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +31,7 @@ class AddHangoutViewController: UIViewController {
     @IBAction func onSaveButtonTapped(_ sender: UIButton) {
         let databaseManager = FirebaseDatabaseManager.sharedInstance
         
-        let addViewModel = AddHangoutViewModel(name: nameTextField.text, date: dateTextField.text, host: hostTextField.text, description: descriptionTextView.text, location: nil, uid: UserDefaults.standard.value(forKey: "authentication") as! String)
+        let addViewModel = AddHangoutViewModel(name: nameTextField.text, date: dateTextField.text, host: hostTextField.text, description: descriptionTextView.text, location: nil, uid: currentUserViewModel.uid)
         
         guard let hangout = addViewModel.hangout else { return }
         

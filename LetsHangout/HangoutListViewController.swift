@@ -79,6 +79,13 @@ class HangoutListViewController: UIViewController {
         present(controller, animated: true, completion: nil)
     }
     
+    private func addHangoutViewController(viewModel: HangoutUserViewModel) {
+        let controller = AddHangoutViewController(nibName: AddHangoutViewController.nibName, bundle: nil)
+        controller.currentUserViewModel = viewModel
+        
+        present(controller, animated: true, completion: nil)
+    }
+    
     fileprivate func hangoutSettingsAlert() {
         let settingsAlert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         settingsAlert.addAction(UIAlertAction(title: "Logout", style: .default) { [unowned self] _ in

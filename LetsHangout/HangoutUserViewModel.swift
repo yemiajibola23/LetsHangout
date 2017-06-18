@@ -13,6 +13,7 @@ class HangoutUserViewModel {
     private var user: HangoutUser
     
     var name: String { return user.name }
+    var uid: String { return user.uid }
     var image: UIImage?
     
     init(user: HangoutUser) {
