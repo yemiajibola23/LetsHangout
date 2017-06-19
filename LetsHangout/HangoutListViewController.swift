@@ -53,17 +53,7 @@ class HangoutListViewController: UIViewController {
 //                }
     }
     
-    fileprivate func logoutUser() {
-        loginViewModel.logout {[unowned self] error in
-            if let authError = error {
-                self.presentAlert(title: "An error ocurred", message: authError.message)
-                return
-            }
-            
-            self.loginViewModel.state = .notAuthenticated
-            self.loginViewController()
-        }
-    }
+    
     
     private func loginViewController() {
         let controller = LoginViewController(nibName: LoginViewController.nibName, bundle: nil)
@@ -76,6 +66,7 @@ class HangoutListViewController: UIViewController {
         let controller = HangoutDetailViewController(nibName: HangoutDetailViewController.nibName, bundle: nil)
         controller.viewModel = viewModel
         controller.userViewModel = currentUserViewModel
+        controller.loginViewModel = loginViewModel
         
         present(controller, animated: true, completion: nil)
     }
@@ -95,6 +86,19 @@ class HangoutListViewController: UIViewController {
         
         present(settingsAlert, animated: true, completion: nil)
     }
+    
+    private func logoutUser() {
+        loginViewModel.logout {[unowned self] error in
+            if let authError = error {
+                self.presentAlert(title: "An error ocurred", message: authError.message)
+                return
+            }
+            
+            self.loginViewModel.state = .notAuthenticated
+            self.loginViewController()
+        }
+    }
+    
 }
 
 extension HangoutListViewController: HangoutImageViewDelegate {
