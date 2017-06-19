@@ -75,6 +75,7 @@ class HangoutListViewController: UIViewController {
     fileprivate func detailViewController(viewModel: HangoutViewModel) {
         let controller = HangoutDetailViewController(nibName: HangoutDetailViewController.nibName, bundle: nil)
         controller.viewModel = viewModel
+        controller.userViewModel = currentUserViewModel
         
         present(controller, animated: true, completion: nil)
     }

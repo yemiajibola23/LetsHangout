@@ -19,7 +19,7 @@ class HangoutViewModelTests: XCTestCase {
         super.setUp()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
         
-        hangout = Hangout(name: "Test", date: dateFormatter.date(from: "May 23, 2017"), host: "Yemi", latitude: 25.034280, longitude: -77.396280, description: "Description", imageURL: nil)
+        hangout = Hangout(name: "Test", date: dateFormatter.date(from: "May 23, 2017"), host: "Yemi", latitude: 25.034280, longitude: -77.396280, description: "Description", imageURL: nil, uid: "1234")
         hangoutViewModel = HangoutViewModel(hangout: hangout)
     }
     
@@ -52,4 +52,7 @@ class HangoutViewModelTests: XCTestCase {
         XCTAssertNil(hangoutViewModel.image)
     }
     
+    func testHangoutViewModelUID() {
+        XCTAssertEqual(hangoutViewModel.uid, hangout.uid)
+    }
 }
