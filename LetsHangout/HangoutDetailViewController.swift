@@ -66,9 +66,9 @@ class HangoutDetailViewController: UIViewController {
             self.logoutUser()
         })
         
-        settingsAlert.addAction(UIAlertAction(title: isEditModeActive ? "Save Hangout" : "Edit Hangout", style: .default, handler: { [unowned self] _ in
+        settingsAlert.addAction(UIAlertAction(title: isEditModeActive ? "Save Hangout" : "Edit Hangout", style: .default) { [unowned self] _ in
             self.toggleEdit(on: !self.isEditModeActive)
-        }))
+        })
         
         settingsAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
@@ -79,11 +79,11 @@ class HangoutDetailViewController: UIViewController {
         loginViewModel.logout {[unowned self] error in
             if let authError = error {
                 self.presentAlert(title: "An error occurred", message: authError.message)
-                return
+            } else {
+                self.loginViewModel.state = .notAuthenticated
+                self.loginViewController()
             }
             
-            self.loginViewModel.state = .notAuthenticated
-            self.loginViewController()
         }
     }
     
@@ -114,10 +114,15 @@ class HangoutDetailViewController: UIViewController {
         saveButton.setTitle("Save", for: .normal)
     }
     
-    @IBAction func onSaveButtonTapped(_ sender: UIButton) {
+    private func saveHangoutChanges() {
+        
     }
     
-    
+    @IBAction func onSaveButtonTapped(_ sender: UIButton) {
+        guard  sender.currentTitle == "Save" else { toggleEdit(on: false); return }
+        saveHangoutChanges()
+        
+    }
 }
 
 extension HangoutDetailViewController: HangoutImageViewDelegate {
@@ -127,5 +132,8 @@ extension HangoutDetailViewController: HangoutImageViewDelegate {
 }
 
 extension HangoutDetailViewController: UITextFieldDelegate, UITextViewDelegate {
-    
+    func textViewDidChange(_ textView: UITextView) {
+        let title = textView.text == descriptionTextView.text ? "Cancel": "Save"
+        saveButton.setTitle(title, for: .normal)
+    }
 }

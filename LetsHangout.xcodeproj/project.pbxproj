@@ -53,6 +53,7 @@
 		DB6322761EEA2CC80081948E /* HangoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322741EEA2CC80081948E /* HangoutCollectionViewCell.swift */; };
 		DB6322771EEA2CC80081948E /* HangoutCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB6322751EEA2CC80081948E /* HangoutCollectionViewCell.xib */; };
 		DB63227A1EEA54100081948E /* HangoutCollectionViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6322791EEA54100081948E /* HangoutCollectionViewCellTests.swift */; };
+		DBC6A9A01EFBA98B00E6DCCC /* LetsHangoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6A99F1EFBA98B00E6DCCC /* LetsHangoutUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		DB6322741EEA2CC80081948E /* HangoutCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB6322751EEA2CC80081948E /* HangoutCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HangoutCollectionViewCell.xib; sourceTree = "<group>"; };
 		DB6322791EEA54100081948E /* HangoutCollectionViewCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HangoutCollectionViewCellTests.swift; sourceTree = "<group>"; };
+		DBC6A99F1EFBA98B00E6DCCC /* LetsHangoutUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LetsHangoutUITests.swift; sourceTree = "<group>"; };
 		F8554C1A7C1427D1AA1BEFC2 /* Pods_LetsHangoutUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LetsHangoutUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -279,8 +281,6 @@
 				DB6322471EE882600081948E /* Supporting Files */,
 				DB6322561EE8A5E50081948E /* View */,
 				DB63224B1EE894DD0081948E /* View Model */,
-				DB63221D1EE880A70081948E /* Assets.xcassets */,
-				DB63221F1EE880A70081948E /* LaunchScreen.storyboard */,
 			);
 			path = LetsHangout;
 			sourceTree = "<group>";
@@ -289,11 +289,11 @@
 			isa = PBXGroup;
 			children = (
 				DB63226E1EE93D820081948E /* Extensions */,
+				DB63222D1EE880A70081948E /* Info.plist */,
 				DB2B0F2D1EEE2D6500E5E88D /* Manager Tests */,
 				DB6322481EE882F40081948E /* Model Tests */,
-				DB6322781EEA53F20081948E /* View Tests */,
 				DB63224C1EE894F20081948E /* View Model Tests */,
-				DB63222D1EE880A70081948E /* Info.plist */,
+				DB6322781EEA53F20081948E /* View Tests */,
 			);
 			path = LetsHangoutTests;
 			sourceTree = "<group>";
@@ -302,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				DB6322381EE880A70081948E /* Info.plist */,
+				DBC6A99F1EFBA98B00E6DCCC /* LetsHangoutUITests.swift */,
 			);
 			path = LetsHangoutUITests;
 			sourceTree = "<group>";
@@ -320,6 +321,8 @@
 			children = (
 				DB6322601EE8B1420081948E /* Info Plists */,
 				DB6322131EE880A70081948E /* AppDelegate.swift */,
+				DB63221F1EE880A70081948E /* LaunchScreen.storyboard */,
+				DB63221D1EE880A70081948E /* Assets.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 					DB6322311EE880A70081948E = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = YQ34X4S526;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = DB63220F1EE880A70081948E;
 					};
@@ -786,6 +790,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBC6A9A01EFBA98B00E6DCCC /* LetsHangoutUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -904,11 +909,13 @@
 			baseConfigurationReference = 2A2B8340163132EE72D5F738 /* Pods-LetsHangoutUITests.testing.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YQ34X4S526;
 				INFOPLIST_FILE = LetsHangoutUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.YemiAjibola.LetsHangoutUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = LetsHangout;
 			};
@@ -1075,11 +1082,13 @@
 			baseConfigurationReference = C450A00E9EA12B2DBC6C35C1 /* Pods-LetsHangoutUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YQ34X4S526;
 				INFOPLIST_FILE = LetsHangoutUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.YemiAjibola.LetsHangoutUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = LetsHangout;
 			};
@@ -1090,6 +1099,7 @@
 			baseConfigurationReference = 2002DE7EB8DEF588A9397C27 /* Pods-LetsHangoutUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YQ34X4S526;
 				INFOPLIST_FILE = LetsHangoutUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
