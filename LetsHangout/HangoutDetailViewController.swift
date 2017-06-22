@@ -33,6 +33,7 @@ class HangoutDetailViewController: UIViewController {
         
         setupUI()
         setupMap()
+        textChangeListenters()
     }
     
     private func setupUI() {
@@ -51,6 +52,13 @@ class HangoutDetailViewController: UIViewController {
         mapView.region = MKCoordinateRegion(center: locationCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
     }
     
+    private func textChangeListenters() {
+        nameTextField.addTarget(self, action: #selector(HangoutDetailViewController.textFieldChanged(_:)), for: .editingChanged)
+        dateTextField.addTarget(self, action: #selector(HangoutDetailViewController.textFieldChanged(_:)), for: .editingChanged)
+        locationTextField.addTarget(self, action: #selector(HangoutDetailViewController.textFieldChanged(_:)), for: .editingChanged)
+        hostTextField.addTarget(self, action: #selector(HangoutDetailViewController.textFieldChanged(_:)), for: .editingChanged)
+    }
+    
     fileprivate func hangoutSettingsAlert() {
         let settingsAlert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
        
@@ -59,7 +67,7 @@ class HangoutDetailViewController: UIViewController {
         })
         
         settingsAlert.addAction(UIAlertAction(title: isEditModeActive ? "Save Hangout" : "Edit Hangout", style: .default, handler: { [unowned self] _ in
-            self.activateEditMode(on: !self.isEditModeActive)
+            self.toggleEdit(on: !self.isEditModeActive)
         }))
         
         settingsAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -86,8 +94,10 @@ class HangoutDetailViewController: UIViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    private func activateEditMode(on: Bool) {
+    private func toggleEdit(on: Bool) {
         isEditModeActive = on
+        
+        saveButton.isHidden = !on
         
         nameTextField.isUserInteractionEnabled = on
         dateTextField.isUserInteractionEnabled = on
@@ -100,6 +110,10 @@ class HangoutDetailViewController: UIViewController {
         descriptionTextView.isEditable = on
     }
     
+    @objc private func textFieldChanged(_ textField: UITextField) {
+        saveButton.setTitle("Save", for: .normal)
+    }
+    
     @IBAction func onSaveButtonTapped(_ sender: UIButton) {
     }
     
@@ -110,4 +124,8 @@ extension HangoutDetailViewController: HangoutImageViewDelegate {
     func imageViewWasTapped(_ imageView: HangoutImageView) {
         hangoutSettingsAlert()
     }
+}
+
+extension HangoutDetailViewController: UITextFieldDelegate, UITextViewDelegate {
+    
 }
