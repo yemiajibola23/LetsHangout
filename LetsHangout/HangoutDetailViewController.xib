@@ -18,6 +18,7 @@
                 <outlet property="mapView" destination="ZnT-HC-X66" id="QHo-Go-S5H"/>
                 <outlet property="nameTextField" destination="cBo-eJ-ugZ" id="knX-ve-Pfl"/>
                 <outlet property="profileImageView" destination="wxu-Pj-deI" id="bzR-Ur-utN"/>
+                <outlet property="saveButton" destination="g8e-gO-Ox0" id="Pan-VK-COy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -97,6 +98,14 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8e-gO-Ox0">
+                    <rect key="frame" x="166" y="622" width="34" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Save"/>
+                    <connections>
+                        <action selector="onSaveButtonTapped:" destination="-1" eventType="touchUpInside" id="TmE-N7-hUF"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <point key="canvasLocation" x="33.5" y="53.5"/>

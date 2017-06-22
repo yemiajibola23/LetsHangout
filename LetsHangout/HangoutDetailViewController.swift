@@ -19,10 +19,12 @@ class HangoutDetailViewController: UIViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var profileImageView: ProfileImageView!
+    @IBOutlet weak var saveButton: UIButton!
     
     var viewModel: HangoutViewModel!
     var userViewModel: HangoutUserViewModel!
     var loginViewModel: LoginViewModel!
+    var isEditModeActive = false
     
     static var nibName: String { return "HangoutDetailViewController" }
     
@@ -30,21 +32,23 @@ class HangoutDetailViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        setupMap()
     }
     
     private func setupUI() {
-        profileImageView.image = userViewModel.image
+        profileImageView.image = viewModel.image
         profileImageView.delegate = self
         
         nameTextField.text = viewModel.name
         dateTextField.text = viewModel.date
         hostTextField.text = viewModel.host
-        
+    }
+    
+    private func setupMap() {
         guard let locationCoordinate = viewModel.locationCoordinate else { return }
         
         mapView.centerCoordinate = locationCoordinate
         mapView.region = MKCoordinateRegion(center: locationCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
-        
     }
     
     fileprivate func hangoutSettingsAlert() {
@@ -54,7 +58,11 @@ class HangoutDetailViewController: UIViewController {
             self.logoutUser()
         })
         
-        //settingsAlert.addAction()
+        settingsAlert.addAction(UIAlertAction(title: isEditModeActive ? "Save Hangout" : "Edit Hangout", style: .default, handler: { [unowned self] _ in
+            self.activateEditMode(on: !self.isEditModeActive)
+        }))
+        
+        settingsAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         present(settingsAlert, animated: true, completion: nil)
     }
@@ -62,7 +70,7 @@ class HangoutDetailViewController: UIViewController {
     private func logoutUser() {
         loginViewModel.logout {[unowned self] error in
             if let authError = error {
-                self.presentAlert(title: "An error ocurred", message: authError.message)
+                self.presentAlert(title: "An error occurred", message: authError.message)
                 return
             }
             
@@ -79,8 +87,23 @@ class HangoutDetailViewController: UIViewController {
     }
     
     private func activateEditMode(on: Bool) {
+        isEditModeActive = on
         
+        nameTextField.isUserInteractionEnabled = on
+        dateTextField.isUserInteractionEnabled = on
+        hostTextField.isUserInteractionEnabled = on
+        locationTextField.isUserInteractionEnabled = on
+        
+        // Text View
+        descriptionTextView.isSelectable = !on
+        descriptionTextView.dataDetectorTypes = on ? [] : [.link, .address, .calendarEvent, .phoneNumber]
+        descriptionTextView.isEditable = on
     }
+    
+    @IBAction func onSaveButtonTapped(_ sender: UIButton) {
+    }
+    
+    
 }
 
 extension HangoutDetailViewController: HangoutImageViewDelegate {
