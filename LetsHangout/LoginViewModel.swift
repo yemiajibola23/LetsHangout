@@ -47,3 +47,9 @@ class LoginViewModel {
     }
     
 }
+
+extension AuthenticationState: Equatable {
+    static func ==(lhs: AuthenticationState, rhs: AuthenticationState) -> Bool {
+        return lhs == rhs
+    }
+}

@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseStorage
 
-enum FirebaseStorageErrorType: Error {
+enum FirebaseStorageError: Error {
     case unknown
     case objectNotFound
     case bucketNotFound
@@ -38,30 +38,24 @@ enum FirebaseStorageErrorType: Error {
         default: self = .unknown
         }
     }
-}
-
-struct FirebaseStorageError {
-    var type: FirebaseStorageErrorType
-    var message: String
     
-    init(type: FirebaseStorageErrorType) {
-        self.type = type
-        
-        switch type {
-        case .unknown: message = "An unknown error occurred"
-        case .objectNotFound: message = "No object exists at the desired reference"
-        case .bucketNotFound: message = "No bucket was configured for Firebase Storage."
-        case .projectNotFound: message = "No project is configured for Firebase Storage."
-        case .quotaExceeded: message = "Quota on your Firebase Storage bucket has been exceeded."
-        case .unauthenticated: message = "User is unauthenticated. Authenticate and try again"
-        case .unauthorized: message = "User is unauthorized to perform the desired action"
-        case .retryLimitExceeded: message = "The maximum time limit on an operation has been exceeded."
-        case .nonMatchingChecksum: message = "File on client does not match checksum of the file received by the server."
-        case .downloadSizeExceeeded: message = "Size of the downloaded file exceeds the amount of memory allocated for the file."
-        case .cancelled: message = "User cancelled the operation."
+    var message: String {
+        switch self {
+        case .unknown: return "An unknown error occurred"
+        case .objectNotFound: return "No object exists at the desired reference"
+        case .bucketNotFound: return "No bucket was configured for Firebase Storage."
+        case .projectNotFound: return "No project is configured for Firebase Storage."
+        case .quotaExceeded: return "Quota on your Firebase Storage bucket has been exceeded."
+        case .unauthenticated: return "User is unauthenticated. Authenticate and try again"
+        case .unauthorized: return "User is unauthorized to perform the desired action"
+        case .retryLimitExceeded: return "The maximum time limit on an operation has been exceeded."
+        case .nonMatchingChecksum: return "File on client does not match checksum of the file received by the server."
+        case .downloadSizeExceeeded: return "Size of the downloaded file exceeds the amount of memory allocated for the file."
+        case .cancelled: return "User cancelled the operation."
         }
     }
 }
+
 
 
 class FirebaseStorageManager {
@@ -77,17 +71,17 @@ class FirebaseStorageManager {
     
     func save(photo: UIImage, with id: String, for path: StoragePath, completion: @escaping (StorageReferenceResult) -> Void) {
         
-        guard let data = UIImageJPEGRepresentation(photo, 0.5) else { completion(.failure(FirebaseStorageError(type: .unknown))); return}
+        guard let data = UIImageJPEGRepresentation(photo, 0.5) else { completion(.failure(FirebaseStorageError.unknown)); return}
         
         let imageReference = storageRef.child(path.rawValue).child(id)
         
         imageReference.putData(data, metadata: nil) { (metadata, error) in
             if let storageError = error {
-                completion(StorageReferenceResult.failure(FirebaseStorageError(type: FirebaseStorageErrorType(code: storageError._code))))
+                completion(StorageReferenceResult.failure(FirebaseStorageError(code: storageError._code)))
                 return
             }
             
-            guard let metadata = metadata else {  completion(.failure(FirebaseStorageError(type: .unknown))); return }
+            guard let metadata = metadata else {  completion(.failure(FirebaseStorageError.unknown)); return }
             
             completion(StorageReferenceResult.success(metadata.path!))
         }
@@ -101,7 +95,7 @@ class FirebaseStorageManager {
         let imageReference = Storage.storage().reference(forURL: url)
         imageReference.getData(maxSize: INT64_MAX) { (data, error) in
             if let error = error {
-                completion(StorageDataResult.failure(FirebaseStorageError.init(type: FirebaseStorageErrorType.init(code: error._code))))
+                completion(StorageDataResult.failure(FirebaseStorageError(code: error._code)))
                 return
             }
             
@@ -110,7 +104,7 @@ class FirebaseStorageManager {
                 return
             }
             
-            completion(StorageDataResult.failure(FirebaseStorageError(type: .unknown)))
+            completion(StorageDataResult.failure(FirebaseStorageError.unknown))
         }
     }
 }

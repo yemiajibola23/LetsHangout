@@ -10,7 +10,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-enum FirebaseDatabaseErrorType: Error {
+enum FirebaseDatabaseError: Error {
     case unknown
     case disconnected
     case expiredToken
@@ -38,31 +38,25 @@ enum FirebaseDatabaseErrorType: Error {
         default: self = .unknown
         }
     }
-}
-
-struct FirebaseDatabaseError {
-    var type: FirebaseDatabaseErrorType
-    var message: String
     
-    init(type: FirebaseDatabaseErrorType) {
-        self.type = type
-        
-        switch type {
-        case .disconnected: message = ""
-        case .expiredToken: message = ""
-        case .invalidToken: message = ""
-        case .maxRetries: message = ""
-        case .networkError: message = ""
-        case .operationFailed: message = ""
-        case .overriddenBySet: message = ""
-        case .permissionDenied: message = ""
-        case .unavailable: message = ""
-        case .userCodeException: message = ""
-        case .unknown: message = ""
+    var message: String {
+        switch self {
+        case .disconnected: return ""
+        case .expiredToken: return ""
+        case .invalidToken: return  ""
+        case .maxRetries: return ""
+        case .networkError: return ""
+        case .operationFailed: return ""
+        case .overriddenBySet: return ""
+        case .permissionDenied: return ""
+        case .unavailable: return ""
+        case .userCodeException: return ""
+        case .unknown: return ""
         }
-        
     }
 }
+
+
 
 class FirebaseDatabaseManager {
     private let userRef = Database.database().reference().child(DatabasePath.users.rawValue)
@@ -82,7 +76,7 @@ class FirebaseDatabaseManager {
         
         hangoutsRef.child(hangout.id).setValue(hangoutDictionary, withCompletionBlock: { [unowned self] error, ref in
             if let databaseError = error {
-                let result = DatabaseReferenceResult.failure(FirebaseDatabaseError(type: FirebaseDatabaseErrorType(rawValue: databaseError._code)))
+                let result = DatabaseReferenceResult.failure(FirebaseDatabaseError(rawValue: databaseError._code))
                 completion(result)
                 return
             }
@@ -119,7 +113,7 @@ class FirebaseDatabaseManager {
         
         reference.removeValue { (error, ref) in
             if let databaseError = error {
-                result = DatabaseReferenceResult.failure(FirebaseDatabaseError.init(type: FirebaseDatabaseErrorType(rawValue: databaseError._code)))
+                result = DatabaseReferenceResult.failure(FirebaseDatabaseError(rawValue: databaseError._code))
             } else {
                 self.currentUserRef.child(DatabasePath.hangouts.rawValue).child(ref.key).removeValue()
                 result = DatabaseReferenceResult.success(ref)

@@ -37,8 +37,7 @@ enum FirebaseAuthenticationError: Error {
         }
     }
     
-    var message: String{
-        
+    var message: String {
         switch self {
         case .userDisabled: return "User was disabled"
         case .emailAlreadyInUse: return "Email already in use."
@@ -52,7 +51,6 @@ enum FirebaseAuthenticationError: Error {
         case .unknown: return "An unknown error occurred"
         }
     }
-    
 }
 
 

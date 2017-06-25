@@ -1,4 +1,4 @@
-c//
+//
 //  AppDelegate.swift
 //  LetsHangout
 //
@@ -15,14 +15,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
         
-        let controller = LoginViewController(nibName: LoginViewController.nibName, bundle: nil)
-        controller.loginViewModel = LoginViewModel()
+        var controller: UIViewController?
+        let loginViewModel = LoginViewModel()
+       
+        switch loginViewModel.state {
+        case .authenticated(let uid):
+            controller = HangoutListViewController(nibName: HangoutListViewController.nibName, bundle: nil)
+            //(controller as! HangoutListViewController).currentUserViewModel
+            
+        case .notAuthenticated:
+            controller = LoginViewController(nibName: LoginViewController.nibName, bundle: nil)
+            (controller as! LoginViewController).loginViewModel = loginViewModel
+        }
+        
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = controller
         window?.makeKeyAndVisible()
