@@ -64,7 +64,6 @@ class FirebaseAuthenticationManager {
     var currentUserRef: DatabaseReference?
     var currentUser: User?
     
-    
     private init() {}
     
     private func setCurrentUser() {
@@ -96,7 +95,6 @@ class FirebaseAuthenticationManager {
                 return
             }
             
-            
             if let loggedInUser = user {
                 self.setCurrentUser()
                 self.fetchUser(uid: loggedInUser.uid, completion: completion)
@@ -121,16 +119,16 @@ class FirebaseAuthenticationManager {
         let reference = databaseReference.child(DatabasePath.users.rawValue).child(user.uid)
         let userDictionary = generateHangoutUserDictionary(id: user.uid, email: email, name: name)
         
-        reference.updateChildValues(userDictionary) {[unowned self] _, _ in
+        reference.updateChildValues(userDictionary) { [unowned self] _, _ in
             let result = AuthenticationResult.success(self.generateHangoutUser(id: user.uid, email: email, name: name))
             completion(result)
         }
     }
     
-    private func fetchUser(uid: String, completion: @escaping(AuthenticationResult) -> Void) {
+    func fetchUser(uid: String, completion: @escaping(AuthenticationResult) -> Void) {
         let reference = databaseReference.child(DatabasePath.users.rawValue).child(uid)
         
-        reference.observeSingleEvent(of: .value, with: {[unowned self] snapshot in
+        reference.observeSingleEvent(of: .value, with: { [unowned self] snapshot in
             if let userDictionary = snapshot.value as? [String: Any] {
                 completion(Result.success(self.generateHangoutUser(dictionary: userDictionary)))
             }
