@@ -19,7 +19,7 @@ extension UIViewController {
     }
     
     func choosePhotoWith(sourceType: UIImagePickerControllerSourceType) {
-        let imagePicker = UIImagePickerController(rootViewController: self)
+        let imagePicker = UIImagePickerController()
         imagePicker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
         imagePicker.sourceType = sourceType
         imagePicker.allowsEditing = true
