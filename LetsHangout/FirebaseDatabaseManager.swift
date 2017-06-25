@@ -93,6 +93,9 @@ class FirebaseDatabaseManager {
             var count = 0
             var flag = true
             var hangouts: [Hangout] = []
+            
+            guard snapshot.childrenCount > 0 else { completion(hangouts); return }
+            
             for snap in snapshot.children.allObjects {
                 self.hangoutsRef.child((snap as? DataSnapshot)!.key).observeSingleEvent(of: .value, with: { hangoutSnap in
                     if let dict = hangoutSnap.value as? [String: Any] {
@@ -105,6 +108,8 @@ class FirebaseDatabaseManager {
                     }
                 })
             }
+            
+//            completion(hangouts)
         })
     }
     
