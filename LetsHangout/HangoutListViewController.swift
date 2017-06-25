@@ -63,9 +63,9 @@ class HangoutListViewController: UIViewController {
         present(controller, animated: true, completion: nil)
     }
     
-    private func addHangoutViewController(viewModel: HangoutUserViewModel) {
+    private func addHangoutViewController() {
         let controller = AddHangoutViewController(nibName: AddHangoutViewController.nibName, bundle: nil)
-        controller.currentUserViewModel = viewModel
+        controller.currentUserViewModel = currentUserViewModel
         
         present(controller, animated: true, completion: nil)
     }
@@ -89,6 +89,10 @@ class HangoutListViewController: UIViewController {
             self.loginViewModel.state = .notAuthenticated
             self.loginViewController()
         }
+    }
+    
+    @IBAction func createNewHangoutButtonTapped(_ sender: UIButton) {
+        addHangoutViewController()
     }
     
 }
