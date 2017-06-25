@@ -13,7 +13,7 @@
             <connections>
                 <outlet property="activityIndicator" destination="SW1-qH-YOc" id="O8S-Db-qyr"/>
                 <outlet property="hangoutCollectionView" destination="pg0-bW-PbE" id="SW9-kO-1cS"/>
-                <outlet property="profileImageView" destination="pbD-Zv-e1O" id="CUw-CF-ohp"/>
+                <outlet property="profileImageView" destination="pbD-Zv-e1O" id="by7-DU-Dtm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

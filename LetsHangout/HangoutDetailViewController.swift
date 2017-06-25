@@ -76,7 +76,7 @@ class HangoutDetailViewController: UIViewController {
     }
     
     private func logoutUser() {
-        loginViewModel.logout {[unowned self] error in
+        loginViewModel.logout { [unowned self] error in
             if let authError = error {
                 self.presentAlert(title: "An error occurred", message: authError.message)
             } else {
@@ -121,7 +121,6 @@ class HangoutDetailViewController: UIViewController {
     @IBAction func onSaveButtonTapped(_ sender: UIButton) {
         guard  sender.currentTitle == "Save" else { toggleEdit(on: false); return }
         saveHangoutChanges()
-        
     }
 }
 

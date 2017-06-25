@@ -17,12 +17,7 @@ class HangoutListViewController: UIViewController {
         }
     }
     
-    var currentUserViewModel: HangoutUserViewModel! {
-        didSet {
-            profileImageView.image = currentUserViewModel.image
-        }
-    }
-    
+    var currentUserViewModel: HangoutUserViewModel!
     static var nibName: String { return "HangoutListViewController" }
     let firebaseDatabaseManager = FirebaseDatabaseManager.sharedInstance
     var loginViewModel: LoginViewModel!
@@ -35,25 +30,22 @@ class HangoutListViewController: UIViewController {
         super.viewDidLoad()
         
         profileImageView.delegate = self
-//        
-//        hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
-//                hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
-//        
-//                activityIndicator.startAnimating()
-//        
-//                DispatchQueue.global().async {
-//                    self.firebaseDatabaseManager.loadHangouts { [unowned self]  hangouts in
-//                        DispatchQueue.main.async {
-//                            let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
-//                            self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
-//                            self.dataProvider.delegate = self
-//                            self.activityIndicator.stopAnimating()
-//                        }
-//                    }
-//                }
+        currentUserViewModel.image = profileImageView.image
+        
+        hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
+        hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)
+        
+        activityIndicator.startAnimating()
+        
+        self.firebaseDatabaseManager.loadHangouts { [unowned self]  hangouts in
+            let viewModel = HangoutCollectionViewViewModel(hangouts: hangouts)
+            self.dataProvider = HangoutListDataProvider(viewModel: viewModel)
+            self.dataProvider.delegate = self
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            }
+        }
     }
-    
-    
     
     private func loginViewController() {
         let controller = LoginViewController(nibName: LoginViewController.nibName, bundle: nil)

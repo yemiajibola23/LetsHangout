@@ -10,7 +10,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 
-enum FirebaseAuthenticationErrorType: Error {
+enum FirebaseAuthenticationError: Error {
     case invalidPassword
     case userDisabled
     case emailAlreadyInUse
@@ -36,29 +36,26 @@ enum FirebaseAuthenticationErrorType: Error {
         default: self = .unknown
         }
     }
-}
-
-struct FirebaseAuthenticationError {
-    var type: FirebaseAuthenticationErrorType
-    var message: String
     
-    init(type: FirebaseAuthenticationErrorType) {
-        self.type = type
+    var message: String{
         
-        switch type {
-        case .userDisabled: message = "User was disabled"
-        case .emailAlreadyInUse: message = "Email already in use."
-        case .invalidEmail: message = "Email is invalid."
-        case .wrongPassword: message = "Password is incorrect."
-        case .userNotFound: message = "User not found."
-        case .accountExistsWithDifferentCredential: message = "Account already exits with different credentials"
-        case .networkError: message = "Network error"
-        case .credentialAlreadyInUse: message = "Credential is already in use"
-        case .invalidPassword: message = "Password is invalid"
-        case .unknown: message = "An unknown error occurred"
+        switch self {
+        case .userDisabled: return "User was disabled"
+        case .emailAlreadyInUse: return "Email already in use."
+        case .invalidEmail: return "Email is invalid."
+        case .wrongPassword: return "Password is incorrect."
+        case .userNotFound: return "User not found."
+        case .accountExistsWithDifferentCredential: return "Account already exists with different credentials"
+        case .networkError: return "Network error"
+        case .credentialAlreadyInUse: return "Credential is already in use"
+        case .invalidPassword: return "Password is invalid"
+        case .unknown: return "An unknown error occurred"
         }
     }
+    
 }
+
+
 
 typealias AuthenticationResult = Result<HangoutUser, FirebaseAuthenticationError>
 
@@ -81,7 +78,7 @@ class FirebaseAuthenticationManager {
     func registerWithCredentials(_ email: String, _ password: String, _ name: String, completion:@escaping (AuthenticationResult) -> Void) {
         authHandler.createUser(withEmail: email, password: password) {[unowned self] (user, error) in
             if let error = error {
-                let result = AuthenticationResult.failure(FirebaseAuthenticationError(type: FirebaseAuthenticationErrorType(rawValue: error._code)))
+                let result = AuthenticationResult.failure(FirebaseAuthenticationError(rawValue: error._code))
                 completion(result)
                 return
             }
@@ -92,11 +89,11 @@ class FirebaseAuthenticationManager {
             }
         }
     }
-
+    
     func loginWithCredentials(_ email: String, _ password: String, completion: @escaping (AuthenticationResult) -> Void) {
         authHandler.signIn(withEmail: email, password: password) {[unowned self] (user, error) in
             if let error = error {
-                let result = AuthenticationResult.failure(FirebaseAuthenticationError(type: FirebaseAuthenticationErrorType(rawValue: error._code)))
+                let result = AuthenticationResult.failure(FirebaseAuthenticationError(rawValue: error._code))
                 completion(result)
                 return
             }
@@ -113,7 +110,7 @@ class FirebaseAuthenticationManager {
         do {
             try authHandler.signOut()
         } catch (let signOutError) {
-            completion(FirebaseAuthenticationError(type: FirebaseAuthenticationErrorType(rawValue: signOutError._code)))
+            completion(FirebaseAuthenticationError(rawValue: signOutError._code))
         }
         
         currentUserRef = nil

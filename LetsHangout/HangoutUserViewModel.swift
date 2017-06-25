@@ -14,12 +14,12 @@ class HangoutUserViewModel {
     
     var name: String { return user.name }
     var uid: String { return user.uid }
-    var image: UIImage?
+    var image: UIImage? = #imageLiteral(resourceName: "defaultprofile")
     
     init(user: HangoutUser) {
         self.user = user
         
-        self.setprofilePicture { (profileImage) in
+        self.setprofilePicture {[unowned self] profileImage in
             self.image = profileImage
         }
     }
@@ -27,7 +27,7 @@ class HangoutUserViewModel {
     private func setprofilePicture(completion: @escaping (UIImage) -> Void) {
         let storageManager = FirebaseStorageManager.sharedInstance
         guard let profileURL = user.profilePictureURL else { completion(#imageLiteral(resourceName: "defaultprofile")); return }
-        storageManager.downloadPhoto(from: profileURL) { (result) in
+        storageManager.downloadPhoto(from: profileURL) { result in
             switch result {
             case .failure(_):
                 completion(#imageLiteral(resourceName: "defaultprofile"))
