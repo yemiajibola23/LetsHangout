@@ -25,6 +25,21 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         profileImageView.delegate = self
+        
+        checkLoginState()
+    }
+    
+    func checkLoginState() {
+        switch loginViewModel.state {
+        case .authenticated(let uid):
+            firebaseAuthenticationManager.fetchUser(uid: uid){ [unowned self] result in
+                switch result {
+                case .success(let loggedInUser): self.hangoutListViewController(fetchedUser: loggedInUser)
+                case .failure(let userError): self.presentAlert(title: "An error occurred", message: userError.message)
+                }
+            }
+        case .notAuthenticated: break
+        }
     }
     
     @IBAction func loginRegisterButtonWasTapped(_ sender: UIButton) {

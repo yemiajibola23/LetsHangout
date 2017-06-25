@@ -20,40 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        var controller: UIViewController?
-        let loginViewModel = LoginViewModel()
-        let authManager = FirebaseAuthenticationManager.sharedInstance
-       
-        switch loginViewModel.state {
-        case .authenticated(let uid):
-            authManager.fetchUser(uid: uid) { [unowned self] result in
-                switch result {
-                case .success(let loggedInUser):
-                    controller = self.setUpHangoutListViewController(with: loginViewModel)
-                    (controller as! HangoutListViewController).currentUserViewModel = HangoutUserViewModel(user: loggedInUser)
-                case .failure(let authError):
-                    controller = LoginViewController(nibName: LoginViewController.nibName, bundle: nil)
-                    (controller as! LoginViewController).loginViewModel = loginViewModel
-                    //controller?.presentAlert(title: "An error occurred", message: authError.message)
-                }
-                
-                self.setUpWindow(controller: controller)
-            }
-            
-        case .notAuthenticated:
-            controller = LoginViewController(nibName: LoginViewController.nibName, bundle: nil)
-            (controller as! LoginViewController).loginViewModel = loginViewModel
-            
-            setUpWindow(controller: controller)
-        }
+        let controller = LoginViewController(nibName:LoginViewController.nibName, bundle: nil)
+        controller.loginViewModel = LoginViewModel()
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = controller
+        window?.makeKeyAndVisible()
         
         return true
     }
     
     private func setUpWindow(controller: UIViewController!) {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = controller
-        window?.makeKeyAndVisible()
+        
     }
     
     private func setUpHangoutListViewController(with loginViewModel: LoginViewModel) -> HangoutListViewController {
