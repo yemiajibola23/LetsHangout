@@ -6,7 +6,7 @@
 //  Copyright © 2017 Yemi Ajibola. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
@@ -61,6 +61,7 @@ class FirebaseAuthenticationManager {
     static let sharedInstance = FirebaseAuthenticationManager()
     private let authHandler = Auth.auth()
     private let databaseReference = Database.database().reference()
+    private let storageManager = FirebaseStorageManager.sharedInstance
     var currentUserRef: DatabaseReference?
     var currentUser: User?
     
@@ -72,7 +73,7 @@ class FirebaseAuthenticationManager {
         currentUserRef =  databaseReference.child(DatabasePath.users.rawValue).child(currentUser.uid)
     }
     
-    func registerWithCredentials(_ email: String, _ password: String, _ name: String, completion:@escaping (AuthenticationResult) -> Void) {
+    func registerWithCredentials(_ email: String, _ password: String, _ name: String, _ profileImage: UIImage?, completion:@escaping (AuthenticationResult) -> Void) {
         authHandler.createUser(withEmail: email, password: password) {[unowned self] (user, error) in
             if let error = error {
                 let result = AuthenticationResult.failure(FirebaseAuthenticationError(rawValue: error._code))
@@ -82,7 +83,7 @@ class FirebaseAuthenticationManager {
             
             if let newUser = user {
                 self.setCurrentUser()
-                self.createUser(user: newUser, email: email, name: name, completion: completion)
+                self.createUser(user: newUser, email: email, name: name, image: profileImage, completion: completion)
             }
         }
     }
@@ -114,14 +115,32 @@ class FirebaseAuthenticationManager {
         completion(nil)
     }
     
-    private func createUser(user: User, email: String, name: String, completion:
+    private func createUser(user: User, email: String, name: String, image: UIImage?, completion:
         @escaping (AuthenticationResult) -> Void) {
         let reference = databaseReference.child(DatabasePath.users.rawValue).child(user.uid)
-        let userDictionary = generateHangoutUserDictionary(id: user.uid, email: email, name: name)
-        
-        reference.updateChildValues(userDictionary) { [unowned self] _, _ in
-            let result = AuthenticationResult.success(self.generateHangoutUser(id: user.uid, email: email, name: name))
-            completion(result)
+        var userDict: [String: Any]!
+        var imagePath: String?
+        if let image = image {
+            storageManager.save(photo: image, with: user.uid, for: .profiles) { [unowned self] result in
+                switch result {
+                case .success(let reference):
+                    imagePath = reference?.description
+                    userDict = self.generateHangoutUserDictionary(id: user.uid, email: email, name: name, profilePictureURL: reference?.description)
+                case .failure(_): break
+                }
+            
+                reference.updateChildValues(userDict) { [unowned self] _, _ in
+                    let result = AuthenticationResult.success(self.generateHangoutUser(id: user.uid, email: email, name: name, imagePath: imagePath))
+                    completion(result)
+                }
+            }
+        } else {
+            userDict = generateHangoutUserDictionary(id: user.uid, email: email, name: name, profilePictureURL: nil)
+            
+            reference.updateChildValues(userDict) { [unowned self] _, _ in
+                let result = AuthenticationResult.success(self.generateHangoutUser(id: user.uid, email: email, name: name, imagePath: imagePath))
+                completion(result)
+            }
         }
     }
     
@@ -140,11 +159,11 @@ class FirebaseAuthenticationManager {
         return HangoutUser(dict: dictionary)
     }
     
-    private func generateHangoutUser(id: String, email: String, name: String) -> HangoutUser {
-        return HangoutUser(name: name, email: email, profilePictureURL: nil, uid: id)
+    private func generateHangoutUser(id: String, email: String, name: String, imagePath: String?) -> HangoutUser {
+        return HangoutUser(name: name, email: email, profilePictureURL: imagePath, uid: id)
     }
     
-    private func generateHangoutUserDictionary(id: String, email: String, name: String) -> [String: Any] {
-        return ["uid": id, "email": email, "name": name]
+    private func generateHangoutUserDictionary(id: String, email: String, name: String, profilePictureURL: String?) -> [String: Any] {
+        return ["uid": id, "email": email, "name": name, "profilePictureURL": profilePictureURL ?? "N/A"]
     }
 }

@@ -62,7 +62,7 @@ class FirebaseStorageManager {
     static let sharedInstance =
         FirebaseStorageManager()
     
-    typealias StorageReferenceResult = Result<String, FirebaseStorageError>
+    typealias StorageReferenceResult = Result<StorageReference?, FirebaseStorageError>
     typealias StorageDataResult = Result<Data, FirebaseStorageError>
     
     private init() {}
@@ -83,11 +83,11 @@ class FirebaseStorageManager {
             
             guard let metadata = metadata else {  completion(.failure(FirebaseStorageError.unknown)); return }
             
-            completion(StorageReferenceResult.success(metadata.path!))
+            completion(StorageReferenceResult.success(self.createReferenceFrom(path: metadata.path!)))
         }
     }
     
-    func createReferenceFrom(path: String) -> StorageReference? {
+    func createReferenceFrom(path: String) -> StorageReference {
         return storageRef.child(path)
     }
     

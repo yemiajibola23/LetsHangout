@@ -6,7 +6,7 @@
 //  Copyright © 2017 Yemi Ajibola. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum AuthenticationState {
     case authenticated(String)
@@ -38,8 +38,8 @@ class LoginViewModel {
         authenticationManager.loginWithCredentials(email, password, completion: completion)
     }
     
-    func registerNewUser(email: String, password: String, name: String, completion: @escaping (AuthenticationResult) -> Void) {
-        authenticationManager.registerWithCredentials(email, password, name, completion: completion)
+    func registerNewUser(email: String, password: String, name: String, image: UIImage?, completion: @escaping (AuthenticationResult) -> Void) {
+        authenticationManager.registerWithCredentials(email, password, name, image, completion: completion)
     }
     
     func logout(completion: (FirebaseAuthenticationError?) -> Void) {

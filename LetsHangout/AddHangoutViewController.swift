@@ -49,18 +49,16 @@ class AddHangoutViewController: UIViewController {
     private func saveHangoutImage(with ref: DatabaseReference) {
         let storageManager = FirebaseStorageManager.sharedInstance
         
-        if self.hangoutImageView.image != #imageLiteral(resourceName: "noimage") {
-            storageManager.save(photo: self.hangoutImageView.image!, with: ref.key, for: .hangouts, completion: { storageResult in
-                switch storageResult {
-                case .success(let path):
-                    ref.updateChildValues(["imageURL": path])
-                    self.presentAlert(title: "Hangout Saved", message: nil)
-                    self.dismiss(animated: true, completion: nil)
-                case .failure(let storError):
-                    self.presentAlert(title: "An error ocurred", message: storError.message)
-                }
-            })
-        }
+        storageManager.save(photo: self.hangoutImageView.image!, with: ref.key, for: .hangouts, completion: { storageResult in
+            switch storageResult {
+            case .success(let path):
+                ref.updateChildValues(["imageURL": path?.description ?? "N/A"])
+                self.presentAlert(title: "Hangout Saved", message: nil)
+                self.dismiss(animated: true, completion: nil)
+            case .failure(let storError):
+                self.presentAlert(title: "An error ocurred", message: storError.message)
+            }
+        })
     }
     
 }

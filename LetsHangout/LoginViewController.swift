@@ -52,7 +52,9 @@ class LoginViewController: UIViewController {
             return
         }
         
-        loginViewModel.registerNewUser(email: email, password: password, name: name) { [unowned self] result in
+        let image = profileImageView.image == #imageLiteral(resourceName: "friends3") ? #imageLiteral(resourceName: "defaultprofile") : profileImageView.image
+        
+        loginViewModel.registerNewUser(email: email, password: password, name: name, image: image) { [unowned self] result in
             self.handle(result: result)
         }
     }

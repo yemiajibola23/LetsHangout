@@ -30,7 +30,13 @@ class HangoutListViewController: UIViewController {
         super.viewDidLoad()
         
         profileImageView.delegate = self
-        currentUserViewModel.image = profileImageView.image
+        currentUserViewModel.setprofilePicture { [unowned self] image, error in
+            if let error = error {
+                self.presentAlert(title: "An error ocurred", message: error.message)
+            }
+            
+            self.profileImageView.image = image
+        }
         
         hangoutCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "HangoutCollectionViewCell")
         hangoutCollectionView.register(UINib(nibName: HangoutCollectionViewCell.nibName, bundle: nil), forCellWithReuseIdentifier: HangoutCollectionViewCell.reuseIdentifier)

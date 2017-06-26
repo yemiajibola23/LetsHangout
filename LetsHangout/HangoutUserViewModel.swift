@@ -18,21 +18,19 @@ class HangoutUserViewModel {
     
     init(user: HangoutUser) {
         self.user = user
-        
-        self.setprofilePicture {[unowned self] profileImage in
-            self.image = profileImage
-        }
     }
     
-    private func setprofilePicture(completion: @escaping (UIImage) -> Void) {
+    func setprofilePicture(completion: @escaping (UIImage, FirebaseStorageError?) -> Void) {
         let storageManager = FirebaseStorageManager.sharedInstance
-        guard let profileURL = user.profilePictureURL else { completion(#imageLiteral(resourceName: "defaultprofile")); return }
+        guard let profileURL = user.profilePictureURL else { completion(#imageLiteral(resourceName: "defaultprofile"), nil); return }
         storageManager.downloadPhoto(from: profileURL) { result in
             switch result {
-            case .failure(_):
-                completion(#imageLiteral(resourceName: "defaultprofile"))
+            case .failure(let error):
+                print(error.message)
+                completion(#imageLiteral(resourceName: "defaultprofile"), error)
             case .success(let data):
-                completion(UIImage(data: data)!)
+                self.image = UIImage(data: data)!
+                completion(UIImage(data: data)!, nil)
             }
         }
     }
